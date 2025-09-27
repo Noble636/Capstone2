@@ -1,0 +1,150 @@
+.tenant-fpw-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #e0c23d;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.tenant-fpw-container .tenant-fpw-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tenant-fpw-container .tenant-fpw-box h2,
+.tenant-fpw-container .tenant-fpw-box h3 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tenant-fpw-container .tenant-fpw-box h3 {
+    font-size: 1.5rem;
+}
+
+.tenant-fpw-container .fpw-form {
+    width: 100%;
+}
+
+.tenant-fpw-container .fpw-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.tenant-fpw-container .fpw-form button {
+  width: 100%;
+  padding: 12px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  margin-bottom: 10px;
+}
+
+.tenant-fpw-container .fpw-form button:hover {
+  background: rgba(0,0,0,0.9);
+  color: #cee056;
+  transform: scale(1.05);
+  box-shadow: 0 0 18px 4px #cee056, 0 2px 16px rgba(0,0,0,0.12);
+}
+
+.tenant-fpw-container .cancel-fpw-button {
+  background: #7a4f13;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  transition: box-shadow 0.3s, transform 0.2s;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
+
+.tenant-fpw-container .cancel-fpw-button:hover {
+  background: #7a4f13;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0 18px 4px #ebc61d, 0 2px 16px rgba(0,0,0,0.12);
+}
+
+.tenant-fpw-container .error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  text-align: left;
+  width: 100%;
+}
+
+.tenant-fpw-container .success-message {
+  color: green;
+  font-size: 0.9rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  text-align: left;
+  width: 100%;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.tenant-fpw-container .tenant-fpw-box p {
+  margin-bottom: 15px;
+  font-size: 1rem;
+  color: #555;
+  text-align: center;
+  width: 100%;
+}
+
+.tenant-fpw-container .tenant-fpw-box p strong {
+    color: #333;
+}
+
+.password-input-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.password-input-container input {
+  width: calc(100% - 40px);
+  padding: 12px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #777;
+}

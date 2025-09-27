@@ -1,0 +1,305 @@
+/* EditComplaints.css */
+
+.edit-complaints-container {
+    background-color: #e0c23d;
+    min-height: 100vh;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    position: relative;
+}
+
+.edit-complaints-container h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 25px;
+    background: rgba(255,255,255,0.65);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 18px 36px;
+    display: inline-block;
+}
+
+.edit-complaints-container .tenant-info-box {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.edit-complaints-container .tenant-info-box p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.edit-complaints-container .edit-search-box {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.edit-complaints-container .edit-search-box input {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 200px;
+}
+
+.edit-complaints-container .edit-search-box button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-complaints-container .edit-search-box button:hover {
+    background-color: #0056b3;
+}
+
+.edit-complaints-container .complaint-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.edit-complaints-container .complaint-card {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.edit-complaints-container .complaint-card p {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.edit-complaints-container .complaint-card strong {
+    font-weight: bold;
+}
+
+.edit-complaints-container .complaint-card button {
+    margin-top: 10px;
+    background-color: #ffc107;
+    border: none;
+    padding: 8px 16px;
+    color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.edit-complaints-container .complaint-card button:hover {
+    background-color: #e0a800;
+}
+
+.edit-complaints-container .edit-box {
+    margin-top: 30px;
+}
+
+.edit-complaints-container .edit-box h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.edit-complaints-container .edit-box textarea {
+    width: 90%;
+    max-width: 500px;
+    padding: 12px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+.edit-complaints-container .edit-box .edit-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.edit-complaints-container .edit-box .edit-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.edit-complaints-container .edit-box .edit-actions button:first-child {
+    background-color: #28a745;
+    color: white;
+}
+
+.edit-complaints-container .edit-box .edit-actions button:first-child:hover {
+    background-color: #218838;
+}
+
+.edit-complaints-container .edit-box .edit-actions button:last-child {
+    background-color: #dc3545;
+    color: white;
+}
+
+.edit-complaints-container .edit-box .edit-actions button:last-child:hover {
+    background-color: #c82333;
+}
+
+.edit-complaints-container .back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #fff !important;
+    font-weight: bold;
+    padding: 8px 16px;
+    background-color: #7a4f13 !important;
+    border: none;
+    border-radius: 5px;
+    transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.edit-complaints-container .back-button:hover {
+    background-color: #7a4f13 !important;
+    color: #fff !important;
+    box-shadow: 0 0 18px 4px #ebc61d, 0 2px 16px rgba(0,0,0,0.12);
+    transform: scale(1.05);
+    border: none;
+}
+
+.edit-complaints-container .tenant-info-box {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.edit-complaint-message-box {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+}
+
+.edit-complaint-message-box > div {
+    background-color: white;
+    padding: 20px; /* Reduced horizontal padding */
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Ensure items stack vertically */
+    align-items: center; /* Center items horizontally */
+    width: 90%; /* Adjust width if needed */
+    max-width: 400px; /* Set a maximum width for the box */
+}
+
+.confirm-edit-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px; /* Add some space below the header */
+}
+
+.confirm-edit-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0; /* Remove default margin below title */
+}
+
+.edit-complaint-message-box .text-lg {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+    text-align: center; /* Center the confirmation message */
+}
+
+.edit-complaint-message-box .flex {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%; /* Make buttons take full width of inner container */
+}
+
+.edit-complaint-message-box button {
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-complaint-message-box button:first-child {
+    background-color: #28a745;
+    color: white;
+}
+
+.edit-complaint-message-box button:first-child:hover {
+    background-color: #218838;
+}
+
+.edit-complaint-message-box button:last-child {
+    background-color: #dc3545;
+    color: white;
+}
+
+.edit-complaint-message-box button:last-child:hover {
+    background-color: #c82333;
+}
+
+.edit-complaints-container .edit-complaints-disclaimer {
+    background: rgba(255,255,255,0.65);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 14px 24px;
+    color: black;
+    margin-bottom: 20px;
+    font-style: italic;
+    display: inline-block;
+}
+
+.edit-complaints-container .no-editable-complaints-message {
+    font-size: 1.1rem;
+    color: #777;
+    margin-top: 20px;
+}
+
+.edit-complaints-container .complaint-card .status-pending {
+    color: orange;
+    font-weight: bold;
+}
+
+.edit-complaints-container .complaint-card .status-attended {
+    color: green;
+    font-weight: bold;
+}
+
+.edit-complaints-container .complaint-card .status-declined {
+    color: red;
+    font-weight: bold;
+}
+
+.edit-complaints-container .edit-box .cannot-edit-message {
+    color: #d9534f;
+    margin-bottom: 15px;
+    font-style: italic;
+}

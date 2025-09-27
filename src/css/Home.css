@@ -1,0 +1,114 @@
+.home-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  background-color: #e0c23d;
+}
+
+.home-top-right {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.top-right-button {
+  background-color: transparent;
+  border: 2px solid #333;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: #7a4f13;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.top-right-button:hover {
+  background-color: #7a4f13;
+  color: #fff;
+  box-shadow: 0 0 6px rgba(122, 79, 19, 0.3);
+}
+
+.capstone-heading {
+  font-size: 1.2rem;
+}
+
+.home-container h1 {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.home-nav {
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.home-nav a {
+  display: inline-block;
+  padding: 18px 38px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.65);
+  color: #222;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  border: 2px solid #111;
+  transition:
+    box-shadow 0.3s,
+    transform 0.2s,
+    background 0.3s,
+    color 0.3s,
+    text-decoration 0.2s;
+}
+
+.home-nav a:hover {
+  box-shadow: 0 0 18px 4px #cee056, 0 2px 16px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+  color: #2d322c;
+  transform: scale(1.08);
+  text-decoration: underline;
+}
+
+.home-footer {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.home-title-box {
+  background: rgba(255, 255, 255, 0.65);
+  border: 2px solid #111;
+  border-radius: 22px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 32px 48px 24px 48px;
+  margin-bottom: 24px;
+  display: inline-block;
+  text-align: center;
+  margin-top: 160px;
+}
+
+.home-title-box h1 {
+  font-size: 2.5rem;
+  color: #222;
+  margin-bottom: 28px;
+  font-weight: bold;
+}
+
+.home-title-box p {
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0;
+  font-weight: bold;
+  line-height: 1.2;
+}

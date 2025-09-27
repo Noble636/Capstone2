@@ -1,0 +1,105 @@
+.rental-confirmation-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #e0c23d;
+  text-align: center;
+}
+
+.rental-confirmation-container h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.rental-confirmation-container .confirmation-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 800px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  color: #333;
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.rental-confirmation-container .confirmation-form h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.rental-confirmation-container .confirmation-form p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.rental-confirmation-container .confirmation-form input[type="text"],
+.rental-confirmation-container .confirmation-form input[type="date"] {
+  width: 200px;
+  padding: 6px 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  pointer-events: none;
+}
+
+.rental-confirmation-container .signature-section {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.rental-confirmation-container .signature-section p {
+  margin-bottom: 10px;
+}
+
+.rental-confirmation-container .signature-section input {
+  width: 200px;
+  padding: 6px 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  pointer-events: none;
+}
+
+.rental-confirmation-container .button-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.rental-confirmation-container .back-button {
+  text-decoration: none;
+  font-size: 1.3rem;
+  color: #7a4f13;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 5px;
+  border: none;
+  background-color: #fff;
+  transition: color 0.3s, box-shadow 0.3s, transform 0.2s, background-color 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.rental-confirmation-container .back-button:hover {
+  color: #fff;
+  background-color: #7a4f13;
+  box-shadow: 0 0 18px 4px #ebc61d, 0 2px 16px rgba(0,0,0,0.12);
+  transform: scale(1.05);
+  outline: none;
+}

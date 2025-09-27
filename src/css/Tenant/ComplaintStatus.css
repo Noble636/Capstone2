@@ -1,0 +1,135 @@
+.complaint-status-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #e0c23d;
+    padding: 20px;
+    position: relative;
+}
+
+.complaint-status-back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #fff !important;
+    font-weight: bold;
+    min-width: 80px;
+    height: 34px;
+    line-height: 1.2;
+    white-space: nowrap;
+    gap: 6px;
+    vertical-align: middle;
+    background-color: #7a4f13 !important;
+    border: none;
+    border-radius: 5px;
+    border-bottom: 2px solid transparent;
+    transition: transform 0.2s ease, color 0.3s, border-bottom 0.3s, box-shadow 0.3s;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+}
+
+.complaint-status-back-button:hover {
+    background-color: #7a4f13 !important;
+    color: #fff !important;
+    box-shadow: 0 0 18px 4px #ebc61d, 0 2px 16px rgba(0,0,0,0.12);
+    border-bottom: 2px solid #ebc61d;
+    transform: scale(1.05);
+}
+
+.complaint-status-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 90%;
+    max-width: 600px;
+    margin-top: 60px;
+}
+
+.complaint-status-title {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+
+.tenant-info-box {
+    background-color: #f8f8f8;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.tenant-info-box p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.tenant-info-box p strong {
+    font-weight: bold;
+    color: #333;
+}
+
+
+
+.complaint-status-no-results {
+    font-size: 1rem;
+    color: #555;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.complaint-status-list {
+    margin-top: 20px;
+}
+
+.complaint-status-item {
+    background-color: white;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease;
+}
+
+.complaint-status-item:hover {
+    background-color: #e9f0ff;
+}
+
+.complaint-status-item-info {
+    margin: 0;
+    font-weight: 600;
+    color: #222;
+}
+
+.complaint-status-details {
+    margin-top: 12px;
+    font-weight: normal;
+    color: #444;
+}
+
+.complaint-status-details p {
+    margin: 6px 0;
+}
+
+
+
+.complaint-status-status-attended {
+    color: green;
+}
+
+.complaint-status-status-pending {
+    color: orange;
+}
+
+.complaint-status-status-declined {
+    color: red;
+}

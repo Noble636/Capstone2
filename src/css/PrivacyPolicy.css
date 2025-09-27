@@ -1,0 +1,94 @@
+.privacy-policy-we-do-not {
+  color: #d32f2f;
+  font-weight: bold;
+}
+/* PrivacyPolicy.css */
+
+.privacy-policy-container {
+  background-color: #e0c23d;
+  min-height: 100vh;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.privacy-policy-container .privacy-policy-box {
+  background-color: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.privacy-policy-container .privacy-policy-box h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.privacy-policy-container .privacy-policy-box h2 {
+  font-size: 1.3rem;
+  margin-top: 25px;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.privacy-policy-container .privacy-policy-box p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: #444;
+}
+
+.privacy-policy-container .privacy-policy-box ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 15px;
+  color: #444;
+}
+
+.privacy-policy-container .privacy-policy-box strong {
+  display: block;
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: #000;
+}
+
+.privacy-policy-container .privacy-back-button-container {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.privacy-policy-container .privacy-back-button {
+  font-size: 1.3rem;
+  color: blue;
+  font-weight: bold;
+  padding: 6px 14px;
+  border-radius: 5px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s, border-bottom 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.privacy-policy-container .privacy-back-button:hover {
+  color: #0056b3;
+  border-bottom: 2px solid blue;
+  box-shadow: 0 0 8px rgba(0, 0, 255, 0.7);
+  transform: scale(1.05);
+  background-color: transparent;
+  outline: none;
+}

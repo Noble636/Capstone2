@@ -1,0 +1,109 @@
+.admin-visitor-logs-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #90ee90;
+  font-family: Arial, sans-serif;
+}
+
+.admin-visitor-logs-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-visitor-logs-box h1 {
+  font-size: 2.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.admin-visitor-logs-box .back_to_dashboard_visitor_logs_button {
+  background-color: #7a4f13;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.admin-visitor-logs-box .back_to_dashboard_visitor_logs_button:hover {
+  background-color: #7a4f13;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0 18px 4px #ebc61d, 0 2px 16px rgba(0,0,0,0.12);
+}
+
+.admin-visitor-logs-box .back_to_dashboard_visitor_logs_button span {
+  font-size: 1.5rem;
+}
+
+.admin-visitor-logs-list {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.admin-visitor-log-item {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+}
+
+.admin-visitor-log-item:hover {
+  background-color: #f1f1f1;
+}
+
+.admin-visitor-log-summary p {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.admin-visitor-list {
+  text-align: left;
+}
+
+.admin-visitor-details {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.admin-visitor-log-summary strong {
+  margin-right: 5px;
+}
+
+.admin-visitor-log-item:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .admin-visitor-logs-box {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .admin-visitor-logs-box h1 {
+    font-size: 2rem;
+  }
+
+  .admin-visitor-log-item {
+    padding: 15px;
+  }
+}

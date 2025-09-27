@@ -1,0 +1,99 @@
+/* Rental Agreement.css */
+
+.rental-agreement-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #e0c23d;
+  text-align: center;
+}
+
+.rental-agreement-container h1.agreement-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.rental-agreement-container .agreement-content {
+  width: 80%;
+  max-width: 800px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  color: #333;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.rental-agreement-container .agreement-content p {
+  margin-bottom: 15px;
+}
+
+.rental-agreement-container .agreement-content h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #222;
+}
+
+.rental-agreement-container .agreement-content h4 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+.rental-agreement-container .agreement-content ul {
+  padding-left: 20px;
+}
+
+.rental-agreement-container .agreement-content li {
+  margin-bottom: 10px;
+}
+
+.rental-agreement-container .signature-section {
+  margin-top: 30px;
+}
+
+.rental-agreement-container .signature-section input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.rental-agreement-container .button-container {
+  margin-top: 20px;
+}
+
+.rental-agreement-container .back-button-container {
+  margin-top: 20px;
+}
+
+.rental-agreement-container .back-button {
+  text-decoration: none;
+  font-size: 1.3rem;
+  color: #7a4f13;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 5px;
+  border: none;
+  background-color: #fff;
+  transition: color 0.3s, box-shadow 0.3s, transform 0.2s, background-color 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.rental-agreement-container .back-button:hover {
+  color: #fff;
+  background-color: #7a4f13;
+  box-shadow: 0 0 18px 4px #ebc61d, 0 2px 16px rgba(0,0,0,0.12);
+  transform: scale(1.05);
+  outline: none;
+}

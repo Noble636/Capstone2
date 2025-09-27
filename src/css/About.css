@@ -1,0 +1,83 @@
+/* About.css */
+
+.about-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #e0b0ff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.about-container .project-description {
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  color: #333;
+}
+
+.about-container .team-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.about-container .member-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.about-container .member-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.about-container .member-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.about-container .member-card p {
+  font-size: 1rem;
+  color: #777;
+}
+
+.about-container .about-back-button-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.about-container .about-back-button {
+  text-decoration: none;
+  font-size: 1.3rem;
+  color: blue;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: transparent;
+  border: none;
+  transition: color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.about-container .about-back-button:hover {
+  color: #0056b3;
+  box-shadow: 0 0 8px rgba(0, 0, 255, 0.7);
+  transform: scale(1.05);
+}
