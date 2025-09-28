@@ -43,7 +43,7 @@ const ContactUs = () => {
         </ul>
       </div>
       <div className="contact-back-button-container">
-        <button className="contact-back-button" onClick={() => navigate(-1)}>
+        <button className="contact-back-button" onClick={() => navigate("/")}>
           &#x2B05; Back
         </button>
       </div>
