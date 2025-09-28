@@ -262,12 +262,17 @@ html, body {
     gap: 32px !important;
     padding: 8px 0;
     min-height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
   .tenant-register-box,
   .terms-column {
-    width: 100% !important;
+    width: 94vw !important;
     max-width: 370px !important;
-    margin: 0 auto !important;
+    min-width: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     box-sizing: border-box;
     padding-left: 4px;
     padding-right: 4px;
