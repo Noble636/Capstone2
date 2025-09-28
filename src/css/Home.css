@@ -112,3 +112,59 @@
   font-weight: bold;
   line-height: 1.2;
 }
+
+@media (max-width: 700px) {
+  .home-container {
+    padding: 0 8px;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .home-title-box {
+    padding: 18px 8px 14px 8px;
+    margin-top: 80px;
+    border-radius: 14px;
+    width: 98%;
+    min-width: unset;
+    max-width: 100%;
+  }
+
+  .home-title-box h1,
+  .home-title-box p {
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+
+  .home-nav {
+    position: static;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 32px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .home-nav a {
+    padding: 12px 0;
+    font-size: 1.05rem;
+    width: 90%;
+    border-radius: 12px;
+  }
+
+  .home-top-right {
+    top: 10px;
+    right: 10px;
+    gap: 8px;
+  }
+
+  .top-right-button {
+    font-size: 0.85rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
+  .home-footer {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+}
