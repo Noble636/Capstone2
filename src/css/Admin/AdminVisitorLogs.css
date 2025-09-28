@@ -107,3 +107,51 @@
     padding: 15px;
   }
 }
+
+@media (max-width: 600px) {
+  .admin-visitor-logs-container {
+    padding: 0 6px;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .admin-visitor-logs-box {
+    padding: 10px 2px;
+    border-radius: 8px;
+    max-width: 99vw;
+    width: 100%;
+  }
+
+  .admin-visitor-logs-box h1 {
+    font-size: 1.2rem;
+    margin-bottom: 14px;
+  }
+
+  .admin-visitor-logs-box .back_to_dashboard_visitor_logs_button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 8px;
+    margin-bottom: 14px;
+  }
+
+  .admin-visitor-logs-list {
+    margin-top: 12px;
+    width: 100%;
+  }
+
+  .admin-visitor-log-item {
+    padding: 10px;
+    font-size: 0.98rem;
+    margin-bottom: 12px;
+  }
+
+  .admin-visitor-log-summary p {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  .admin-visitor-details {
+    font-size: 0.95rem;
+  }
+}

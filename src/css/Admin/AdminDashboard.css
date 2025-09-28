@@ -1,5 +1,3 @@
-/* AdminDashboard.css */
-
 .admin-dashboard-container {
   display: flex;
   justify-content: center;
@@ -75,4 +73,43 @@
   color: #fff;
   transform: scale(1.05);
   box-shadow: 0 0 18px 4px #ebc61d, 0 2px 16px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 700px) {
+  .admin-dashboard-container {
+    padding: 0 8px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .admin-dashboard-box {
+    padding: 18px 6px;
+    border-radius: 8px;
+    max-width: 99vw;
+    width: 100%;
+    margin: 40px 0;
+  }
+
+  .admin-dashboard-box h1 {
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+  }
+
+  .admin-dashboard-nav {
+    gap: 12px;
+    width: 100%;
+  }
+
+  .admin-dashboard-button,
+  .admin-dashboard-logout-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 12px 0;
+    border-radius: 8px;
+    margin-top: 0;
+  }
+
+  .admin-dashboard-logout-button {
+    margin-top: 18px;
+  }
 }

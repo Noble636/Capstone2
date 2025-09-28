@@ -71,7 +71,7 @@ const PrivacyPolicy = () => {
 
       <div className="privacy-back-button-container">
         <button className="privacy-back-button" onClick={() => navigate(-1)}>
-          &larr; Back
+          &#x2B05; Back
         </button>
       </div>
     </div>

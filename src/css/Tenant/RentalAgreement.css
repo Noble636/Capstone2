@@ -1,5 +1,3 @@
-/* Rental Agreement.css */
-
 .rental-agreement-container {
   display: flex;
   flex-direction: column;
@@ -96,4 +94,65 @@
   box-shadow: 0 0 18px 4px #ebc61d, 0 2px 16px rgba(0,0,0,0.12);
   transform: scale(1.05);
   outline: none;
+}
+
+@media (max-width: 600px) {
+  .rental-agreement-container {
+    padding: 8px 2px;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .rental-agreement-container h1.agreement-title {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+  }
+
+  .rental-agreement-container .agreement-content {
+    width: 100%;
+    max-width: 99vw;
+    padding: 12px 4px;
+    border-radius: 8px;
+    font-size: 0.98rem;
+    margin-bottom: 18px;
+  }
+
+  .rental-agreement-container .agreement-content h3,
+  .rental-agreement-container .agreement-content h4 {
+    font-size: 1rem;
+    margin-top: 12px;
+    margin-bottom: 6px;
+  }
+
+  .rental-agreement-container .agreement-content p,
+  .rental-agreement-container .agreement-content ul,
+  .rental-agreement-container .agreement-content li {
+    font-size: 0.97rem;
+    margin-bottom: 8px;
+  }
+
+  .rental-agreement-container .signature-section {
+    margin-top: 18px;
+  }
+
+  .rental-agreement-container .signature-section input {
+    font-size: 0.98rem;
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+
+  .rental-agreement-container .button-container {
+    margin-top: 14px;
+  }
+
+  .rental-agreement-container .back-button-container {
+    margin-top: 14px;
+  }
+
+  .rental-agreement-container .back-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 8px;
+  }
 }

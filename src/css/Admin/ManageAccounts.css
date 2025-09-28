@@ -232,3 +232,88 @@
         max-width: 100%;
     }
 }
+
+@media (max-width: 600px) {
+  .manage-accounts-container {
+    padding: 0 6px;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .manage-accounts-box {
+    padding: 14px 4px;
+    border-radius: 8px;
+    max-width: 99vw;
+    width: 100%;
+  }
+
+  .manage-accounts-box h1 {
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+
+  .manage-accounts-box .back_to_dashboard_manage_accounts_button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 8px;
+    margin-bottom: 14px;
+  }
+
+  .tenant-list {
+    margin-top: 12px;
+    width: 100%;
+  }
+
+  .tenant-item {
+    padding: 12px;
+    font-size: 0.98rem;
+    margin-bottom: 10px;
+  }
+
+  .tenant-summary {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  .tenant-details {
+    font-size: 0.95rem;
+  }
+
+  .tenant-actions {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .delete-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 8px 0;
+  }
+
+  .modal-content {
+    width: 98vw;
+    max-width: 99vw;
+    padding: 12px 4px;
+  }
+
+  .modal-content h2 {
+    font-size: 1.1rem;
+  }
+
+  .modal-content p {
+    font-size: 0.98rem;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+}

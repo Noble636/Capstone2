@@ -298,3 +298,54 @@
         max-width: 100%;
     }
 }
+
+@media (max-width: 600px) {
+  .edit-account-main-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    max-width: 99vw;
+    width: 100%;
+  }
+
+  .tenant-register-container .tenant-register-box,
+  .account-preview-right {
+    width: 100%;
+    max-width: 99vw;
+    margin: 0;
+    padding: 16px 4px;
+    border-radius: 10px;
+  }
+
+  .account-preview-right {
+    align-items: center;
+    gap: 12px;
+  }
+
+  .account-preview-box,
+  .edit-account-note-box {
+    width: 100%;
+    max-width: 99vw;
+    margin-bottom: 10px;
+    padding: 14px 6px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .edit-account-note-box h4 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  .tenant-register-container .tenant-register-box h2 {
+    font-size: 1.3rem;
+    margin-bottom: 14px;
+  }
+
+  .tenant-register-container .tenant-register-form input,
+  .tenant-register-container .tenant-register-form button,
+  .tenant-register-container .cancel-register-button {
+    font-size: 1rem;
+    padding: 10px;
+  }
+}

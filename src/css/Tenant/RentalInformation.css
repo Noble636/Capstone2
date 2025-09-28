@@ -119,3 +119,54 @@
   transform: scale(1.05);
   border: none;
 }
+
+@media (max-width: 700px) {
+  .rental-info-container {
+    padding: 8px 2px;
+    min-height: 100vh;
+    height: auto;
+    overflow: auto;
+  }
+
+  .rental-info-container .rental-info-main-box {
+    padding: 18px 6px 18px 6px;
+    border-radius: 12px;
+    min-width: unset;
+    min-height: 180px;
+    max-width: 99vw;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .rental-info-container .rental-info-title {
+    font-size: 1.1rem;
+    margin-bottom: 18px;
+  }
+
+  .rental-info-container .rental-info-buttons {
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .rental-info-container .rental-info-buttons .rental-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 8px;
+  }
+
+  .rental-info-container .home-button-container {
+    position: static;
+    margin-top: 18px;
+    width: 100%;
+  }
+
+  .rental-info-container .home-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 8px;
+  }
+}

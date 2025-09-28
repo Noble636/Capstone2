@@ -1,5 +1,3 @@
-/* AdminLogin.css */
-
 .admin-container {
     display: flex;
     justify-content: center;
@@ -246,31 +244,47 @@
 
 
 @media (max-width: 600px) {
+    .admin-container {
+        padding: 0 6px;
+        height: auto;
+        min-height: 100vh;
+    }
+
     .adminlogin-box {
-        margin: 20px;
-        padding: 20px;
+        margin: 20px 0;
+        padding: 16px 6px;
+        border-radius: 12px;
+        max-width: 99vw;
+        width: 100%;
     }
 
     .adminlogin-box h2 {
-        font-size: 1.8rem;
+        font-size: 1.3rem;
+        margin-bottom: 18px;
     }
 
     .adminlogin-form input,
     .adminlogin-form button,
     .cancel-login-button {
-        padding: 12px;
-        font-size: 1rem;
+        padding: 10px;
+        font-size: 0.98rem;
     }
 
     .admin-action-buttons {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
+        width: 100%;
     }
 
     .forgot-password,
     .register-admin-account {
         width: 100%;
+        padding: 8px;
+        font-size: 0.92rem;
+    }
+
+    .admin-message-box {
         padding: 10px;
-        font-size: 0.9rem;
+        font-size: 0.98rem;
     }
 }

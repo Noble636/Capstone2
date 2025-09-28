@@ -194,21 +194,38 @@ body::-webkit-scrollbar {
     color: #777;
 }
 @media (max-width: 600px) {
+    .admin-register-container {
+        padding: 0 6px;
+        min-height: 100vh;
+        height: auto;
+    }
     .admin-register-box {
-        margin: 20px;
-        padding: 20px;
+        margin: 20px 0;
+        padding: 16px 6px;
+        border-radius: 12px;
+        max-width: 99vw;
+        width: 100%;
     }
     .admin-register-box h2 {
-        font-size: 1.8rem;
+        font-size: 1.3rem;
+        margin-bottom: 18px;
     }
     .admin-register-form input,
-    .admin-register-form button {
-        padding: 12px;
-        font-size: 1rem;
+    .admin-register-form button,
+    .admin-register-cancel-button {
+        padding: 10px;
+        font-size: 0.98rem;
+    }
+    .admin-register-form {
+        gap: 10px;
     }
     .admin-register-info-text,
     .admin-register-terms-text {
-        font-size: 0.9rem;
+        font-size: 0.92rem;
+        padding: 8px;
+    }
+    .admin-register-message-box {
         padding: 10px;
+        font-size: 0.98rem;
     }
 }

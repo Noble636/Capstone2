@@ -148,3 +148,49 @@
   cursor: pointer;
   color: #777;
 }
+
+@media (max-width: 600px) {
+  .tenant-fpw-container {
+    padding: 6px;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .tenant-fpw-container .tenant-fpw-box {
+    padding: 14px 4px;
+    border-radius: 8px;
+    max-width: 99vw;
+    width: 100%;
+  }
+
+  .tenant-fpw-container .tenant-fpw-box h2,
+  .tenant-fpw-container .tenant-fpw-box h3 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+
+  .tenant-fpw-container .fpw-form input,
+  .tenant-fpw-container .fpw-form button,
+  .tenant-fpw-container .cancel-fpw-button {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .tenant-fpw-container .fpw-form button[type="submit"],
+  .tenant-fpw-container .cancel-fpw-button {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  .tenant-fpw-container .tenant-fpw-box p {
+    font-size: 0.98rem;
+    margin-bottom: 10px;
+  }
+
+  .password-input-container input {
+    font-size: 1rem;
+    padding: 10px;
+    width: calc(100% - 36px);
+  }
+}

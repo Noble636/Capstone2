@@ -250,3 +250,100 @@
     transform: scale(1.05);
     box-shadow: 0 0 18px 4px #cee056, 0 2px 16px rgba(0,0,0,0.12);
 }
+
+@media (max-width: 700px) {
+  .admin-complaints-container {
+    padding: 0 6px;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .admin-complaints-box {
+    padding: 14px 4px;
+    border-radius: 6px;
+    max-width: 99vw;
+    min-width: unset;
+    width: 100%;
+  }
+
+  .admin-complaints-box h1 {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+  }
+
+  .complaints-nav {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+    width: 100%;
+  }
+
+  .complaints-nav-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 8px;
+  }
+
+  .complaints-list,
+  .complaints-log {
+    margin-top: 12px;
+    width: 100%;
+  }
+
+  .complaint-item,
+  .complaint-log-item {
+    padding: 12px;
+    font-size: 0.98rem;
+  }
+
+  .complaint-summary {
+    font-size: 1rem;
+  }
+
+  .complaint-details {
+    font-size: 0.95rem;
+  }
+
+  .message-textarea {
+    font-size: 0.95rem;
+    padding: 8px;
+  }
+
+  .complaint-actions {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .complaint-actions button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 8px 0;
+  }
+
+  .confirmation-popup {
+    width: 95vw;
+    min-width: unset;
+    padding: 14px 6px;
+  }
+
+  .confirmation-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .confirmation-buttons button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+
+  .admin-complaints-box .back_to_dashboard_button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+}

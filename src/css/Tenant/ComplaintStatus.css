@@ -133,3 +133,62 @@
 .complaint-status-status-declined {
     color: red;
 }
+
+@media (max-width: 600px) {
+  .complaint-status-container {
+    padding: 8px 2px;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .complaint-status-back-button {
+    font-size: 0.98rem;
+    padding: 8px 8px;
+    border-radius: 7px;
+    min-width: 60px;
+    height: 32px;
+    top: 10px;
+    left: 10px;
+  }
+
+  .complaint-status-card {
+    padding: 14px 4px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 99vw;
+    margin-top: 48px;
+  }
+
+  .complaint-status-title {
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+  }
+
+  .tenant-info-box {
+    padding: 10px 6px;
+    font-size: 0.98rem;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  .complaint-status-no-results {
+    font-size: 0.98rem;
+    margin-top: 12px;
+  }
+
+  .complaint-status-list {
+    margin-top: 10px;
+  }
+
+  .complaint-status-item {
+    padding: 10px 8px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    font-size: 0.98rem;
+  }
+
+  .complaint-status-details {
+    margin-top: 8px;
+    font-size: 0.97rem;
+  }
+}

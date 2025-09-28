@@ -178,3 +178,49 @@
     font-size: 1rem;
     color: #777;
 }
+
+@media (max-width: 600px) {
+  .admin-fpw-container {
+    padding: 0 6px;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .admin-fpw-container .admin-fpw-box {
+    padding: 16px 4px;
+    border-radius: 8px;
+    max-width: 99vw;
+    width: 100%;
+  }
+
+  .admin-fpw-container .admin-fpw-box h2,
+  .admin-fpw-container .admin-fpw-box h3 {
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+  }
+
+  .admin-fpw-container .fpw-form input,
+  .admin-fpw-container .fpw-form button,
+  .admin-fpw-container .cancel-fpw-button {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .admin-fpw-container .fpw-form button[type="submit"],
+  .admin-fpw-container .cancel-fpw-button {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  .admin-fpw-container .admin-fpw-box p {
+    font-size: 0.98rem;
+    margin-bottom: 10px;
+  }
+
+  .password-input-wrapper input,
+  .admin-fpw-password-input-wrapper input {
+    font-size: 1rem;
+    padding: 10px;
+  }
+}

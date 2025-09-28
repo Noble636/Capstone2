@@ -156,3 +156,60 @@
 .contactus-developer-email a:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 600px) {
+  .contactus-container {
+    padding: 10px;
+  }
+
+  .contactus-container .contactus-box {
+    padding: 14px 4px;
+    border-radius: 8px;
+    max-width: 99vw;
+    width: 100%;
+  }
+
+  .contactus-container .contactus-box h1 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .contactus-apartment {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+
+  .contactus-owner-label,
+  .contactus-developers-label {
+    font-size: 1rem;
+    margin-bottom: 2px;
+    margin-top: 14px;
+  }
+
+  .contactus-owner-name,
+  .contactus-developer-name {
+    font-size: 1rem;
+  }
+
+  .contactus-owner-email a,
+  .contactus-developer-email a {
+    font-size: 0.98rem;
+    word-break: break-all;
+  }
+
+  .contactus-developer-list,
+  .contactus-owner-list {
+    padding-left: 16px;
+  }
+
+  .contactus-container .contact-back-button-container {
+    max-width: 99vw;
+    padding: 0;
+  }
+
+  .contactus-container .contact-back-button {
+    font-size: 1rem;
+    padding: 8px 10px;
+    border-radius: 6px;
+  }
+}

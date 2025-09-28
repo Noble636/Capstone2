@@ -2,7 +2,6 @@
   color: #d32f2f;
   font-weight: bold;
 }
-/* PrivacyPolicy.css */
 
 .privacy-policy-container {
   background-color: #e0c23d;
@@ -72,23 +71,64 @@
 }
 
 .privacy-policy-container .privacy-back-button {
-  font-size: 1.3rem;
-  color: blue;
+  font-size: 1.1rem;
+  color: #7a4f13;
   font-weight: bold;
   padding: 6px 14px;
   border-radius: 5px;
   border: none;
-  background-color: transparent;
+  background-color: #fff;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: color 0.3s, border-bottom 0.3s, box-shadow 0.3s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: color 0.3s, box-shadow 0.3s, transform 0.2s, background-color 0.2s;
 }
 
 .privacy-policy-container .privacy-back-button:hover {
-  color: #0056b3;
-  border-bottom: 2px solid blue;
-  box-shadow: 0 0 8px rgba(0, 0, 255, 0.7);
+  color: #fff;
+  background-color: #7a4f13;
+  box-shadow: 0 0 18px 4px #ebc61d, 0 2px 16px rgba(0,0,0,0.12);
   transform: scale(1.05);
-  background-color: transparent;
   outline: none;
+}
+
+@media (max-width: 600px) {
+  .privacy-policy-container {
+    padding: 12px;
+  }
+
+  .privacy-policy-container .privacy-policy-box {
+    padding: 16px 6px;
+    border-radius: 8px;
+    max-width: 99vw;
+    width: 100%;
+  }
+
+  .privacy-policy-container .privacy-policy-box h1 {
+    font-size: 1.2rem;
+    margin-bottom: 14px;
+  }
+
+  .privacy-policy-container .privacy-policy-box h2 {
+    font-size: 1rem;
+    margin-top: 18px;
+    margin-bottom: 8px;
+  }
+
+  .privacy-policy-container .privacy-policy-box p,
+  .privacy-policy-container .privacy-policy-box ul,
+  .privacy-policy-container .privacy-policy-box strong {
+    font-size: 0.98rem;
+    margin-bottom: 10px;
+  }
+
+  .privacy-policy-container .privacy-back-button-container {
+    max-width: 99vw;
+    padding: 0;
+  }
+
+  .privacy-policy-container .privacy-back-button {
+    font-size: 1rem;
+    padding: 8px 10px;
+    border-radius: 6px;
+  }
 }

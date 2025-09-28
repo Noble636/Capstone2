@@ -103,3 +103,70 @@
   transform: scale(1.05);
   outline: none;
 }
+
+@media (max-width: 600px) {
+  .rental-confirmation-container {
+    padding: 8px 2px;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .rental-confirmation-container h1 {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+  }
+
+  .rental-confirmation-container .confirmation-form {
+    width: 100%;
+    max-width: 99vw;
+    padding: 12px 4px;
+    border-radius: 8px;
+    font-size: 0.98rem;
+    margin-bottom: 24px;
+  }
+
+  .rental-confirmation-container .confirmation-form h3 {
+    font-size: 1rem;
+    margin-top: 12px;
+    margin-bottom: 6px;
+  }
+
+  .rental-confirmation-container .confirmation-form p {
+    margin-bottom: 10px;
+    line-height: 1.4;
+    font-size: 0.97rem;
+  }
+
+  .rental-confirmation-container .confirmation-form input[type="text"],
+  .rental-confirmation-container .confirmation-form input[type="date"] {
+    width: 100%;
+    min-width: 0;
+    font-size: 0.98rem;
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+
+  .rental-confirmation-container .signature-section {
+    margin-top: 18px;
+    width: 100%;
+  }
+
+  .rental-confirmation-container .signature-section input {
+    width: 100%;
+    min-width: 0;
+    font-size: 0.98rem;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+
+  .rental-confirmation-container .button-container {
+    margin-top: 14px;
+  }
+
+  .rental-confirmation-container .back-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 8px;
+  }
+}

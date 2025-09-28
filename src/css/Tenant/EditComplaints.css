@@ -303,3 +303,92 @@
     margin-bottom: 15px;
     font-style: italic;
 }
+
+@media (max-width: 600px) {
+  .edit-complaints-container {
+    padding: 10px 2px;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .edit-complaints-container h1 {
+    font-size: 1.2rem;
+    padding: 10px 6px;
+    margin-bottom: 14px;
+  }
+
+  .edit-complaints-container .tenant-info-box,
+  .edit-complaints-container .complaint-card {
+    width: 100%;
+    max-width: 99vw;
+    padding: 10px 6px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+
+  .edit-complaints-container .edit-search-box {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .edit-complaints-container .edit-search-box input {
+    width: 100%;
+    min-width: 0;
+    font-size: 1rem;
+    padding: 8px;
+  }
+
+  .edit-complaints-container .edit-search-box button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 8px;
+  }
+
+  .edit-complaints-container .edit-box textarea {
+    width: 100%;
+    max-width: 99vw;
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .edit-complaints-container .edit-box .edit-actions {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .edit-complaints-container .edit-box .edit-actions button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 8px;
+  }
+
+  .edit-complaints-container .edit-complaints-disclaimer {
+    padding: 10px 8px;
+    font-size: 0.98rem;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .edit-complaints-container .back-button {
+    position: static;
+    margin-bottom: 14px;
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 8px;
+    left: unset;
+    top: unset;
+  }
+
+  .edit-complaint-message-box > div {
+    width: 98vw;
+    max-width: 99vw;
+    padding: 14px 6px;
+  }
+}

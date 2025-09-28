@@ -89,3 +89,37 @@
   transform: scale(1.05);
   box-shadow: 0 0 18px 4px #ebc61d, 0 2px 16px rgba(0, 0, 0, 0.12);
 }
+
+@media (max-width: 600px) {
+  .tenant-dashboard-container {
+    padding: 0 6px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .tenant-dashboard-container .tenant-dashboard-box {
+    padding: 16px 4px;
+    border-radius: 10px;
+    max-width: 99vw;
+    width: 100%;
+  }
+
+  .tenant-dashboard-container .tenant-dashboard-box h1 {
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+  }
+
+  .tenant-dashboard-container .tenant-dashboard-link,
+  .tenant-dashboard-container .tenant-dashboard-edit-account-button,
+  .tenant-dashboard-container .tenant-dashboard-logout-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 12px 0;
+    border-radius: 8px;
+    margin: 8px 0;
+  }
+
+  .tenant-dashboard-container .tenant-dashboard-logout-button {
+    margin-top: 18px;
+  }
+}

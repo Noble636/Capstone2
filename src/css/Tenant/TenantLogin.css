@@ -164,3 +164,55 @@
   text-align: left;
   width: 100%;
 }
+
+@media (max-width: 600px) {
+  .tenant-login-container {
+    padding: 0 6px;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .tenant-login-container .tenant-box {
+    padding: 16px 4px;
+    border-radius: 14px;
+    max-width: 99vw;
+    width: 100%;
+  }
+
+  .tenant-login-container .tenant-box h2 {
+    font-size: 1.3rem;
+    margin-bottom: 14px;
+  }
+
+  .tenant-login-container .tenant-form input {
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 14px;
+  }
+
+  .tenant-login-container .tenant-form button,
+  .tenant-login-container .cancel-login-button {
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 12px;
+    max-width: 100%;
+  }
+
+  .tenant-login-container .extra-buttons {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .tenant-login-container .button-pair {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .tenant-login-container .forgot-password,
+  .tenant-login-container .register-button {
+    font-size: 0.98rem;
+    padding: 0;
+  }
+}

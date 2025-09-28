@@ -1,5 +1,3 @@
-/* About.css */
-
 .about-container {
   position: fixed;
   top: 0;
@@ -80,4 +78,62 @@
   color: #0056b3;
   box-shadow: 0 0 8px rgba(0, 0, 255, 0.7);
   transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+  .about-container {
+    padding: 12px;
+    min-height: 100vh;
+    height: auto;
+    position: relative;
+  }
+
+  .about-container .project-description {
+    font-size: 1rem;
+    max-width: 98vw;
+    margin-bottom: 18px;
+  }
+
+  .about-container .team-grid {
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 14px;
+    align-items: center;
+  }
+
+  .about-container .member-card {
+    padding: 12px;
+    border-radius: 10px;
+    width: 98vw;
+    max-width: 340px;
+  }
+
+  .about-container .member-photo {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 10px;
+  }
+
+  .about-container .member-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 4px;
+  }
+
+  .about-container .member-card p {
+    font-size: 0.95rem;
+  }
+
+  .about-container .about-back-button-container {
+    position: static;
+    margin-bottom: 18px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .about-container .about-back-button {
+    font-size: 1rem;
+    padding: 8px 14px;
+    border-radius: 5px;
+  }
 }
