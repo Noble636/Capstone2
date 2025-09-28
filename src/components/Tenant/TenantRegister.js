@@ -234,34 +234,38 @@ const TenantRegister = () => {
                 </form>
                 <button onClick={handleCancel} className="cancel-register-button">Cancel</button>
             </div>
-            <div className="terms-box">
-                <h3>Terms and Conditions</h3>
-                <p>Please read the following terms carefully before registering:</p>
-                <ul>
-                    <li>You must provide accurate and truthful information.</li>
-                    <li>You are responsible for keeping your account secure.</li>
-                    <li>You must not use the system for unauthorized or illegal activities.</li>
-                    <li>Violation of these terms may result in suspension or termination of your account.</li>
-                    <li>The service provider is not liable for any data loss, system errors, or service interruptions.</li>
-                    <li>Emergency contact information is optional but recommended for safety reasons.</li>
-                    <li>All submitted data is handled in accordance with our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
-                    <li>These terms may be updated at any time. Continued use indicates acceptance of any updates.</li>
-                </ul>
-                <div className="privacy-warning-text">
-                    <strong>Warning:</strong> No one will ever ask for your password not the admin, not the developers, and not any staff. Never share your password with anyone for any reason. If someone asks for your password, please report it to management immediately.
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "stretch", width: 400, minWidth: 320 }}>
+                <div className="terms-box">
+                    <h3>Terms and Conditions</h3>
+                    <p>Please read the following terms carefully before registering:</p>
+                    <ul>
+                        <li>You must provide accurate and truthful information.</li>
+                        <li>You are responsible for keeping your account secure.</li>
+                        <li>You must not use the system for unauthorized or illegal activities.</li>
+                        <li>Violation of these terms may result in suspension or termination of your account.</li>
+                        <li>The service provider is not liable for any data loss, system errors, or service interruptions.</li>
+                        <li>Emergency contact information is optional but recommended for safety reasons.</li>
+                        <li>All submitted data is handled in accordance with our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
+                        <li>These terms may be updated at any time. Continued use indicates acceptance of any updates.</li>
+                    </ul>
+                    <div className="terms-checkbox" style={{ marginTop: "18px" }}>
+                        <input
+                            type="checkbox"
+                            name="acceptedTerms"
+                            checked={acceptedTerms}
+                            onChange={handleInputChange}
+                        />
+                        <label>I have read and agree to the Terms and Conditions above</label>
+                    </div>
                 </div>
-                <div className="terms-checkbox">
-                    <input
-                        type="checkbox"
-                        name="acceptedTerms"
-                        checked={acceptedTerms}
-                        onChange={handleInputChange}
-                    />
-                    <label>I have read and agree to the Terms and Conditions above</label>
+                <div className="privacy-warning-text" style={{ marginTop: "18px" }}>
+                    <strong>Warning:</strong> No one will ever ask for your password—not the admin, not the developers, and not any staff. Never share your password with anyone for any reason. If someone asks for your password, please report it to management immediately.
                 </div>
             </div>
         </div>
     );
 };
+
+
 
 export default TenantRegister;
