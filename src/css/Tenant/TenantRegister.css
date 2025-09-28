@@ -29,8 +29,8 @@ html, body {
   display: flex !important;
   flex-direction: row !important;
   justify-content: center !important;
-  align-items: stretch !important; /* Make both boxes equal height */
-  gap: 40px !important;
+  align-items: flex-start !important; /* Changed from stretch */
+  gap: 32px !important;               /* Reduced gap */
   padding: 40px;
   background: #e0c23d;
   min-height: 100vh;
@@ -43,7 +43,7 @@ html, body {
   border-radius: 10px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.10);
   padding: 24px 20px;
-  max-width: 370px;      /* Use max-width for all, not width */
+  max-width: 370px;
   min-width: 260px;
   box-sizing: border-box;
   height: auto;
@@ -256,7 +256,6 @@ html, body {
     align-items: center !important;
     gap: 32px !important;
     padding: 8px 0;
-    width: 100vw;
     box-sizing: border-box;
     justify-content: flex-start !important;
     overflow-x: hidden;
