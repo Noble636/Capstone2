@@ -123,7 +123,17 @@ const TenantRegister = () => {
     };
 
     return (
-        <div className="tenant-register-container">
+        <div
+            className="tenant-register-container"
+            style={{
+                backgroundImage: "url('/Background/Background.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundColor: "#e0c23d",
+                minHeight: "100vh"
+            }}
+        >
             <div className="tenant-register-box">
                 <h2>Tenant Registration</h2>
                 {registrationError && <div className="error-message">{registrationError}</div>}
@@ -249,7 +259,7 @@ const TenantRegister = () => {
                         <label>I have read and agree to the Terms and Conditions above</label>
                     </div>
                 </div>
-                <div className="privacy-warning-text" style={{ marginTop: "18px" }}>
+                <div className="privacy-warning-text">
                     <strong>Warning:</strong> No one will ever ask for your password—not the admin, not the developers, and not any staff. Never share your password with anyone for any reason. If someone asks for your password, please report it to management immediately.
                 </div>
             </div>
