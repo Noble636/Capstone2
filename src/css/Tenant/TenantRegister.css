@@ -253,16 +253,17 @@ html, body {
   .tenant-register-container {
     flex-direction: column !important;
     align-items: center !important;
-    gap: 32px !important; /* Increased gap for more space between boxes */
+    gap: 32px !important;
     padding: 8px 0;
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
     justify-content: flex-start !important;
+    overflow-x: hidden;
   }
   .tenant-register-box,
   .terms-box,
   .privacy-warning-text {
-    width: 98vw !important;
+    width: 100% !important;
     min-width: 0 !important;
     max-width: 420px !important;
     box-sizing: border-box;
