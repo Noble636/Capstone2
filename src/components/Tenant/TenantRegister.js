@@ -123,16 +123,7 @@ const TenantRegister = () => {
     };
 
     return (
-        <div
-            className="tenant-register-container"
-            style={{
-                backgroundImage: "url('/Background/Background.jpg')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundColor: "#e0c23d"
-            }}
-        >
+        <div className="tenant-register-container">
             <div className="tenant-register-box">
                 <h2>Tenant Registration</h2>
                 {registrationError && <div className="error-message">{registrationError}</div>}
@@ -234,7 +225,7 @@ const TenantRegister = () => {
                 </form>
                 <button onClick={handleCancel} className="cancel-register-button">Cancel</button>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "stretch", width: 400, minWidth: 320 }}>
+            <div className="terms-column">
                 <div className="terms-box">
                     <h3>Terms and Conditions</h3>
                     <p>Please read the following terms carefully before registering:</p>

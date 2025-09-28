@@ -244,6 +244,16 @@ html, body {
     color: #333;
 }
 
+.terms-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 370px;
+  min-width: 260px;
+  box-sizing: border-box;
+}
+
 @media (max-width: 700px) {
   .tenant-register-container {
     flex-direction: column !important;
@@ -252,15 +262,13 @@ html, body {
     padding: 8px 0;
     box-sizing: border-box;
     justify-content: flex-start !important;
-    overflow-x: hidden;
     width: 100vw;
+    overflow-x: hidden;
   }
 
   .tenant-register-box,
-  .terms-box,
-  .privacy-warning-text {
-    display: block !important;
-    width: 100% !important;
+  .terms-column {
+    width: 96vw !important;
     max-width: 370px !important;
     min-width: 0 !important;
     margin-left: auto !important;
@@ -268,5 +276,15 @@ html, body {
     box-sizing: border-box;
     padding-left: 4px;
     padding-right: 4px;
+  }
+
+  .terms-box,
+  .privacy-warning-text {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
   }
 }
