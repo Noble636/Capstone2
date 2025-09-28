@@ -266,8 +266,8 @@ html, body {
   .tenant-register-box,
   .terms-box,
   .privacy-warning-text {
-    width: 96vw !important;
-    max-width: 96vw !important;
+    width: 100% !important;
+    max-width: 370px !important;
     min-width: 0 !important;
     box-sizing: border-box;
     margin-left: auto !important;
