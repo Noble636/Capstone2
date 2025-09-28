@@ -257,49 +257,35 @@ html, body {
 @media (max-width: 700px) {
   .tenant-register-container {
     flex-direction: column !important;
-    align-items: flex-start !important;
+    align-items: center !important;
     justify-content: flex-start !important;
     gap: 32px !important;
-    padding: 8px 0 8px 0;
+    padding: 8px 0;
     min-height: 100vh;
     width: 100vw;
     box-sizing: border-box;
     overflow-x: hidden;
   }
 
-  .tenant-register-box {
-    width: 96vw !important;
+  .tenant-register-box,
+  .terms-column {
+    width: 100% !important;
     max-width: 370px !important;
     min-width: 0 !important;
-    margin-left: 2vw !important;
-    margin-right: 0 !important;
+    margin: 0 auto !important;
     box-sizing: border-box;
     padding-left: 4px;
     padding-right: 4px;
-  }
-
-  .terms-column {
-    width: 100% !important;
-    max-width: none !important;
-    min-width: 0 !important;
-    margin-left: 2vw !important;
-    margin-right: 0 !important;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0;
+    display: block;
   }
 
   .terms-box,
   .privacy-warning-text {
-    width: 96vw !important;
+    width: 100% !important;
     max-width: 370px !important;
     min-width: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    margin: 0 auto 12px auto !important;
     box-sizing: border-box;
-    padding-left: 4px;
-    padding-right: 4px;
+    display: block;
   }
 }
