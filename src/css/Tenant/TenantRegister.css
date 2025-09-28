@@ -253,28 +253,22 @@ html, body {
   .tenant-register-container {
     flex-direction: column !important;
     align-items: center !important;
-    gap: 24px !important;
-    padding: 16px 4px;
+    gap: 32px !important; /* Increased gap for more space between boxes */
+    padding: 8px 0;
+    width: 100vw;
+    box-sizing: border-box;
+    justify-content: flex-start !important;
   }
-
   .tenant-register-box,
   .terms-box,
   .privacy-warning-text {
-    width: 100% !important;
-    min-width: unset !important;
-    max-width: 99vw !important;
-    padding-left: 8px;
-    padding-right: 8px;
-  }
-
-  .tenant-register-box,
-  .terms-box {
-    padding: 16px 8px;
-  }
-
-  .privacy-warning-text {
-    margin: 14px 0 14px 0;
-    font-size: 0.98rem;
-    padding: 10px 10px 8px 10px;
+    width: 98vw !important;
+    min-width: 0 !important;
+    max-width: 420px !important;
+    box-sizing: border-box;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 4px;
+    padding-right: 4px;
   }
 }
