@@ -266,22 +266,37 @@ html, body {
     box-sizing: border-box;
     overflow-x: hidden;
   }
-  .tenant-register-box,
-  .terms-column {
-    width: 94vw !important;
+
+  .tenant-register-box {
+    width: 96vw !important;
     max-width: 370px !important;
     min-width: 0 !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    margin: 0 auto !important;
     box-sizing: border-box;
     padding-left: 4px;
     padding-right: 4px;
   }
-  .terms-box,
-  .privacy-warning-text {
+
+  .terms-column {
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
     margin: 0 !important;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+
+  .terms-box,
+  .privacy-warning-text {
+    width: 96vw !important;
+    max-width: 370px !important;
+    min-width: 0 !important;
+    margin: 0 auto 12px auto !important;
+    box-sizing: border-box;
+    padding-left: 4px;
+    padding-right: 4px;
   }
 }
