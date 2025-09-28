@@ -23,7 +23,7 @@ const AdminFPW = () => {
         setError('');
         setMessage('');
         try {
-            const response = await fetch('http://localhost:5000/api/admin/forgot-password/verify-token', {
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/forgot-password/verify-token', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ developerToken }),
@@ -46,7 +46,7 @@ const AdminFPW = () => {
         setError('');
         setMessage('');
         try {
-            const response = await fetch('http://localhost:5000/api/admin/forgot-password/verify-username', {
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/forgot-password/verify-username', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username }),
@@ -70,7 +70,7 @@ const AdminFPW = () => {
         setError('');
         setMessage('');
         try {
-            const response = await fetch('http://localhost:5000/api/admin/forgot-password/verify-otp', {
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/forgot-password/verify-otp', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, otp }),
@@ -97,7 +97,7 @@ const AdminFPW = () => {
             return;
         }
         try {
-            const response = await fetch('http://localhost:5000/api/admin/forgot-password/reset-password', {
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/forgot-password/reset-password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, newPassword }),

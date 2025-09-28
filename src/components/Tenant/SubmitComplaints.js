@@ -39,7 +39,7 @@ const SubmitComplaints = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/tenant/submit-complaint', {
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/tenant/submit-complaint', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

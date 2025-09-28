@@ -45,7 +45,7 @@ const EditAccount = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch(`http://localhost:5000/api/tenant/profile/${id}`);
+            const response = await fetch(`https://tenantportal-backend.onrender.com/api/tenant/profile/${id}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -93,12 +93,12 @@ const EditAccount = () => {
         };
 
         if (password) {
-            updateData.currentPassword = currentPassword; // Include current password
+            updateData.currentPassword = currentPassword;
             updateData.newPassword = password;
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/api/tenant/profile/${tenantId}`, {
+            const response = await fetch(`https://tenantportal-backend.onrender.com/api/tenant/profile/${tenantId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ const EditAccount = () => {
                 setMessageText(data.message || 'Account updated successfully!');
                 setMessageType('success');
                 setShowMessage(true);
-                setCurrentPassword(''); // Clear current password field
+                setCurrentPassword('');
                 setPassword('');
                 setConfirmPassword('');
                 setConfirmTouched(false);

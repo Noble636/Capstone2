@@ -23,7 +23,7 @@ const EditComplaints = () => {
     const handleDeleteConfirm = async () => {
         if (!deleteTargetId) return;
         try {
-            const response = await fetch(`http://localhost:5000/api/tenant/complaints/${deleteTargetId}`, {
+            const response = await fetch(`https://tenantportal-backend.onrender.com/api/tenant/complaints/${deleteTargetId}`, {
                 method: 'DELETE',
             });
             if (response.ok) {
@@ -69,7 +69,7 @@ const EditComplaints = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch(`http://localhost:5000/api/tenant/complaints?tenantId=${id}`);
+            const response = await fetch(`https://tenantportal-backend.onrender.com/api/tenant/complaints?tenantId=${id}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -110,7 +110,7 @@ const EditComplaints = () => {
 
         if (confirmed) {
             try {
-                const response = await fetch(`http://localhost:5000/api/tenant/complaints/${selectedComplaint.complaint_id}`, {
+                const response = await fetch(`https://tenantportal-backend.onrender.com/api/tenant/complaints/${selectedComplaint.complaint_id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

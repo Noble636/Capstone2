@@ -26,7 +26,7 @@ const ManageAccounts = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch('http://localhost:5000/api/admin/tenants');
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/tenants');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -60,7 +60,7 @@ const ManageAccounts = () => {
         if (!tenantToDeleteId) return;
 
         try {
-            const response = await fetch(`http://localhost:5000/api/admin/tenants/${tenantToDeleteId}`, {
+            const response = await fetch(`https://tenantportal-backend.onrender.com/api/admin/tenants/${tenantToDeleteId}`, {
                 method: 'DELETE',
             });
 

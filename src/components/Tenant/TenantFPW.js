@@ -23,7 +23,7 @@ const TenantFPW = () => {
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/tenant/forgot-password/verify-username', {
+      const response = await fetch('https://tenantportal-backend.onrender.com/api/tenant/forgot-password/verify-username', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ const TenantFPW = () => {
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/tenant/forgot-password/verify-otp', {
+      const response = await fetch('https://tenantportal-backend.onrender.com/api/tenant/forgot-password/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ const TenantFPW = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/tenant/forgot-password/reset-password', {
+      const response = await fetch('https://tenantportal-backend.onrender.com/api/tenant/forgot-password/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -17,7 +17,7 @@ const AdminVisitorLogs = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch('http://localhost:5000/api/admin/visitor-logs');
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/visitor-logs');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

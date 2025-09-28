@@ -23,7 +23,7 @@ const AdminComplaints = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch('http://localhost:5000/api/admin/complaints/active');
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/complaints/active');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -41,7 +41,7 @@ const AdminComplaints = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch('http://localhost:5000/api/admin/complaints/log');
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/complaints/log');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -75,7 +75,7 @@ const AdminComplaints = () => {
         const message = messageInputs[id] || '';
         setConfirmation(null); // Close the confirmation popup
         try {
-            const response = await fetch(`http://localhost:5000/api/admin/complaints/${id}`, {
+            const response = await fetch(`https://tenantportal-backend.onrender.com/api/admin/complaints/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
