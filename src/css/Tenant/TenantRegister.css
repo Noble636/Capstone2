@@ -267,8 +267,7 @@ html, body {
     overflow-x: hidden;
   }
 
-  .tenant-register-box,
-  .terms-column {
+  .tenant-register-box {
     width: 100% !important;
     max-width: 370px !important;
     min-width: 0 !important;
@@ -277,6 +276,18 @@ html, body {
     padding-left: 4px;
     padding-right: 4px;
     display: block;
+  }
+
+  .terms-column {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin: 0 auto !important;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
   }
 
   .terms-box,
