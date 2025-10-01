@@ -75,6 +75,9 @@ const ComplaintStatus = () => {
                 <div className="tenant-info-box">
                     <p>👤 {fullName}</p>
                     <p>🏢 Apartment ID: {apartmentId}</p>
+                    <p style={{ marginTop: '8px', color: '#888', fontSize: '0.98rem' }}>
+                        You can click on the complaint to view admin responses
+                    </p>
                 </div>
 
                 {complaints.length === 0 && (
