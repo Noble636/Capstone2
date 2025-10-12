@@ -260,7 +260,7 @@ const TenantRegister = () => {
                     </div>
                 </div>
                 <div className="privacy-warning-text">
-                    <strong>Warning:</strong> No one will ever ask for your password—not the admin, not the developers, and not any staff. Never share your password with anyone for any reason. If someone asks for your password, please report it to management immediately.
+                    <strong>Warning:</strong> No one will ever ask for your password. not the admin, not the developers, and not any staff. Never share your password with anyone for any reason. If someone asks for your password, please report it to management immediately.
                 </div>
             </div>
         </div>

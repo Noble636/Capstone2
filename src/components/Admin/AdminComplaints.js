@@ -73,7 +73,7 @@ const AdminComplaints = () => {
 
     const updateComplaintStatus = async (id, status) => {
         const message = messageInputs[id] || '';
-        setConfirmation(null); // Close the confirmation popup
+        setConfirmation(null);
         try {
             const response = await fetch(`https://tenantportal-backend.onrender.com/api/admin/complaints/${id}`, {
                 method: 'PUT',
