@@ -1,60 +1,164 @@
+
 .privacy-policy-we-do-not {
   color: #d32f2f;
   font-weight: bold;
 }
 
 .privacy-policy-container {
-  background-color: #e0c23d;
+  background: linear-gradient(270deg, #e0c23d, #ffe0b0, #b0e0ff, #e0b0ff);
+  background-size: 800% 800%;
+  animation: privacy-gradient-move 18s ease infinite;
   min-height: 100vh;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  padding: 40px 0;
+  width: 100vw;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .privacy-policy-container .privacy-policy-box {
-  background-color: white;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 800px;
-  box-sizing: border-box;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  display: block;
+  overflow: visible;
 }
 
-.privacy-policy-container .privacy-policy-box h1 {
+@keyframes privacy-gradient-move {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+/* Removed orphaned property block above. Use .privacy-policy-container .privacy-policy-box for styling. */
+
+@keyframes privacy-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+  }
+  60% {
+    opacity: 0.7;
+    transform: translateY(8px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Removed orphaned property block above. Use .privacy-policy-container .privacy-policy-box h1 for styling. */
+
+@keyframes privacy-slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.privacy-policy-container .privacy-policy-box h1::before {
+  content: "\1F512  "; /* lock emoji */
   font-size: 2rem;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #333;
+  vertical-align: middle;
+  margin-right: 8px;
 }
 
+/* Removed orphaned property block above. Use .privacy-policy-container .privacy-policy-box h2 for styling. */
+
+@keyframes privacy-section-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.privacy-policy-container .privacy-policy-box h2::before {
+  content: "\1F4C4";
+  font-size: 1.2rem;
+  color: #e0c23d;
+  margin-right: 4px;
+}
+
+
+.privacy-policy-container .privacy-policy-box p,
+.privacy-policy-container .privacy-policy-box ul,
+.privacy-policy-container .privacy-policy-box h1,
 .privacy-policy-container .privacy-policy-box h2 {
-  font-size: 1.3rem;
-  margin-top: 25px;
-  margin-bottom: 12px;
-  color: #222;
-}
-
-.privacy-policy-container .privacy-policy-box p {
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 15px;
   color: #444;
+  opacity: 0;
+  transform: translateY(32px);
+  animation: none;
+  transition: opacity 0.8s cubic-bezier(.42,0,.58,1), transform 0.8s cubic-bezier(.42,0,.58,1);
+  text-align: center;
+}
+
+.privacy-policy-container .privacy-policy-box p.privacy-animate {
+  animation: privacy-fade-in 0.8s cubic-bezier(.42,0,.58,1) forwards;
+}
+.privacy-policy-container .privacy-policy-box ul.privacy-animate {
+  animation: privacy-list-fade 0.8s cubic-bezier(.42,0,.58,1) forwards;
+}
+.privacy-policy-container .privacy-policy-box h1.privacy-animate {
+  animation: privacy-fade-in 0.8s cubic-bezier(.42,0,.58,1) forwards;
+}
+.privacy-policy-container .privacy-policy-box h2.privacy-animate {
+  animation: privacy-section-fade 0.8s cubic-bezier(.42,0,.58,1) forwards;
+}
+
+@keyframes privacy-text-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .privacy-policy-container .privacy-policy-box ul {
   list-style-type: disc;
-  padding-left: 20px;
+  padding-left: 0;
   margin-bottom: 15px;
   color: #444;
+  background: rgba(224, 194, 61, 0.04);
+  border-radius: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  transition: opacity 0.8s cubic-bezier(.42,0,.58,1), transform 0.8s cubic-bezier(.42,0,.58,1);
+  text-align: center;
+}
+.privacy-policy-container .privacy-policy-box ul li {
+  text-align: center;
+  margin-bottom: 8px;
+}
+ .privacy-policy-container .privacy-policy-box ul.privacy-animate {
+  opacity: 1;
+  transform: translateY(0);
+ }
+
+@keyframes privacy-list-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .privacy-policy-container .privacy-policy-box strong {
@@ -67,7 +171,9 @@
 .privacy-policy-container .privacy-back-button-container {
   width: 100%;
   max-width: 800px;
+  margin: 0 auto;
   text-align: center;
+  padding-bottom: 24px;
 }
 
 .privacy-policy-container .privacy-back-button {
@@ -101,6 +207,8 @@
     border-radius: 8px;
     max-width: 99vw;
     width: 100%;
+    margin: 0 auto;
+    align-items: center;
   }
 
   .privacy-policy-container .privacy-policy-box h1 {

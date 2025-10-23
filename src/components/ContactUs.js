@@ -13,34 +13,42 @@ const ContactUs = () => {
           If you have questions about the program application please contact the following:
         </p>
 
-        <div className="contactus-apartment">RMR Apartment</div>
-        <div className="contactus-owner-label" style={{ marginTop: "18px" }}>Owner:</div>
-        <ul className="contactus-owner-list" style={{ marginTop: "10px", marginBottom: 0, paddingLeft: "20px" }}>
-          <li>
-            <div className="contactus-owner-name">Divina Barboza Catabay</div>
-            <div className="contactus-owner-email">
-              <a href="mailto:divine829@gmail.com">divine829@gmail.com</a>
-            </div>
-          </li>
-        </ul>
+        {/* Apartment and owner info removed as requested */}
 
-        <div className="contactus-developers-label" style={{ marginTop: "28px" }}>
-          Developers:
+        <div className="contactus-developers-label" style={{ marginTop: "28px", display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span role="img" aria-label="team">👥</span> Developers:
         </div>
         <ul className="contactus-developer-list" style={{ marginTop: "10px", marginBottom: 0, paddingLeft: "20px" }}>
           <li style={{ marginBottom: "14px" }}>
-            <div className="contactus-developer-name">John Nikko B. Arangorin</div>
+            <div className="contactus-developer-name"><span role="img" aria-label="person">🧑‍💻</span> John Nikko B. Arangorin</div>
             <div className="contactus-developer-email">
               <a href="mailto:nikkoarangorin004@gmail.com">nikkoarangorin004@gmail.com</a>
             </div>
           </li>
-          <li>
-            <div className="contactus-developer-name">Jacques Lynn Toeldo</div>
+          <li style={{ marginBottom: "14px" }}>
+            <div className="contactus-developer-name"><span role="img" aria-label="person">🧑‍💻</span> Jacques Lynn Toeldo</div>
             <div className="contactus-developer-email">
               <a href="mailto:jaiddes6@gmail.com">jaiddes6@gmail.com</a>
             </div>
           </li>
+          <li style={{ marginBottom: "14px" }}>
+            <div className="contactus-developer-name"><span role="img" aria-label="person">🧑‍💻</span> Danyael Kaye C. Apil</div>
+            <div className="contactus-developer-email">
+              <a href="mailto:klmnopq1221@gmail.com">klmnopq1221@gmail.com</a>
+            </div>
+          </li>
+          <li>
+            <div className="contactus-developer-name"><span role="img" aria-label="person">🧑‍💻</span> John Peter Gonzales</div>
+            <div className="contactus-developer-email">
+              <a href="mailto:pedromeh21@gmail.com">pedromeh21@gmail.com</a>
+            </div>
+          </li>
         </ul>
+        <hr style={{margin:'32px 0', border:'none', borderTop:'2px dashed #b0e0ff'}} />
+        <div style={{textAlign:'center', marginBottom:'8px', fontSize:'1.1rem', color:'#333'}}>
+          <span role="img" aria-label="info">ℹ️</span> For general inquiries, please email any of the team members above.<br/>
+          <span role="img" aria-label="support">💬</span> We aim to respond as soon as possible!
+        </div>
       </div>
       <div className="contact-back-button-container">
         <button className="contact-back-button" onClick={() => navigate("/")}>

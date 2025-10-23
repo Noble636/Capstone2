@@ -1,0 +1,162 @@
+.rentalinfo-unique-centered {
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+/* RentalInformationUnique.css - Isolated styles for Rental Information page */
+
+.rentalinfo-unique-container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, #fcb07e 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
+  animation: rentalinfo-unique-bg-move 12s ease-in-out infinite alternate;
+  overflow-x: hidden;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+
+@keyframes rentalinfo-unique-bg-move {
+  0% {background-position: 0% 50%;}
+  100% {background-position: 100% 50%;}
+}
+
+.rentalinfo-unique-content-wrapper {
+  display: flex;
+  width: 90vw;
+  max-width: 1200px;
+  min-height: 80vh;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.rentalinfo-unique-left {
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 32px 48px 0;
+}
+
+.rentalinfo-unique-title {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: #181818;
+  margin-bottom: 18px;
+  letter-spacing: 2.5px;
+  text-shadow: 2px 4px 16px #b084cc88, 0 2px 8px #fad0c488;
+  text-transform: uppercase;
+}
+
+.rentalinfo-unique-subtitle {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+
+.rentalinfo-unique-nav {
+  width: 100%;
+}
+
+.rentalinfo-unique-btn-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.rentalinfo-unique-btn {
+  font-weight: bold;
+  border: none;
+  border-radius: 16px;
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 12px #4e54c880;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  color: #fff;
+  background: linear-gradient(120deg, #ff9a9e 0%, #fad0c4 60%, #b084cc 100%);
+  margin: 1em 0.5em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: inherit;
+}
+.rentalinfo-unique-btn:hover {
+  background: linear-gradient(90deg, #8f94fb 0%, #4e54c8 100%);
+  color: #e0e0e0;
+  transform: scale(1.08);
+  box-shadow: 0 0 18px 4px #8f94fb80, 0 2px 16px rgba(0,0,0,0.12);
+
+/* Tooltip styling for data-description */
+.rentalinfo-unique-btn[data-description]:hover::after {
+  content: attr(data-description);
+  position: absolute;
+  left: 50%;
+  bottom: 110%;
+  transform: translateX(-50%) translateY(-12px);
+  background: #22244b;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-size: 1em;
+  white-space: pre-line;
+  box-shadow: 0 4px 16px #4e54c880;
+  z-index: 20;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.rentalinfo-unique-btn[data-description]::after {
+  content: '';
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.rentalinfo-unique-right-frame {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+@media (max-width: 700px) {
+  .rentalinfo-unique-content-wrapper {
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    min-height: unset;
+  }
+  .rentalinfo-unique-left {
+    padding: 18px 6px 18px 6px;
+    border-radius: 12px;
+  }
+  .rentalinfo-unique-title {
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+  }
+  .rentalinfo-unique-btn-row {
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .rentalinfo-unique-btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 8px;
+  }
+}

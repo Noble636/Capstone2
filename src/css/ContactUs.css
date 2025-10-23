@@ -1,7 +1,9 @@
-/* ContactUs.css */
 
+/* ContactUs.css */
 .contactus-container {
-  background-color: #90ee90;
+  background: linear-gradient(270deg, #90ee90, #b0e0ff, #ffe0b0, #b0ffe0);
+  background-size: 800% 800%;
+  animation: contactus-gradient-move 18s ease infinite;
   min-height: 100vh;
   padding: 40px;
   display: flex;
@@ -12,20 +14,12 @@
   box-sizing: border-box;
 }
 
-.contactus-container .contactus-box {
-  background-color: white;
-  padding: 28px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 800px;
-  box-sizing: border-box;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 12px;
-  text-align: left;
+@keyframes contactus-gradient-move {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
 }
+
 
 .contactus-container .contactus-box h1 {
   font-size: 2rem;
@@ -124,19 +118,31 @@
   text-decoration: underline;
 }
 
-.contactus-developers-label {
-  margin-top: 28px;
-  margin-bottom: 4px; /* Add this for tighter spacing */
+.contactus-developer-name {
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.contactus-developer-email a {
+  color: #007bff;
   font-weight: bold;
-  font-size: 1.2rem;
+  text-decoration: none;
+  font-size: 1.08rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
-
-.contactus-developer-list {
-  margin-top: 0 !important;
-  margin-bottom: 0;
-  padding-left: 20px;
+.contactus-developer-email a::before {
+  content: "📧";
+  margin-right: 4px;
 }
-
+.contactus-developer-email a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
 .contactus-developer {
   margin-bottom: 0;
 }
