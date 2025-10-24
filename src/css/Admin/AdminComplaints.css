@@ -1,10 +1,57 @@
 .admin-complaints-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    background-color: #90ee90;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
+    animation: admin-dashboard-bg-move 12s ease-in-out infinite alternate;
+    overflow: hidden;
     font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.home-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    opacity: 0.25;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes admin-dashboard-bg-move {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+}
+
+.admin-complaints-container .bubble {
+    position: absolute;
+    bottom: -60px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    box-shadow: 0 0 12px 2px rgba(255,255,255,0.18);
+    animation: bubble-rise 8s linear infinite;
+    z-index: 0;
+}
+.admin-complaints-container .bubble.b1 { width: 32px; height: 32px; left: 10vw; animation-delay: 0s; }
+.admin-complaints-container .bubble.b2 { width: 18px; height: 18px; left: 25vw; animation-delay: 2s; }
+.admin-complaints-container .bubble.b3 { width: 24px; height: 24px; left: 40vw; animation-delay: 1s; }
+.admin-complaints-container .bubble.b4 { width: 14px; height: 14px; left: 60vw; animation-delay: 3s; }
+.admin-complaints-container .bubble.b5 { width: 28px; height: 28px; left: 80vw; animation-delay: 0.5s; }
+.admin-complaints-container .bubble.b6 { width: 20px; height: 20px; left: 70vw; animation-delay: 4s; }
+.admin-complaints-container .bubble.b7 { width: 12px; height: 12px; left: 55vw; animation-delay: 2.5s; }
+.admin-complaints-container .bubble.b8 { width: 22px; height: 22px; left: 35vw; animation-delay: 5s; }
+
+@keyframes bubble-rise {
+    0% { transform: translateY(0) scale(1); opacity: 0.7; }
+    80% { opacity: 0.7; }
+    100% { transform: translateY(-95vh) scale(1.15); opacity: 0; }
 }
 
 .admin-complaints-box {
@@ -81,37 +128,24 @@
 }
 
 .complaint-item {
-    background-color: #f9f9f9;
-    padding: 20px;
+    background-color: white;
+    padding: 30px;
     border-radius: 8px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    border: 2px solid #ddd;
-    transition: background-color 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 1rem;
+    position: relative;
+    z-index: 2;
 }
 
 .complaint-item:hover {
     background-color: #f1f1f1;
-}
-
-.complaint-summary {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-
-.complaint-details {
-    margin-top: 10px;
-    font-size: 1rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.complaint-details p {
-    margin: 10px 0;
-}
-
-.message-container {
-    margin: 10px 0;
 }
 
 .message-textarea {
@@ -234,7 +268,7 @@
 .complaint-actions .decline_complaint_button,
 .confirmation-buttons .confirm-button,
 .confirmation-buttons .cancel-button {
-    background: rgba(0,0,0,0.7);
+    background: #222;
     color: #fff;
     border: none;
     transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
@@ -245,7 +279,7 @@
 .complaint-actions .decline_complaint_button:hover,
 .confirmation-buttons .confirm-button:hover,
 .confirmation-buttons .cancel-button:hover {
-    background: rgba(0,0,0,0.9);
+    background: #333;
     color: #cee056;
     transform: scale(1.05);
     box-shadow: 0 0 18px 4px #cee056, 0 2px 16px rgba(0,0,0,0.12);

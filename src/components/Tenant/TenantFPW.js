@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/Tenant/TenantFPW.css';
+// use the same Home background + bubbles
+import '../../css/Home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
@@ -119,16 +121,17 @@ const TenantFPW = () => {
   };
 
   return (
-    <div
-      className="tenant-fpw-container"
-      style={{
-        backgroundImage: "url('/Background/Background.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundColor: "#e0c23d"
-      }}
-    >
+    <div className="tenant-fpw-container home-container">
+      {/* Home background image and bubble effects */}
+      <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
+      <div className="bubble b1"></div>
+      <div className="bubble b2"></div>
+      <div className="bubble b3"></div>
+      <div className="bubble b4"></div>
+      <div className="bubble b5"></div>
+      <div className="bubble b6"></div>
+      <div className="bubble b7"></div>
+      <div className="bubble b8"></div>
       <div className="tenant-fpw-box">
         <h2>Forgot Password</h2>
         {error && <div className="error-message">{error}</div>}

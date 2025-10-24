@@ -1,7 +1,68 @@
 /* EditComplaints.css */
 
+/* Home-like background and bubble effects scoped for Edit Complaints only */
+.ec-home-container {
+    /* provide Home-like gradient background and stacking for the background effects */
+    min-height: 100vh;
+    width: 100vw;
+    display: block; /* keep container layout intact */
+    overflow: hidden;
+    position: relative;
+    z-index: 0; /* background layer */
+    background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
+    animation: ec-home-bg-move 12s ease-in-out infinite alternate;
+}
+
+.ec-home-bg-image {
+    position: fixed; /* fixed so it stays visible while scrolling */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.25;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.ec-bubble {
+        position: absolute;
+        bottom: -60px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.35);
+        box-shadow: 0 0 12px 2px rgba(255,255,255,0.18);
+        animation: ec-bubble-rise 8s linear infinite;
+        z-index: 0;
+}
+.ec-bubble.b1 { width: 32px; height: 32px; left: 10vw; animation-delay: 0s; }
+.ec-bubble.b2 { width: 18px; height: 18px; left: 25vw; animation-delay: 2s; }
+.ec-bubble.b3 { width: 24px; height: 24px; left: 40vw; animation-delay: 1s; }
+.ec-bubble.b4 { width: 14px; height: 14px; left: 60vw; animation-delay: 3s; }
+.ec-bubble.b5 { width: 28px; height: 28px; left: 80vw; animation-delay: 0.5s; }
+.ec-bubble.b6 { width: 20px; height: 20px; left: 70vw; animation-delay: 4s; }
+.ec-bubble.b7 { width: 12px; height: 12px; left: 55vw; animation-delay: 2.5s; }
+.ec-bubble.b8 { width: 22px; height: 22px; left: 35vw; animation-delay: 5s; }
+
+
+@keyframes ec-bubble-rise {
+    0% { transform: translateY(0) scale(1); opacity: 0.7; }
+    80% { opacity: 0.7; }
+    100% { transform: translateY(-95vh) scale(1.15); opacity: 0; }
+}
+
+@keyframes ec-home-bg-move {
+    0% {background-position: 0% 50%;}
+    100% {background-position: 100% 50%;}
+}
+
+/* Ensure the main content sits above background/bubbles */
 .edit-complaints-container {
-    background-color: #e0c23d;
+        position: relative;
+        z-index: 1;
+}
+
+.edit-complaints-container {
+    background-color: transparent; /* allow background image and effects to show through */
     min-height: 100vh;
     padding: 30px;
     font-family: Arial, sans-serif;

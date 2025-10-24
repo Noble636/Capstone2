@@ -23,14 +23,15 @@ html, body {
 }
 
 .tenant-register-container {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: center !important;
-  align-items: flex-start !important;
-  gap: 32px !important;
-  padding: 40px;
-  background: #e0c23d;
-  min-height: 100vh;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    gap: 32px !important;
+    padding: 40px;
+    /* allow page-specific background (ec-home-container) to show through */
+    background: transparent;
+    min-height: 100vh;
 }
 
 .tenant-register-box,

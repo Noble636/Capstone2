@@ -73,16 +73,18 @@ const SubmitComplaints = () => {
     };
 
     return (
-        <div
-            className="submit-complaint-container"
-            style={{
-                backgroundImage: "url('/Background/Background.jpg')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundColor: "#e0c23d"
-            }}
-        >
+        <div className="submit-complaint-container">
+            {/* Background image overlay (matches Home) */}
+            <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
+            {/* Bubble effect (matches Home) */}
+            <div className="bubble b1"></div>
+            <div className="bubble b2"></div>
+            <div className="bubble b3"></div>
+            <div className="bubble b4"></div>
+            <div className="bubble b5"></div>
+            <div className="bubble b6"></div>
+            <div className="bubble b7"></div>
+            <div className="bubble b8"></div>
             <h1>Submit a Complaint</h1>
             <div className="submit-complaint-content">
                 <form onSubmit={handleSubmit} className="submit-complaint-form-container">

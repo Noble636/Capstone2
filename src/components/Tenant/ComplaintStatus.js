@@ -56,16 +56,17 @@ const ComplaintStatus = () => {
     }
 
     return (
-        <div
-            className="complaint-status-container"
-            style={{
-                backgroundImage: "url('/Background/Background.jpg')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundColor: "#e0c23d"
-            }}
-        >
+        <div className="complaint-status-container cs-home-container">
+            {/* Background overlay and bubble effects (scoped to Complaint Status) */}
+            <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="cs-home-bg-image" />
+            <div className="cs-bubble b1"></div>
+            <div className="cs-bubble b2"></div>
+            <div className="cs-bubble b3"></div>
+            <div className="cs-bubble b4"></div>
+            <div className="cs-bubble b5"></div>
+            <div className="cs-bubble b6"></div>
+            <div className="cs-bubble b7"></div>
+            <div className="cs-bubble b8"></div>
             <Link to="/submitcomplaints" className="complaint-status-back-button">
                 &#x2B05; Back
             </Link>

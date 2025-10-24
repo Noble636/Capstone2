@@ -14,16 +14,18 @@ const TenantDashboard = () => {
   };
 
   return (
-    <div
-        className="tenant-dashboard-container"
-        style={{
-            backgroundImage: "url('/Background/Background.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: "#e0c23d"
-        }}
-    >
+  <div className="tenant-dashboard-container" style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', width: '100vw', background: 'linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%)', animation: 'admin-dashboard-bg-move 12s ease-in-out infinite alternate' }}>
+    {/* Background image */}
+    <img src="/Background/GB.png" alt="Background" className="home-bg-image" />
+    {/* Bubbles */}
+    <div className="bubble b1" />
+    <div className="bubble b2" />
+    <div className="bubble b3" />
+    <div className="bubble b4" />
+    <div className="bubble b5" />
+    <div className="bubble b6" />
+    <div className="bubble b7" />
+    <div className="bubble b8" />
         <div className="tenant-dashboard-box">
             <h1>Tenant Dashboard</h1>
             <div className="tenant-dashboard-nav">

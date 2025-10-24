@@ -161,16 +161,17 @@ const EditAccount = () => {
     }
 
     return (
-        <div
-            className="tenant-register-container"
-            style={{
-                backgroundImage: "url('/Background/Background.jpg')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundColor: "#e0c23d"
-            }}
-        >
+        <div className="tenant-register-container ea-home-container">
+            {/* Background overlay and bubbles (scoped to Edit Account) */}
+            <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="ea-home-bg-image" />
+            <div className="ea-bubble b1"></div>
+            <div className="ea-bubble b2"></div>
+            <div className="ea-bubble b3"></div>
+            <div className="ea-bubble b4"></div>
+            <div className="ea-bubble b5"></div>
+            <div className="ea-bubble b6"></div>
+            <div className="ea-bubble b7"></div>
+            <div className="ea-bubble b8"></div>
             <div className="edit-account-main-row">
                 <div className="tenant-register-box">
                     <h2>Edit Account</h2>

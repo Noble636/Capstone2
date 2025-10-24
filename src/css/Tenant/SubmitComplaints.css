@@ -1,3 +1,4 @@
+/* Use animated gradient background from Home */
 .submit-complaint-container {
     display: flex;
     flex-direction: column;
@@ -5,10 +6,15 @@
     align-items: center;
     min-height: 100vh;
     text-align: center;
-    background-color: #e0c23d;
+    background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
+    animation: home-bg-move 12s ease-in-out infinite alternate;
     font-family: 'Arial', sans-serif;
     padding: 20px;
     box-sizing: border-box;
+@keyframes home-bg-move {
+    0% {background-position: 0% 50%;}
+    100% {background-position: 100% 50%;}
+}
 }
 
 .submit-complaint-container h1 {
@@ -32,6 +38,10 @@
     margin-bottom: 20px;
 }
 
+/* Make form box fully opaque white */
+/* Make form box solid white and above background */
+/* Make submit complaint box more prominent and above background */
+/* Guarantee solid white background under all form elements using a pseudo-element */
 .submit-complaint-form-container {
     display: flex;
     flex-direction: column;
@@ -39,11 +49,32 @@
     gap: 15px;
     width: 65%;
     padding: 20px;
+    background: none;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(76,0,130,0.18), 0 2px 8px rgba(0,0,0,0.10);
+    opacity: 1;
+    z-index: 2;
+    position: relative;
+}
+.submit-complaint-form-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+    z-index: 0;
+    opacity: 1;
+}
+.submit-complaint-form-container > * {
+    position: relative;
+    z-index: 1;
 }
 
+/* Make textarea and input backgrounds solid white and text dark for readability */
+/* Force textarea and input backgrounds to be fully opaque white */
 .submit-complaint-form-container textarea,
 .submit-complaint-form-container input {
     width: 100%;
@@ -52,6 +83,9 @@
     border-radius: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    background: #fff !important;
+    color: #222 !important;
+    opacity: 1 !important;
 }
 
 .submit-complaint-form-container button {
@@ -77,6 +111,8 @@
     width: 35%;
 }
 
+/* Make info box fully opaque white */
+/* Make info box solid white and above background */
 .tenant-info-box-right {
     background: #fff;
     padding: 15px;
@@ -84,6 +120,8 @@
     font-size: 1rem;
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    z-index: 1;
 }
 
 .tenant-info-box-right p {
@@ -96,6 +134,8 @@
     font-size: 1.1rem;
 }
 
+/* Make reminder box fully opaque white */
+/* Make reminder box solid white and above background */
 .submit-complaint-reminder-right {
     background: #fff;
     padding: 15px;
@@ -103,6 +143,8 @@
     font-size: 0.9rem;
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    z-index: 1;
 }
 
 .submit-complaint-reminder-right p {
@@ -126,8 +168,10 @@
     margin-bottom: 8px;
 }
 
+/* Make actions box fully opaque white */
+/* Make actions box solid white and above background */
 .submit-complaint-actions-box {
-    background: rgba(255,255,255,0.35);
+    background: #fff;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     padding: 18px 32px;
@@ -139,6 +183,8 @@
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
+    opacity: 1;
+    z-index: 1;
 }
 
 .submit-complaint-actions {

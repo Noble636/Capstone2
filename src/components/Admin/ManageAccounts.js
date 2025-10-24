@@ -112,110 +112,95 @@ const ManageAccounts = () => {
         return <p>Error: {error}</p>;
     }
 
-    return (
-        <div
-            className="manage-accounts-container"
-            style={{
-                backgroundImage: "url('/Background/Background.jpg')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundColor: "#e0c23d"
-            }}
-        >
-            <div className="manage-accounts-box">
-                <h1>Manage Tenant Accounts</h1>
-
-                <button className="back_to_dashboard_manage_accounts_button" onClick={handleBack}>
-                    <span style={{ fontSize: '1.5rem' }}>🏠</span> Back to Dashboard
-                </button>
-
-                <div className="tenant-list">
-                    {tenants.length === 0 ? (
-                        <p>No tenant accounts found.</p>
-                    ) : (
-                        tenants.map((tenant) => (
-                            <div
-                                key={tenant.tenant_id}
-                                className="tenant-item"
-                                onClick={() => handleToggleExpand(tenant.tenant_id)}
-                            >
-                                <div className="tenant-summary">
-                                    <p><strong>{tenant.full_name}</strong> - {tenant.username}</p>
-                                </div>
-
-                                {expandedTenant === tenant.tenant_id && (
-                                    <div className="tenant-details">
-                                        <p><strong>Apartment ID:</strong> {tenant.apartment_id || 'N/A'}</p>
-                                        <p><strong>Phone:</strong> {tenant.contact_number || 'N/A'}</p>
-                                        <p><strong>Email:</strong> {tenant.email || 'N/A'}</p>
-                                        <p><strong>Emergency Contact Name:</strong> {tenant.emergency_contact || 'N/A'}</p>
-                                        <p><strong>Emergency Contact Number:</strong> {tenant.emergency_contact_number || 'N/A'}</p>
-                                        <p><strong>Account Created:</strong> {new Date(tenant.created_at).toLocaleDateString()}</p>
-
-                                        <div className="tenant-actions">
-                                            <button
-                                                className="delete-button"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    handleDeleteAccount(tenant.tenant_id, tenant.full_name);
-                                                }}
-                                            >
-                                                Delete Account
-                                            </button>
+            return (
+                <div className="manage-accounts-container" style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', width: '100vw', background: 'linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%)', animation: 'admin-dashboard-bg-move 12s ease-in-out infinite alternate' }}>
+                    {/* Background image */}
+                    <img src="/Background/GB.png" alt="Background" className="home-bg-image" />
+                    {/* Bubbles */}
+                    <div className="bubble b1" />
+                    <div className="bubble b2" />
+                    <div className="bubble b3" />
+                    <div className="bubble b4" />
+                    <div className="bubble b5" />
+                    <div className="bubble b6" />
+                    <div className="bubble b7" />
+                    <div className="bubble b8" />
+                    <div className="manage-accounts-box">
+                        <h1>Manage Tenant Accounts</h1>
+                        <button className="back_to_dashboard_manage_accounts_button" onClick={handleBack}>
+                            <span style={{ fontSize: '1.5rem' }}>🏠</span> Back to Dashboard
+                        </button>
+                        <div className="tenant-list">
+                            {tenants.length === 0 ? (
+                                <p>No tenant accounts found.</p>
+                            ) : (
+                                tenants.map((tenant) => (
+                                    <div key={tenant.tenant_id} className="tenant-item" onClick={() => handleToggleExpand(tenant.tenant_id)}>
+                                        <div className="tenant-summary">
+                                            <p><strong>{tenant.full_name}</strong> - {tenant.username}</p>
                                         </div>
+                                        {expandedTenant === tenant.tenant_id && (
+                                            <div className="tenant-details">
+                                                <p><strong>Apartment ID:</strong> {tenant.apartment_id || 'N/A'}</p>
+                                                <p><strong>Phone:</strong> {tenant.contact_number || 'N/A'}</p>
+                                                <p><strong>Email:</strong> {tenant.email || 'N/A'}</p>
+                                                <p><strong>Emergency Contact Name:</strong> {tenant.emergency_contact || 'N/A'}</p>
+                                                <p><strong>Emergency Contact Number:</strong> {tenant.emergency_contact_number || 'N/A'}</p>
+                                                <p><strong>Account Created:</strong> {new Date(tenant.created_at).toLocaleDateString()}</p>
+                                                <div className="tenant-actions">
+                                                    <button className="delete-button" onClick={(e) => { e.stopPropagation(); handleDeleteAccount(tenant.tenant_id, tenant.full_name); }}>
+                                                        Delete Account
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
-                                )}
+                                ))
+                            )}
+                        </div>
+                    </div>
+                    {showConfirmModal && (
+                        <div className="modal-overlay">
+                            <div className="modal-content">
+                                <h2>Confirm Deletion</h2>
+                                <p>Are you sure you want to delete the account for <strong>{tenantToDeleteName}</strong>?</p>
+                                <div className="modal-actions">
+                                    <button className="modal-button confirm" onClick={proceedToWarning}>Yes</button>
+                                    <button className="modal-button cancel" onClick={cancelDelete}>No</button>
+                                </div>
                             </div>
-                        ))
+                        </div>
+                    )}
+                    {showWarningModal && (
+                        <div className="modal-overlay">
+                            <div className="modal-content warning">
+                                <h2>Warning: Permanent Deletion</h2>
+                                <p>
+                                    This account will be permanently deleted, including all associated complaints and visitor logs.
+                                    <br />
+                                    This action cannot be undone.
+                                </p>
+                                <p>Do you really want to proceed with deleting <strong>{tenantToDeleteName}</strong>?</p>
+                                <div className="modal-actions">
+                                    <button className="modal-button confirm" onClick={executeDelete}>Yes</button>
+                                    <button className="modal-button cancel" onClick={cancelDelete}>No</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    {showMessage && (
+                        <div className="modal-overlay">
+                            <div className={`modal-content ${messageType}`}>
+                                <h2>{messageType === 'success' ? 'Success!' : 'Error!'}</h2>
+                                <p>{messageText}</p>
+                                <div className="modal-actions">
+                                    <button className="modal-button ok" onClick={closeMessage}>OK</button>
+                                </div>
+                            </div>
+                        </div>
                     )}
                 </div>
-            </div>
-
-            {showConfirmModal && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <h2>Confirm Deletion</h2>
-                        <p>Are you sure you want to delete the account for <strong>{tenantToDeleteName}</strong>?</p>
-                        <div className="modal-actions">
-                            <button className="modal-button confirm" onClick={proceedToWarning}>Yes</button>
-                            <button className="modal-button cancel" onClick={cancelDelete}>No</button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {showWarningModal && (
-                <div className="modal-overlay">
-                    <div className="modal-content warning">
-                        <h2>Warning: Permanent Deletion</h2>
-                        <p>
-                            This account will be permanently deleted, including all associated complaints and visitor logs.
-                            <br />
-                            This action cannot be undone.
-                        </p>
-                        <p>Do you really want to proceed with deleting <strong>{tenantToDeleteName}</strong>?</p>
-                        <div className="modal-actions">
-                            <button className="modal-button confirm" onClick={executeDelete}>Yes</button>
-                            <button className="modal-button cancel" onClick={cancelDelete}>No</button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {showMessage && (
-                <div className="modal-overlay">
-                    <div className={`modal-content ${messageType}`}>
-                        <h2>{messageType === 'success' ? 'Success!' : 'Error!'}</h2>
-                        <p>{messageText}</p>
-                        <div className="modal-actions">
-                            <button className="modal-button ok" onClick={closeMessage}>OK</button>
-                        </div>
-                    </div>
-                </div>
-            )}
-        </div>
-    );
+            );
 };
 
 export default ManageAccounts;

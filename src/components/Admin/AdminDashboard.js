@@ -10,16 +10,18 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div
-      className="admin-dashboard-container"
-      style={{
-        backgroundImage: "url('/Background/Background.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundColor: "#e0c23d"
-      }}
-    >
+    <div className="admin-dashboard-container">
+      {/* Background image behind bubbles */}
+      <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
+      {/* Bubble effect elements */}
+      <div className="bubble b1"></div>
+      <div className="bubble b2"></div>
+      <div className="bubble b3"></div>
+      <div className="bubble b4"></div>
+      <div className="bubble b5"></div>
+      <div className="bubble b6"></div>
+      <div className="bubble b7"></div>
+      <div className="bubble b8"></div>
       <div className="admin-dashboard-box">
         <h1>Admin Dashboard</h1>
         

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/Tenant/TenantRegister.css';
+import '../../css/Tenant/EditComplaints.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
@@ -123,17 +124,17 @@ const TenantRegister = () => {
     };
 
     return (
-        <div
-            className="tenant-register-container"
-            style={{
-                backgroundImage: "url('/Background/Background.jpg')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundColor: "#e0c23d",
-                minHeight: "100vh"
-            }}
-        >
+        <div className="tenant-register-container ec-home-container">
+
+            <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="ec-home-bg-image" />
+            <div className="ec-bubble b1"></div>
+            <div className="ec-bubble b2"></div>
+            <div className="ec-bubble b3"></div>
+            <div className="ec-bubble b4"></div>
+            <div className="ec-bubble b5"></div>
+            <div className="ec-bubble b6"></div>
+            <div className="ec-bubble b7"></div>
+            <div className="ec-bubble b8"></div>
             <div className="tenant-register-box">
                 <h2>Tenant Registration</h2>
                 {registrationError && <div className="error-message">{registrationError}</div>}

@@ -119,38 +119,31 @@ const AdminComplaints = () => {
     }
 
     return (
-        <div
-            className="admin-complaints-container"
-            style={{
-                backgroundImage: "url('/Background/Background.jpg')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundColor: "#e0c23d"
-            }}
-        >
+        <div className="admin-complaints-container" style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', width: '100vw', background: 'linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%)', animation: 'admin-dashboard-bg-move 12s ease-in-out infinite alternate' }}>
+            {/* Background image */}
+            <img src="/Background/GB.png" alt="Background" className="home-bg-image" />
+            {/* Bubbles */}
+            <div className="bubble b1" />
+            <div className="bubble b2" />
+            <div className="bubble b3" />
+            <div className="bubble b4" />
+            <div className="bubble b5" />
+            <div className="bubble b6" />
+            <div className="bubble b7" />
+            <div className="bubble b8" />
             <div className="admin-complaints-box">
                 <h1>Admin Complaints</h1>
-
                 <button className="back_to_dashboard_button" onClick={handleBack}>
                     <span style={{ fontSize: '1.5rem' }}>🏠</span> Back to Dashboard
                 </button>
-
                 <div className="complaints-nav">
-                    <button
-                        className="complaints-nav-button"
-                        onClick={() => toggleView(false)}
-                    >
+                    <button className="complaints-nav-button" onClick={() => toggleView(false)}>
                         Active Complaints
                     </button>
-                    <button
-                        className="complaints-nav-button"
-                        onClick={() => toggleView(true)}
-                    >
+                    <button className="complaints-nav-button" onClick={() => toggleView(true)}>
                         Complaints Log
                     </button>
                 </div>
-
                 {!showComplaintsLog && (
                     <div className="complaints-list">
                         <h2>Active Complaints</h2>
@@ -158,11 +151,7 @@ const AdminComplaints = () => {
                             <p>No active complaints.</p>
                         ) : (
                             activeComplaints.map((complaint) => (
-                                <div
-                                    key={complaint.complaint_id}
-                                    className="complaint-item"
-                                    onClick={() => handleToggleExpand(complaint.complaint_id)}
-                                >
+                                <div key={complaint.complaint_id} className="complaint-item" onClick={() => handleToggleExpand(complaint.complaint_id)}>
                                     <div className="complaint-summary">
                                         <p>
                                             <strong>{complaint.full_name}</strong> - Apartment {complaint.apartment_id} -{' '}
@@ -184,22 +173,10 @@ const AdminComplaints = () => {
                                                 />
                                             </div>
                                             <div className="complaint-actions">
-                                                <button
-                                                    className="mark_as_attended_button"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        showConfirmation(complaint.complaint_id, 'Attended');
-                                                    }}
-                                                >
+                                                <button className="mark_as_attended_button" onClick={(e) => { e.stopPropagation(); showConfirmation(complaint.complaint_id, 'Attended'); }}>
                                                     Mark as Attended
                                                 </button>
-                                                <button
-                                                    className="decline_complaint_button"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        showConfirmation(complaint.complaint_id, 'Declined');
-                                                    }}
-                                                >
+                                                <button className="decline_complaint_button" onClick={(e) => { e.stopPropagation(); showConfirmation(complaint.complaint_id, 'Declined'); }}>
                                                     Decline Complaint
                                                 </button>
                                             </div>
@@ -210,7 +187,6 @@ const AdminComplaints = () => {
                         )}
                     </div>
                 )}
-
                 {showComplaintsLog && (
                     <div className="complaints-log">
                         <h2>Complaints Log</h2>
@@ -218,13 +194,7 @@ const AdminComplaints = () => {
                             <p>No logged complaints yet.</p>
                         ) : (
                             complaintsLog.map((complaint) => (
-                                <div
-                                    key={complaint.complaint_id}
-                                    className="complaint-log-item"
-                                    onClick={() =>
-                                        setExpandedComplaint(expandedComplaint === complaint.complaint_id ? null : complaint.complaint_id)
-                                    }
-                                >
+                                <div key={complaint.complaint_id} className="complaint-log-item" onClick={() => setExpandedComplaint(expandedComplaint === complaint.complaint_id ? null : complaint.complaint_id)}>
                                     <p>
                                         <strong>{complaint.full_name}</strong> - Apartment {complaint.apartment_id} -{' '}
                                         {new Date(complaint.submitted_at).toLocaleDateString()} -{' '}
@@ -241,7 +211,6 @@ const AdminComplaints = () => {
                         )}
                     </div>
                 )}
-
                 {confirmation && (
                     <div className="confirmation-popup">
                         <p>{confirmation.message}</p>
