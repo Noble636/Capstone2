@@ -20,9 +20,9 @@ const ContactUs = () => {
         </div>
         <ul className="contactus-developer-list" style={{ marginTop: "10px", marginBottom: 0, paddingLeft: "20px" }}>
           <li style={{ marginBottom: "14px" }}>
-            <div className="contactus-developer-name"><span role="img" aria-label="person">🧑‍💻</span> John Nikko B. Arangorin</div>
+            <div className="contactus-developer-name"><span role="img" aria-label="person">🧑‍💻</span> Danyael Kaye C. Apil</div>
             <div className="contactus-developer-email">
-              <a href="mailto:nikkoarangorin004@gmail.com">nikkoarangorin004@gmail.com</a>
+              <a href="mailto:klmnopq1221@gmail.com">klmnopq1221@gmail.com</a>
             </div>
           </li>
           <li style={{ marginBottom: "14px" }}>
@@ -32,15 +32,21 @@ const ContactUs = () => {
             </div>
           </li>
           <li style={{ marginBottom: "14px" }}>
-            <div className="contactus-developer-name"><span role="img" aria-label="person">🧑‍💻</span> Danyael Kaye C. Apil</div>
+            <div className="contactus-developer-name"><span role="img" aria-label="person">🧑‍💻</span> Shane Salonga</div>
             <div className="contactus-developer-email">
-              <a href="mailto:klmnopq1221@gmail.com">klmnopq1221@gmail.com</a>
+              <a href="mailto:shanesalonga736@gmail.com">shanesalonga736@gmail.com</a>
             </div>
           </li>
-          <li>
+          <li style={{ marginBottom: "14px" }}>
             <div className="contactus-developer-name"><span role="img" aria-label="person">🧑‍💻</span> John Peter Gonzales</div>
             <div className="contactus-developer-email">
               <a href="mailto:pedromeh21@gmail.com">pedromeh21@gmail.com</a>
+            </div>
+          </li>
+          <li>
+            <div className="contactus-developer-name"><span role="img" aria-label="person">🧑‍💻</span> John Nikko B. Arangorin</div>
+            <div className="contactus-developer-email">
+              <a href="mailto:nikkoarangorin004@gmail.com">nikkoarangorin004@gmail.com</a>
             </div>
           </li>
         </ul>

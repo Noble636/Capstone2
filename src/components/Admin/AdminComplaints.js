@@ -120,32 +120,32 @@ const AdminComplaints = () => {
 
     return (
         <div className="admin-complaints-container" style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', width: '100vw', background: 'linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%)', animation: 'admin-dashboard-bg-move 12s ease-in-out infinite alternate' }}>
-            {/* Background image */}
-            <img src="/Background/GB.png" alt="Background" className="home-bg-image" />
-            {/* Bubbles */}
-            <div className="bubble b1" />
-            <div className="bubble b2" />
-            <div className="bubble b3" />
-            <div className="bubble b4" />
-            <div className="bubble b5" />
-            <div className="bubble b6" />
-            <div className="bubble b7" />
-            <div className="bubble b8" />
-            <div className="admin-complaints-box">
+              {/* Background image */}
+              <img src="/Background/GB.png" alt="Background" className="home-bg-image" style={{zIndex: 0}} />
+              {/* Bubbles */}
+              <div className="bubble b1" style={{zIndex: 0}} />
+              <div className="bubble b2" style={{zIndex: 0}} />
+              <div className="bubble b3" style={{zIndex: 0}} />
+              <div className="bubble b4" style={{zIndex: 0}} />
+              <div className="bubble b5" style={{zIndex: 0}} />
+              <div className="bubble b6" style={{zIndex: 0}} />
+              <div className="bubble b7" style={{zIndex: 0}} />
+              <div className="bubble b8" style={{zIndex: 0}} />
+              <div className="admin-complaints-box" style={{zIndex: 2, position: 'relative'}}>
                 <h1>Admin Complaints</h1>
                 <button className="back_to_dashboard_button" onClick={handleBack}>
                     <span style={{ fontSize: '1.5rem' }}>🏠</span> Back to Dashboard
                 </button>
                 <div className="complaints-nav">
-                    <button className="complaints-nav-button" onClick={() => toggleView(false)}>
-                        Active Complaints
-                    </button>
-                    <button className="complaints-nav-button" onClick={() => toggleView(true)}>
-                        Complaints Log
-                    </button>
+                        <button className="complaints-nav-button" onClick={() => toggleView(false)} style={{zIndex: 2}}>
+                            Active Complaints
+                        </button>
+                        <button className="complaints-nav-button" onClick={() => toggleView(true)} style={{zIndex: 2}}>
+                            Complaints Log
+                        </button>
                 </div>
                 {!showComplaintsLog && (
-                    <div className="complaints-list">
+                    <div className="complaints-list" style={{zIndex: 2, position: 'relative'}}>
                         <h2>Active Complaints</h2>
                         {activeComplaints.length === 0 ? (
                             <p>No active complaints.</p>
@@ -188,7 +188,7 @@ const AdminComplaints = () => {
                     </div>
                 )}
                 {showComplaintsLog && (
-                    <div className="complaints-log">
+                    <div className="complaints-log" style={{zIndex: 2, position: 'relative'}}>
                         <h2>Complaints Log</h2>
                         {complaintsLog.length === 0 ? (
                             <p>No logged complaints yet.</p>
@@ -212,7 +212,7 @@ const AdminComplaints = () => {
                     </div>
                 )}
                 {confirmation && (
-                    <div className="confirmation-popup">
+                    <div className="confirmation-popup" style={{zIndex: 3, position: 'relative'}}>
                         <p>{confirmation.message}</p>
                         <div className="confirmation-buttons">
                             <button onClick={confirmation.onConfirm} className="confirm-button">Yes</button>

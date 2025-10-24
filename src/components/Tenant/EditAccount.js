@@ -161,7 +161,7 @@ const EditAccount = () => {
     }
 
     return (
-        <div className="tenant-register-container ea-home-container">
+    <div className="tenant-register-container ea-home-container" style={{ position: 'relative', zIndex: 2 }}>
             {/* Background overlay and bubbles (scoped to Edit Account) */}
             <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="ea-home-bg-image" />
             <div className="ea-bubble b1"></div>
@@ -172,8 +172,8 @@ const EditAccount = () => {
             <div className="ea-bubble b6"></div>
             <div className="ea-bubble b7"></div>
             <div className="ea-bubble b8"></div>
-            <div className="edit-account-main-row">
-                <div className="tenant-register-box">
+            <div className="edit-account-main-row" style={{ position: 'relative', zIndex: 2 }}>
+                <div className="tenant-register-box" style={{ position: 'relative', zIndex: 2 }}>
                     <h2>Edit Account</h2>
                     <form onSubmit={handleUpdate} className="tenant-register-form">
                         <input
@@ -271,8 +271,8 @@ const EditAccount = () => {
                     </form>
                     <button onClick={handleCancel} className="cancel-register-button">Cancel</button>
                 </div>
-                <div className="account-preview-right">
-                    <div className="account-preview-box">
+                <div className="account-preview-right" style={{ position: 'relative', zIndex: 2 }}>
+                    <div className="account-preview-box" style={{ position: 'relative', zIndex: 2 }}>
                         <h3>Account Preview</h3>
                         <p><strong>Username:</strong> {username || <em>Not set</em>}</p>
                         <p><strong>Full Name:</strong> {fullName || <em>Not set</em>}</p>
@@ -282,7 +282,7 @@ const EditAccount = () => {
                         <p><strong>Emergency Contact Name:</strong> {emergencyContact || <em>Not set</em>}</p>
                         <p><strong>Emergency Contact Number:</strong> {emergencyContactNumber || <em>Not set</em>}</p>
                     </div>
-                    <div className="edit-account-note-box">
+                    <div className="edit-account-note-box" style={{ position: 'relative', zIndex: 2 }}>
                         <h4>Things you cannot edit:</h4>
                         <ul>
                             <li>
@@ -297,8 +297,8 @@ const EditAccount = () => {
             </div>
 
             {showMessage && (
-                <div className="modal-overlay">
-                    <div className={`modal-content ${messageType}`}>
+                <div className="modal-overlay" style={{ zIndex: 1002 }}>
+                    <div className={`modal-content ${messageType}`} style={{ position: 'relative', zIndex: 1003 }}>
                         <h2>{messageType === 'success' ? 'Success!' : 'Error!'}</h2>
                         <p>{messageText}</p>
                         <div className="modal-actions">

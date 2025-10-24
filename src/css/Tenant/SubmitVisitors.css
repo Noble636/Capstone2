@@ -64,11 +64,12 @@
     align-items: center;
     min-height: 100vh;
     text-align: center;
-    background-color: #e0c23d;
+    background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
     font-family: Arial, sans-serif;
     padding: 20px;
     box-sizing: border-box;
     position: relative;
+    z-index: 2;
 }
 
 .submit-visitor-page-container h1 {
@@ -80,6 +81,8 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     padding: 16px 32px;
     display: inline-block;
+    z-index: 2;
+    position: relative;
 }
 
 .submit-visitor-content-wrapper {
@@ -89,6 +92,8 @@
     gap: 30px;
     align-items: flex-start;
     margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
 }
 
 .submit-visitor-form-container {
@@ -101,6 +106,8 @@
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+    position: relative;
 }
 
 .submit-visitor-form-container input {
@@ -140,6 +147,8 @@
     font-size: 0.9rem;
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+    position: relative;
 }
 
 .submit-visitor-disclaimer p {
@@ -163,6 +172,8 @@
     justify-content: center;
     margin-top: 20px;
     width: 100%;
+    position: relative;
+    z-index: 2;
 }
 
 
@@ -183,6 +194,8 @@
     white-space: nowrap;
     min-width: 120px;
     justify-content: center;
+    z-index: 2;
+    position: relative;
 }
 
 .submit-visitor-home-button:hover {
@@ -277,7 +290,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 50;
+    z-index: 1002;
 }
 
 .submit-visitor-message-box > div {
@@ -286,6 +299,8 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
+    position: relative;
+    z-index: 1003;
 }
 
 .submit-visitor-message-box .text-2xl {

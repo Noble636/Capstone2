@@ -130,17 +130,19 @@ const AdminFPW = () => {
     };
 
     return (
-        <div
-            className="admin-fpw-container"
-            style={{
-                backgroundImage: "url('/Background/Background.jpg')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundColor: "#e0c23d"
-            }}
-        >
-            <div className="admin-fpw-box">
+        <div className="admin-fpw-container" style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', width: '100vw', background: 'linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%)', animation: 'admin-dashboard-bg-move 12s ease-in-out infinite alternate' }}>
+            {/* Background image */}
+            <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" style={{zIndex: 0}} />
+            {/* Bubbles */}
+            <div className="bubble b1" style={{zIndex: 0}} />
+            <div className="bubble b2" style={{zIndex: 0}} />
+            <div className="bubble b3" style={{zIndex: 0}} />
+            <div className="bubble b4" style={{zIndex: 0}} />
+            <div className="bubble b5" style={{zIndex: 0}} />
+            <div className="bubble b6" style={{zIndex: 0}} />
+            <div className="bubble b7" style={{zIndex: 0}} />
+            <div className="bubble b8" style={{zIndex: 0}} />
+            <div className="admin-fpw-box" style={{zIndex: 2, position: 'relative'}}>
                 <h2>Admin Forgot Password</h2>
                 {error && <div className="error-message">{error}</div>}
                 {message && <div className="success-message">{message}</div>}

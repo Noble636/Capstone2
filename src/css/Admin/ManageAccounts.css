@@ -65,6 +65,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 2;
+    position: relative;
 }
 
 .manage-accounts-box h1 {
@@ -102,6 +104,8 @@
 .tenant-list {
     margin-top: 20px;
     width: 100%;
+    z-index: 2;
+    position: relative;
 }
 
 .tenant-item {
@@ -112,6 +116,8 @@
     cursor: pointer;
     border: 2px solid #ddd;
     transition: background-color 0.3s;
+    z-index: 2;
+    position: relative;
 }
 
 .tenant-item:hover {
@@ -165,7 +171,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1002;
 }
 
 .modal-content {
