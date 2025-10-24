@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../css/Tenant/SubmitVisitors.css';
+// reuse Home background + bubble effects
+import '../../css/Home.css';
 
 const VisitorLogs = () => {
     const [tenantId, setTenantId] = useState(null);
     const [fullName, setFullName] = useState("");
     const [apartmentId, setApartmentId] = useState("");
     const [visitorName, setVisitorName] = useState("");
+    const [purposeOfVisit, setPurposeOfVisit] = useState("");
     const [visitDate, setVisitDate] = useState("");
     const [timeIn, setTimeIn] = useState("");
     const [showMessage, setShowMessage] = useState(false);
@@ -55,6 +58,7 @@ const VisitorLogs = () => {
             fullName: fullName,
             apartmentId: apartmentId,
             visitorNames: visitorName,
+            purpose: purposeOfVisit,
             visitDate: visitDate,
             timeIn: timeIn,
         });
@@ -64,12 +68,12 @@ const VisitorLogs = () => {
     const handleConfirmSubmit = async () => {
         setShowConfirmModal(false);
         try {
-            const response = await fetch('https://tenantportal-backend.onrender.com/api/tenant/submit-visitor', {
+                const response = await fetch('https://tenantportal-backend.onrender.com/api/tenant/submit-visitor', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(pendingVisitor),
+                    body: JSON.stringify(pendingVisitor),
             });
             const data = await response.json();
             if (response.ok) {
@@ -77,6 +81,7 @@ const VisitorLogs = () => {
                 setMessageType('success');
                 setShowMessage(true);
                 setVisitorName("");
+                    setPurposeOfVisit("");
                 const now = new Date();
                 const hh = String(now.getHours()).padStart(2, '0');
                 const min = String(now.getMinutes()).padStart(2, '0');
@@ -100,16 +105,17 @@ const VisitorLogs = () => {
     };
 
     return (
-        <div
-            className="submit-visitor-page-container"
-            style={{
-                backgroundImage: "url('/Background/Background.jpg')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundColor: "#e0c23d"
-            }}
-        >
+        <div className="submit-visitor-page-container home-container">
+            {/* Home background image and bubble effects */}
+            <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
+            <div className="bubble b1"></div>
+            <div className="bubble b2"></div>
+            <div className="bubble b3"></div>
+            <div className="bubble b4"></div>
+            <div className="bubble b5"></div>
+            <div className="bubble b6"></div>
+            <div className="bubble b7"></div>
+            <div className="bubble b8"></div>
             <h1>Visitor Logs</h1>
             <div className="submit-visitor-content-wrapper">
                 <form onSubmit={handleSubmit} className="submit-visitor-form-container">
@@ -124,6 +130,13 @@ const VisitorLogs = () => {
                         onChange={(e) => setVisitorName(e.target.value)}
                         placeholder="Visitor's Name/s (e.g., Name 1, Name 2)"
                         required
+                    />
+                    <input
+                        type="text"
+                        value={purposeOfVisit}
+                        onChange={(e) => setPurposeOfVisit(e.target.value)}
+                        placeholder="Purpose of Visit (e.g., Delivery, Guest, Maintenance)"
+                        className="submit-visitor-purpose-input"
                     />
                     <p className="visitor-name-disclaimer">Use commas for multiple names (e.g., Name 1, Name 2, Name 3)</p>
 

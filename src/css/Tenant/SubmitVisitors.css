@@ -112,6 +112,10 @@
     box-sizing: border-box;
 }
 
+.submit-visitor-purpose-input {
+    margin-top: 6px;
+}
+
 .submit-visitor-submit-button {
     padding: 12px 25px;
     background-color: #28a745;

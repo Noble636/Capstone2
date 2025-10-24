@@ -80,12 +80,14 @@ const AdminVisitorLogs = () => {
                                         <div className="admin-visitor-log-summary">
                                             <p><strong>Tenant Owner:</strong> {log.unit_owner_name}</p>
                                             <p><strong>Apartment Identification:</strong> {log.apartment_id}</p>
+                                            <p><strong>Purpose:</strong> {log.purpose ? log.purpose : '—'}</p>
                                             <p><strong>Date of Visit:</strong> {formatDate(log.visit_date)}</p>
                                             <p><strong>Time In:</strong> {log.time_in}</p>
                                         </div>
                                         {expandedLog === log.log_id && (
                                             <div className="admin-visitor-details">
                                                 <p><strong>Visitor(s):</strong> {log.visitor_names}</p>
+                                                {log.purpose && <p><strong>Purpose:</strong> {log.purpose}</p>}
                                             </div>
                                         )}
                                     </div>
