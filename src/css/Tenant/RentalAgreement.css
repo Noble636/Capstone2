@@ -1,3 +1,50 @@
+.rental-agreement-container {
+  scrollbar-width: thin;
+  scrollbar-color: #7c2ae8 #e0b0ff;
+  position: relative;
+  min-height: 100vh;
+  max-height: 100vh;
+  width: 100vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  padding: 40px;
+  box-sizing: border-box;
+  gap: 0;
+  background: linear-gradient(270deg, #e0b0ff, #b0e0ff, #ffe0b0, #b0ffe0);
+  background-size: 800% 800%;
+  animation: about-gradient-move 18s ease infinite;
+  scrollbar-width: thin;
+  scrollbar-color: #7c2ae8 #e0b0ff;
+}
+
+/* Chrome, Edge, Safari */
+.rental-agreement-container::-webkit-scrollbar {
+  width: 10px;
+  background: #e0b0ff;
+}
+.rental-agreement-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(270deg, #7c2ae8, #b0e0ff, #ffe0b0);
+  border-radius: 8px;
+  animation: scrollbar-thumb-anim 2.5s linear infinite alternate;
+}
+.rental-agreement-container::-webkit-scrollbar-track {
+  background: #e0b0ff;
+  border-radius: 8px;
+}
+
+@keyframes scrollbar-thumb-anim {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@keyframes about-gradient-move {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
 
 .rental-agreement-container {
   display: flex;
@@ -85,23 +132,32 @@
 }
 
 .rental-agreement-container .back-button {
-  text-decoration: none;
-  font-size: 1.3rem;
-  color: #7a4f13;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
   font-weight: bold;
-  padding: 12px 24px;
-  border-radius: 5px;
-  border: none;
-  background-color: #fff;
-  transition: color 0.3s, box-shadow 0.3s, transform 0.2s, background-color 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 2px solid #4e54c8;
+  border-radius: 16px;
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 12px #4e54c880;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.3s, background 0.3s, color 0.3s;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  background: transparent;
+  color: #4e54c8;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 1em 0.5em;
+  box-sizing: border-box;
 }
 
 .rental-agreement-container .back-button:hover {
+  background: linear-gradient(90deg, #8f94fb 0%, #4e54c8 100%);
   color: #fff;
-  background-color: #7a4f13;
-  box-shadow: 0 0 18px 4px #ebc61d, 0 2px 16px rgba(0,0,0,0.12);
-  transform: scale(1.05);
+  transform: scale(1.08);
+  box-shadow: 0 0 18px 4px #8f94fb80, 0 2px 16px rgba(0,0,0,0.12);
   outline: none;
 }
 

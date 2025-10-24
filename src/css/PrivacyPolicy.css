@@ -14,9 +14,53 @@
   font-family: Arial, sans-serif;
   box-sizing: border-box;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #e0c23d #ffe0b0;
+  position: relative;
+  min-height: 100vh;
+  max-height: 100vh;
+  width: 100vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  padding: 40px;
+  box-sizing: border-box;
+  gap: 0;
+  background: linear-gradient(270deg, #e0b0ff, #b0e0ff, #ffe0b0, #b0ffe0);
+  background-size: 800% 800%;
+  animation: about-gradient-move 18s ease infinite;
+  scrollbar-width: thin;
+  scrollbar-color: #7c2ae8 #e0b0ff;
 }
 
+/* Chrome, Edge, Safari */
+.privacy-policy-container::-webkit-scrollbar {
+  width: 10px;
+  background: #ffe0b0;
+}
+.privacy-policy-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(270deg, #e0c23d, #b0e0ff, #e0b0ff);
+  border-radius: 8px;
+  animation: privacy-scrollbar-thumb-anim 2.5s linear infinite alternate;
+}
+.privacy-policy-container::-webkit-scrollbar-track {
+  background: #ffe0b0;
+  border-radius: 8px;
+}
+
+@keyframes privacy-scrollbar-thumb-anim {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+ 
+@keyframes about-gradient-move {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
 .privacy-policy-container .privacy-policy-box {
   width: 100%;
   max-width: 800px;

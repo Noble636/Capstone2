@@ -1,6 +1,3 @@
-body {
-  overflow: hidden;
-}
 @media (max-width: 700px) {
   .home-content-wrapper {
     flex-direction: column;
