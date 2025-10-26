@@ -159,7 +159,6 @@ const EditComplaints = () => {
 
     return (
         <div className="edit-complaints-container ec-home-container">
-            {/* Background image and bubble effects (scoped to Edit Complaints) */}
             <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="ec-home-bg-image" />
             <div className="ec-bubble b1"></div>
             <div className="ec-bubble b2"></div>

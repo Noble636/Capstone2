@@ -6,7 +6,6 @@ const RentalInformation = () => {
   return (
     <div className="rental-info-container">
       <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="rental-bg-image" />
-      {/* Soda bubbles */}
       <div className="bubble b1"></div>
       <div className="bubble b2"></div>
       <div className="bubble b3"></div>

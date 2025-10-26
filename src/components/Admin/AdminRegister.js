@@ -88,9 +88,7 @@ const AdminRegister = () => {
 
     return (
         <div className="admin-register-container" style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', width: '100vw', background: 'linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%)', animation: 'admin-dashboard-bg-move 12s ease-in-out infinite alternate' }}>
-            {/* Background image */}
             <img src="/Background/GB.png" alt="Background" className="home-bg-image" />
-            {/* Bubbles */}
             <div className="bubble b1" />
             <div className="bubble b2" />
             <div className="bubble b3" />

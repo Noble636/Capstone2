@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/Tenant/TenantFPW.css';
-// use the same Home background + bubbles
 import '../../css/Home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -122,7 +121,6 @@ const TenantFPW = () => {
 
   return (
     <div className="tenant-fpw-container home-container">
-      {/* Home background image and bubble effects */}
       <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
       <div className="bubble b1"></div>
       <div className="bubble b2"></div>

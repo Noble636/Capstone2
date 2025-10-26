@@ -20,7 +20,6 @@
   scrollbar-color: #7c2ae8 #e0b0ff;
 }
 
-/* Chrome, Edge, Safari */
 .rental-agreement-container::-webkit-scrollbar {
   width: 10px;
   background: #e0b0ff;

@@ -41,10 +41,6 @@
     z-index: 2;
 }
 
-/* Make form box fully opaque white */
-/* Make form box solid white and above background */
-/* Make submit complaint box more prominent and above background */
-/* Guarantee solid white background under all form elements using a pseudo-element */
 .submit-complaint-form-container {
     display: flex;
     flex-direction: column;
@@ -77,8 +73,6 @@
     z-index: 1;
 }
 
-/* Make textarea and input backgrounds solid white and text dark for readability */
-/* Force textarea and input backgrounds to be fully opaque white */
 .submit-complaint-form-container textarea,
 .submit-complaint-form-container input {
     width: 100%;
@@ -117,8 +111,6 @@
     z-index: 2;
 }
 
-/* Make info box fully opaque white */
-/* Make info box solid white and above background */
 .tenant-info-box-right {
     background: #fff;
     padding: 15px;
@@ -140,8 +132,6 @@
     font-size: 1.1rem;
 }
 
-/* Make reminder box fully opaque white */
-/* Make reminder box solid white and above background */
 .submit-complaint-reminder-right {
     background: #fff;
     padding: 15px;
@@ -174,8 +164,6 @@
     margin-bottom: 8px;
 }
 
-/* Make actions box fully opaque white */
-/* Make actions box solid white and above background */
 .submit-complaint-actions-box {
     background: #fff;
     border-radius: 12px;

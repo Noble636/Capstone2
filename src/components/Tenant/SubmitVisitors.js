@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../css/Tenant/SubmitVisitors.css';
-// reuse Home background + bubble effects
 import '../../css/Home.css';
 
 const VisitorLogs = () => {
@@ -106,7 +105,6 @@ const VisitorLogs = () => {
 
     return (
         <div className="submit-visitor-page-container home-container">
-            {/* Home background image and bubble effects */}
             <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
             <div className="bubble b1"></div>
             <div className="bubble b2"></div>
@@ -180,7 +178,6 @@ const VisitorLogs = () => {
                 <div className="submit-visitor-message-box fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
                     <div className={`bg-white p-6 rounded-lg shadow-xl flex flex-col items-center ${messageType === 'success' ? 'text-green-600' : 'text-red-600'}`}>
                         <p className="text-2xl font-bold mb-4">{messageText}</p>
-                        {/* Removed the OK button */}
                     </div>
                 </div>
             )}

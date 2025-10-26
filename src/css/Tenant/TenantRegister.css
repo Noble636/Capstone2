@@ -29,7 +29,6 @@ html, body {
     align-items: flex-start !important;
     gap: 32px !important;
     padding: 40px;
-    /* allow page-specific background (ec-home-container) to show through */
     background: transparent;
     min-height: 100vh;
 }

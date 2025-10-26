@@ -1,4 +1,3 @@
-
 .rental-confirmation-container {
   display: flex;
   flex-direction: column;
@@ -23,8 +22,6 @@
   scrollbar-color: #7c2ae8 #e0b0ff;
 }
 
-  /* Chrome, Edge, Safari */
-/* Chrome, Edge, Safari */
 .rental-confirmation-container::-webkit-scrollbar {
   width: 10px;
   background: #e0b0ff;

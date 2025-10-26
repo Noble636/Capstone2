@@ -13,8 +13,6 @@ const ContactUs = () => {
           If you have questions about the program application please contact the following:
         </p>
 
-        {/* Apartment and owner info removed as requested */}
-
         <div className="contactus-developers-label" style={{ marginTop: "28px", display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span role="img" aria-label="team">👥</span> Developers:
         </div>

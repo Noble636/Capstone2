@@ -15,12 +15,12 @@ const EditAccount = () => {
     const [apartmentId, setApartmentId] = useState('');
     const [emergencyContact, setEmergencyContact] = useState('');
     const [emergencyContactNumber, setEmergencyContactNumber] = useState('');
-    const [currentPassword, setCurrentPassword] = useState(''); // New state for current password
+    const [currentPassword, setCurrentPassword] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const [confirmTouched, setConfirmTouched] = useState(false);
-    const [showCurrentPassword, setShowCurrentPassword] = useState(false); // Visibility for current password
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -162,7 +162,6 @@ const EditAccount = () => {
 
     return (
     <div className="tenant-register-container ea-home-container" style={{ position: 'relative', zIndex: 2 }}>
-            {/* Background overlay and bubbles (scoped to Edit Account) */}
             <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="ea-home-bg-image" />
             <div className="ea-bubble b1"></div>
             <div className="ea-bubble b2"></div>

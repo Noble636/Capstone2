@@ -7,7 +7,6 @@
     width: 100%;
 }
 
-/* Scoped Home-like background + bubble effects for Edit Account */
 .ea-home-container {
     min-height: 100vh;
     width: 100vw;
@@ -19,7 +18,7 @@
 }
 
 .ea-home-bg-image {
-    position: fixed; /* fixed so it stays visible while scrolling */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -332,7 +331,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 400px;      /* Match the width of .account-preview-box */
+    width: 400px;
     max-width: 100%;
 }
 

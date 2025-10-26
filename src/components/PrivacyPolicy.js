@@ -8,12 +8,10 @@ function PrivacyPolicy() {
 
   useEffect(() => {
     if (!boxRef.current) return;
-    // Reveal all elements on load
     const elements = boxRef.current.querySelectorAll('h1, h2, p, ul');
     elements.forEach(el => {
       el.classList.add('privacy-animate');
     });
-    // Optionally keep scroll animation for effect, but never remove .privacy-animate
     const reveal = () => {
       elements.forEach(el => {
         if (!el.classList.contains('privacy-animate')) {

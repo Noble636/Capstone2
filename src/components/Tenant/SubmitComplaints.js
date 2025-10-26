@@ -74,9 +74,7 @@ const SubmitComplaints = () => {
 
     return (
         <div className="submit-complaint-container">
-            {/* Background image overlay (matches Home) */}
             <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
-            {/* Bubble effect (matches Home) */}
             <div className="bubble b1"></div>
             <div className="bubble b2"></div>
             <div className="bubble b3"></div>

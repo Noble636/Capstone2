@@ -89,7 +89,7 @@
     border-radius: 12px;
   }
 
-  /* Bubbles: make smaller and less spread out */
+
   .bubble.b1, .bubble.b2, .bubble.b3, .bubble.b4, .bubble.b5, .bubble.b6, .bubble.b7, .bubble.b8 {
     left: auto;
     right: auto;
@@ -132,7 +132,6 @@
   z-index: 0;
 }
 
-/* Different sizes and left positions for variety */
 .bubble.b1 { width: 32px; height: 32px; left: 10vw; animation-delay: 0s; }
 .bubble.b2 { width: 18px; height: 18px; left: 25vw; animation-delay: 2s; }
 .bubble.b3 { width: 24px; height: 24px; left: 40vw; animation-delay: 1s; }

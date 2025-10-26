@@ -57,7 +57,6 @@ const ComplaintStatus = () => {
 
     return (
         <div className="complaint-status-container cs-home-container">
-            {/* Background overlay and bubble effects (scoped to Complaint Status) */}
             <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="cs-home-bg-image" />
             <div className="cs-bubble b1"></div>
             <div className="cs-bubble b2"></div>

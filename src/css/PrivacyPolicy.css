@@ -1,4 +1,3 @@
-
 .privacy-policy-we-do-not {
   color: #d32f2f;
   font-weight: bold;
@@ -35,8 +34,6 @@
   scrollbar-width: thin;
   scrollbar-color: #7c2ae8 #e0b0ff;
 }
-
-/* Chrome, Edge, Safari */
 .privacy-policy-container::-webkit-scrollbar {
   width: 10px;
   background: #ffe0b0;
@@ -76,8 +73,6 @@
   100% {background-position:0% 50%;}
 }
 
-/* Removed orphaned property block above. Use .privacy-policy-container .privacy-policy-box for styling. */
-
 @keyframes privacy-fade-in {
   0% {
     opacity: 0;
@@ -93,8 +88,6 @@
   }
 }
 
-/* Removed orphaned property block above. Use .privacy-policy-container .privacy-policy-box h1 for styling. */
-
 @keyframes privacy-slide-up {
   0% {
     opacity: 0;
@@ -107,13 +100,11 @@
 }
 
 .privacy-policy-container .privacy-policy-box h1::before {
-  content: "\1F512  "; /* lock emoji */
+  content: "\1F512  ";
   font-size: 2rem;
   vertical-align: middle;
   margin-right: 8px;
 }
-
-/* Removed orphaned property block above. Use .privacy-policy-container .privacy-policy-box h2 for styling. */
 
 @keyframes privacy-section-fade {
   0% {

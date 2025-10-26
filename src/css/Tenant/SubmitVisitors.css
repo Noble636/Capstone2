@@ -55,7 +55,6 @@
 .submit-visitor-cancel-btn:hover {
     background-color: #b52a37;
 }
-/* SubmitVisitors.css */
 
 .submit-visitor-page-container {
     display: flex;
@@ -282,7 +281,6 @@
   }
 }
 
-/* Styles for the popup message */
 .submit-visitor-message-box {
     position: fixed;
     inset: 0;

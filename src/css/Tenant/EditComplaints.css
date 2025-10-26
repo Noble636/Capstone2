@@ -1,14 +1,10 @@
-/* EditComplaints.css */
-
-/* Home-like background and bubble effects scoped for Edit Complaints only */
 .ec-home-container {
-    /* provide Home-like gradient background and stacking for the background effects */
     min-height: 100vh;
     width: 100vw;
-    display: block; /* keep container layout intact */
+    display: block;
     overflow: hidden;
     position: relative;
-    z-index: 0; /* background layer */
+    z-index: 0;
     background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
     animation: ec-home-bg-move 12s ease-in-out infinite alternate;
 }
@@ -55,14 +51,13 @@
     100% {background-position: 100% 50%;}
 }
 
-/* Ensure the main content sits above background/bubbles */
 .edit-complaints-container {
     position: relative;
     z-index: 2;
 }
 
 .edit-complaints-container {
-    background-color: transparent; /* allow background image and effects to show through */
+    background-color: transparent;
     min-height: 100vh;
     padding: 30px;
     font-family: Arial, sans-serif;
@@ -272,17 +267,17 @@
 
 .edit-complaint-message-box > div {
     background-color: white;
-    padding: 20px; /* Reduced horizontal padding */
+    padding: 20px;
     padding-top: 15px;
     padding-bottom: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
     display: flex;
-    flex-direction: column; /* Ensure items stack vertically */
-    align-items: center; /* Center items horizontally */
-    width: 90%; /* Adjust width if needed */
-    max-width: 400px; /* Set a maximum width for the box */
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 400px;
     position: relative;
     z-index: 1003;
 }
@@ -290,28 +285,28 @@
 .confirm-edit-header {
     width: 100%;
     text-align: center;
-    margin-bottom: 10px; /* Add some space below the header */
+    margin-bottom: 10px;
 }
 
 .confirm-edit-title {
     font-size: 1.25rem;
     font-weight: bold;
     color: #333;
-    margin-bottom: 0; /* Remove default margin below title */
+    margin-bottom: 0;
 }
 
 .edit-complaint-message-box .text-lg {
     font-size: 1rem;
     color: #555;
     margin-bottom: 15px;
-    text-align: center; /* Center the confirmation message */
+    text-align: center;
 }
 
 .edit-complaint-message-box .flex {
     display: flex;
     gap: 10px;
     justify-content: center;
-    width: 100%; /* Make buttons take full width of inner container */
+    width: 100%;
 }
 
 .edit-complaint-message-box button {
