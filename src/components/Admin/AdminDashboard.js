@@ -33,6 +33,9 @@ const AdminDashboard = () => {
           <Link to="/admin-manage-accounts" className="admin-dashboard-button">
             Manage Tenant Accounts
           </Link>
+          <Link to="/admin-edit-account" className="admin-dashboard-button">
+            Edit Account
+          </Link>
         </div>
         
         <button onClick={handleLogout} className="admin-dashboard-logout-button">
