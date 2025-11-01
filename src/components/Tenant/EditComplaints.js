@@ -9,6 +9,7 @@ const EditComplaints = () => {
     const [complaints, setComplaints] = useState([]);
     const [selectedComplaint, setSelectedComplaint] = useState(null);
     const [updatedComplaintText, setUpdatedComplaintText] = useState('');
+    const [updatedFiles, setUpdatedFiles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -87,6 +88,7 @@ const EditComplaints = () => {
         if (complaint.status === 'Pending' || complaint.status === null) {
             setSelectedComplaint(complaint);
             setUpdatedComplaintText(complaint.complaint_text);
+            setUpdatedFiles([]);
         } else {
             alert(`This complaint has been ${complaint.status} by admin and cannot be edited.`);
             setSelectedComplaint(null);
@@ -110,13 +112,24 @@ const EditComplaints = () => {
 
         if (confirmed) {
             try {
-                const response = await fetch(`https://tenantportal-backend.onrender.com/api/tenant/complaints/${selectedComplaint.complaint_id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ complaintText: updatedComplaintText }),
-                });
+                let response;
+                // If new files were selected, send multipart/form-data
+                if (updatedFiles && updatedFiles.length > 0) {
+                    const formData = new FormData();
+                    formData.append('complaintText', updatedComplaintText);
+                    updatedFiles.slice(0, 3).forEach((file) => formData.append('images', file));
+
+                    response = await fetch(`https://tenantportal-backend.onrender.com/api/tenant/complaints/${selectedComplaint.complaint_id}`, {
+                        method: 'PUT',
+                        body: formData,
+                    });
+                } else {
+                    response = await fetch(`https://tenantportal-backend.onrender.com/api/tenant/complaints/${selectedComplaint.complaint_id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ complaintText: updatedComplaintText }),
+                    });
+                }
 
                 if (response.ok) {
                     setShowSuccessMessage(true);
@@ -124,6 +137,7 @@ const EditComplaints = () => {
                         setShowSuccessMessage(false);
                         setSelectedComplaint(null);
                         setUpdatedComplaintText('');
+                        setUpdatedFiles([]);
                         fetchTenantComplaints(tenantId);
                     }, 2000);
                 } else {
@@ -228,6 +242,19 @@ const EditComplaints = () => {
                                 value={updatedComplaintText}
                                 onChange={(e) => setUpdatedComplaintText(e.target.value)}
                             />
+                            <div style={{ marginTop: '8px' }}>
+                                <p><strong>Current Images:</strong></p>
+                                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                                    {(selectedComplaint.images || []).length === 0 && <span>No images attached.</span>}
+                                    {(selectedComplaint.images || []).map((img) => (
+                                        <img key={img.image_id} src={img.dataUri} alt={img.filename || 'complaint-image'} style={{ width: 100, height: 100, objectFit: 'cover', borderRadius: 6 }} />
+                                    ))}
+                                </div>
+                                <label style={{ display: 'block', marginTop: '8px' }}>
+                                    Replace images (optional, up to 3):
+                                    <input type="file" accept="image/*" multiple onChange={(e) => setUpdatedFiles(Array.from(e.target.files || []).slice(0,3))} />
+                                </label>
+                            </div>
                             <div className="edit-actions">
                                 <button onClick={handleConfirmEdit}>Update Complaint</button>
                                 <button onClick={handleCancelEdit}>Cancel</button>

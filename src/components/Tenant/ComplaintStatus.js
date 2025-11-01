@@ -107,6 +107,13 @@ const ComplaintStatus = () => {
                                     <p>
                                         <strong>Complaint:</strong> {complaint.complaint_text}
                                     </p>
+                                    {(complaint.images || []).length > 0 && (
+                                        <div style={{ display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap' }}>
+                                            {(complaint.images || []).map((img) => (
+                                                <img key={img.image_id} src={img.dataUri} alt={img.filename || 'img'} style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 6 }} />
+                                            ))}
+                                        </div>
+                                    )}
                                     <p>
                                         <strong>Admin Message:</strong> {complaint.admin_message || 'No message provided yet.'}
                                     </p>

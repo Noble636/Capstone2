@@ -8,6 +8,7 @@ const SubmitComplaints = () => {
     const [apartmentId, setApartmentId] = useState("");
     const [complaint, setComplaint] = useState("");
     const [date, setDate] = useState("");
+    const [images, setImages] = useState([]);
     const [showMessage, setShowMessage] = useState(false);
 
     useEffect(() => {
@@ -39,27 +40,31 @@ const SubmitComplaints = () => {
         }
 
         try {
+            const formData = new FormData();
+            formData.append('tenantId', parseInt(tenantId));
+            formData.append('complaint', complaint);
+            formData.append('date', date);
+            // append up to 3 images
+            if (images && images.length > 0) {
+                images.slice(0, 3).forEach((file) => {
+                    formData.append('images', file);
+                });
+            }
+
             const response = await fetch('https://tenantportal-backend.onrender.com/api/tenant/submit-complaint', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    tenantId: parseInt(tenantId),
-                    complaint: complaint,
-                    date: date,
-                }),
+                body: formData,
             });
 
-            console.log("Response:", response);
             const data = await response.json();
-            console.log("Response Data:", data);
+            console.log('Response Data:', data);
 
             if (response.ok) {
                 setShowMessage(true);
                 setTimeout(() => {
-                    setComplaint("");
-                    setDate("");
+                    setComplaint('');
+                    setDate('');
+                    setImages([]);
                     setShowMessage(false);
                 }, 2000);
             } else {
@@ -93,6 +98,19 @@ const SubmitComplaints = () => {
                         rows="6"
                         required
                     />
+                    <label style={{ marginTop: '8px' }}>
+                        Attach images (optional, up to 3):
+                        <input
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={(e) => {
+                                const files = Array.from(e.target.files || []);
+                                // limit to 3 files
+                                setImages(files.slice(0, 3));
+                            }}
+                        />
+                    </label>
                     <input
                         type="date"
                         value={date}

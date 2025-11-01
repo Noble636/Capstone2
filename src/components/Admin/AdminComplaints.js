@@ -159,6 +159,13 @@ const AdminComplaints = () => {
                                     {expandedComplaint === complaint.complaint_id && (
                                         <div className="complaint-details" onClick={(e) => e.stopPropagation()}>
                                             <p><strong>Complaint:</strong> {complaint.complaint_text}</p>
+                                            {(complaint.images || []).length > 0 && (
+                                                <div style={{ display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap' }}>
+                                                    {(complaint.images || []).map((img) => (
+                                                        <img key={img.image_id} src={img.dataUri} alt={img.filename || 'img'} style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 6 }} />
+                                                    ))}
+                                                </div>
+                                            )}
                                             <div className="message-container">
                                                 <textarea
                                                     id={`message-${complaint.complaint_id}`}
@@ -201,6 +208,13 @@ const AdminComplaints = () => {
                                     {expandedComplaint === complaint.complaint_id && (
                                         <>
                                             <p><strong>Complaint:</strong> {complaint.complaint_text}</p>
+                                            {(complaint.images || []).length > 0 && (
+                                                <div style={{ display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap' }}>
+                                                    {(complaint.images || []).map((img) => (
+                                                        <img key={img.image_id} src={img.dataUri} alt={img.filename || 'img'} style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 6 }} />
+                                                    ))}
+                                                </div>
+                                            )}
                                             <p><strong>Message:</strong> {complaint.admin_message || 'No message provided.'}</p>
                                         </>
                                     )}
