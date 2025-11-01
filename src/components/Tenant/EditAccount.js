@@ -104,9 +104,16 @@ const EditAccount = () => {
             emergencyContactNumber,
         };
 
+        // If user provided a new password, include password change fields
         if (password) {
             updateData.currentPassword = currentPassword;
             updateData.newPassword = password;
+        }
+
+        // If username changed, include currentPassword so backend can verify the change
+        if (username && username !== initialUsername) {
+            // ensure currentPassword is sent (may be blank if user didn't type it — server will reject)
+            updateData.currentPassword = currentPassword;
         }
 
         try {
@@ -200,7 +207,7 @@ const EditAccount = () => {
                                 type={showCurrentPassword ? 'text' : 'password'}
                                 value={currentPassword}
                                 onChange={(e) => setCurrentPassword(e.target.value)}
-                                placeholder="Current Password (Required to change password)"
+                                placeholder="Current Password (Required to change username or password)"
                             />
                             <span
                                 className="password-toggle-icon"
@@ -296,9 +303,10 @@ const EditAccount = () => {
                         <p><strong>Emergency Contact Number:</strong> {emergencyContactNumber || <em>Not set</em>}</p>
                     </div>
                     <div className="edit-account-note-box" style={{ position: 'relative', zIndex: 2 }}>
-                        <p style={{ marginTop: "12px" }}>
-                            <strong>Note:</strong> Please make sure the details you input here are updated and accurate, because this will be used by the admin for identification and communication purposes. Changing your username requires entering your current password to confirm the change.
-                        </p>
+                        <ul style={{ marginTop: "12px", textAlign: 'left', paddingLeft: '1.1rem' }}>
+                            <li><strong>Note:</strong> Please make sure the details you input here are updated and accurate, because this will be used by the admin for identification and communication purposes.</li>
+                            <li>Changing your username requires entering your current password to confirm the change.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
