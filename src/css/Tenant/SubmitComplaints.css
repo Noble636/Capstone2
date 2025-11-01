@@ -13,6 +13,8 @@
     box-sizing: border-box;
     position: relative;
     z-index: 2;
+    width: 100vw; /* match Home/Edit container sizing */
+    overflow: hidden; /* clip decorative bubbles so underlying background doesn't show */
 }
 @keyframes home-bg-move {
     0% {background-position: 0% 50%;}
