@@ -192,8 +192,8 @@ const EditAccount = () => {
                         <input
                             type="text"
                             value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                             placeholder="Username"
-                            disabled
                         />
                         <div className="password-input-container">
                             <input
