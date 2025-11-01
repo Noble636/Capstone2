@@ -28,6 +28,20 @@ const SubmitComplaints = () => {
         }
     }, []);
 
+    // Apply a page-scoped body background so the page-level background
+    // image and tint don't reveal other site background colors (fixes
+    // the yellow band seen on some viewports). Clean up on unmount.
+    useEffect(() => {
+        const prevBackground = document.body.style.background || '';
+        const prevBackgroundAttachment = document.body.style.backgroundAttachment || '';
+        document.body.style.background = 'linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%)';
+        document.body.style.backgroundAttachment = 'fixed';
+        return () => {
+            document.body.style.background = prevBackground;
+            document.body.style.backgroundAttachment = prevBackgroundAttachment;
+        };
+    }, []);
+
     // create and cleanup object URLs for previews
     useEffect(() => {
         // revoke old URLs
