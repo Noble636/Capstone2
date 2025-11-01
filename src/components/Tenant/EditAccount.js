@@ -303,8 +303,9 @@ const EditAccount = () => {
                         <p><strong>Emergency Contact Number:</strong> {emergencyContactNumber || <em>Not set</em>}</p>
                     </div>
                     <div className="edit-account-note-box" style={{ position: 'relative', zIndex: 2 }}>
-                        <ul style={{ marginTop: "12px", textAlign: 'left', paddingLeft: '1.1rem' }}>
-                            <li><strong>Note:</strong> Please make sure the details you input here are updated and accurate, because this will be used by the admin for identification and communication purposes.</li>
+                        <p style={{ marginTop: "12px", marginBottom: '8px' }}><strong>Note</strong></p>
+                        <ul style={{ textAlign: 'left', paddingLeft: '1.1rem', marginTop: 0 }}>
+                            <li>Please make sure the details you input here are updated and accurate, because this will be used by the admin for identification and communication purposes.</li>
                             <li>Changing your username requires entering your current password to confirm the change.</li>
                         </ul>
                     </div>
