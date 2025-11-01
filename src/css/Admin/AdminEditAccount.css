@@ -93,8 +93,9 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
-  /* default right padding for inputs; password containers add extra padding where needed */
-  padding-right: 12px;
+  /* give all inputs equal right padding so they appear visually even (space for floating icons)
+     this keeps outer box widths identical while allowing the icon to float on top */
+  padding-right: 48px;
 }
 
 .admin-edit-form button {
@@ -133,12 +134,12 @@
 .admin-edit-note-box { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 14px 18px; width: 100%; }
 
 .password-input-container { position: relative; width: 100%; margin-bottom: 12px; }
-.password-input-container input { width: 100%; box-sizing: border-box; padding-right: 44px; }
+.password-input-container input { width: 100%; box-sizing: border-box; }
 .password-toggle-icon {
   position: absolute;
   top: 50%;
   /* float inside the input; smaller offset so it visually sits inside without a white box */
-  right: 12px;
+  right: 16px;
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 1.05rem;
