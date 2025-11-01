@@ -7,6 +7,14 @@
   width: 100%;
 }
 
+/* match Home background so the look is consistent */
+.admin-edit-container {
+  background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
+  animation: home-bg-move 12s ease-in-out infinite alternate;
+  overflow: hidden;
+  position: relative;
+}
+
 .admin-edit-bg-image {
   position: fixed;
   top: 0;
@@ -14,8 +22,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* reduce tint so background is less yellow */
-  opacity: 0.12;
+  /* match Home opacity */
+  opacity: 0.25;
   z-index: 0;
   pointer-events: none;
 }
@@ -125,7 +133,7 @@
 .admin-edit-note-box { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 14px 18px; width: 100%; }
 
 .password-input-container { position: relative; width: 100%; margin-bottom: 12px; }
-.password-input-container input { width: 100%; box-sizing: border-box; }
+.password-input-container input { width: 100%; box-sizing: border-box; padding-right: 44px; }
 .password-toggle-icon { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); cursor: pointer; font-size: 1.1rem; color: #777; }
 
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display:flex; justify-content:center; align-items:center; z-index:1000; }

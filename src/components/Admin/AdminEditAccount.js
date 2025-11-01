@@ -196,6 +196,7 @@ const AdminEditAccount = () => {
           <div className="account-preview-box">
             <h3>Account Preview</h3>
             <p><strong>Username:</strong> {username || <em>Not set</em>}</p>
+            <p><strong>Full Name:</strong> {fullName || <em>Not set</em>}</p>
             <p><strong>Email:</strong> {email || <em>Not set</em>}</p>
           </div>
 
