@@ -225,7 +225,7 @@ const AdminComplaints = () => {
                     </div>
                 )}
                 {confirmation && (
-                    <div className="confirmation-popup" style={{zIndex: 3, position: 'relative'}}>
+                    <div className="confirmation-popup">
                         <p>{confirmation.message}</p>
                         <div className="confirmation-buttons">
                             <button onClick={confirmation.onConfirm} className="confirm-button">Yes</button>
