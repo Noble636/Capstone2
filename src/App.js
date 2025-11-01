@@ -11,6 +11,7 @@ import AdminDashboard from './components/Admin/AdminDashboard';
 import AdminComplaints from './components/Admin/AdminComplaints';
 import AdminVisitorLogs from './components/Admin/AdminVisitorLogs';
 import ManageAccounts from './components/Admin/ManageAccounts';
+import AdminEditAccount from './components/Admin/AdminEditAccount';
 import AdminRegister from './components/Admin/AdminRegister';
 import AdminFPW from './components/Admin/AdminFPW';
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="/admin-complaints" element={<AdminComplaints />} />
         <Route path="/admin-visitors" element={<AdminVisitorLogs />} />
         <Route path="/admin-manage-accounts" element={<ManageAccounts />} />
+  <Route path="/admin-edit-account" element={<AdminEditAccount />} />
         <Route path="/admin-register" element={<AdminRegister />} />
         <Route path="/admin-forgot-password" element={<AdminFPW />} />
         <Route path="/tenant-login" element={<TenantLogin />} />
