@@ -38,6 +38,13 @@ const AdminLogin = () => {
             if (response.ok) {
                 setIsLoggedIn(true);
                 setMessage(data.message);
+                // store admin id and name so admin edit page can read it
+                if (data.adminId) {
+                    localStorage.setItem('adminId', data.adminId);
+                }
+                if (data.fullName) {
+                    localStorage.setItem('fullName', data.fullName);
+                }
                 setUsername('');
                 setPassword('');
                 setTimeout(() => {
