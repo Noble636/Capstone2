@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import '../../css/Admin/AdminDashboard.css';
 import '../../css/Admin/AdminEditAccount.css';
 
@@ -20,15 +20,21 @@ const AdminEditAccount = () => {
   const [messageType, setMessageType] = useState('');
 
   useEffect(() => {
-    const storedAdminId = localStorage.getItem('adminId');
+    const location = useLocation();
+    // Try to read adminId from multiple possible sources: localStorage, sessionStorage,
+    // URL query param (?adminId=), or navigation state (location.state.adminId).
+    const queryParams = new URLSearchParams(window.location.search || (location && location.search) || '');
+    const paramAdminId = queryParams.get('adminId');
+    const navStateAdminId = (location && location.state && location.state.adminId) ? location.state.adminId : null;
+    const storedAdminId = localStorage.getItem('adminId') || sessionStorage.getItem('adminId') || paramAdminId || navStateAdminId;
+
     if (storedAdminId) {
       setAdminId(storedAdminId);
       fetchAdminData(storedAdminId);
     } else {
+      // If adminId is not available, redirect to admin login so the user can sign in.
       setLoading(false);
-      setMessageText('Admin ID not found. Please log in.');
-      setMessageType('error');
-      setShowMessage(true);
+      navigate('/admin-login');
     }
   }, []);
 
