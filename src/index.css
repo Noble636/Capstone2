@@ -7,6 +7,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Ensure a consistent animated gradient background across all pages
+   so the fixed background image can be used without revealing
+   other page-level background colors when scrolling. */
+html, body {
+  height: 100%;
+  background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
