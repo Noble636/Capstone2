@@ -28,20 +28,6 @@ const SubmitComplaints = () => {
         }
     }, []);
 
-    // Apply a page-scoped body background so the page-level background
-    // image and tint don't reveal other site background colors (fixes
-    // the yellow band seen on some viewports). Clean up on unmount.
-    useEffect(() => {
-        const prevBackground = document.body.style.background || '';
-        const prevBackgroundAttachment = document.body.style.backgroundAttachment || '';
-        document.body.style.background = 'linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%)';
-        document.body.style.backgroundAttachment = 'fixed';
-        return () => {
-            document.body.style.background = prevBackground;
-            document.body.style.backgroundAttachment = prevBackgroundAttachment;
-        };
-    }, []);
-
     // create and cleanup object URLs for previews
     useEffect(() => {
         // revoke old URLs
@@ -105,15 +91,9 @@ const SubmitComplaints = () => {
         }
     };
 
-    const bgStyle = {
-        backgroundImage: `linear-gradient(120deg, rgba(255,179,71,0.22) 0%, rgba(255,154,158,0.18) 40%, rgba(250,208,196,0.14) 70%, rgba(176,132,204,0.18) 100%), url(${process.env.PUBLIC_URL + '/Background/GB.png'})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundAttachment: 'fixed',
-    };
-
     return (
-    <div className="submit-complaint-container" style={bgStyle}>
+    <div className="submit-complaint-container">
+            <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
             <div className="bubble b1"></div>
             <div className="bubble b2"></div>
             <div className="bubble b3"></div>
