@@ -14,7 +14,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.25;
+  /* reduce tint so background is less yellow */
+  opacity: 0.12;
   z-index: 0;
   pointer-events: none;
 }
@@ -66,7 +67,8 @@
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 420px;
+  /* widen the form so password inputs and icons fit neatly */
+  max-width: 480px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -83,6 +85,8 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
+  /* extra right padding so the eye icon sits comfortably inside the input */
+  padding-right: 44px;
 }
 
 .admin-edit-form button {
@@ -121,8 +125,8 @@
 .admin-edit-note-box { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 14px 18px; width: 100%; }
 
 .password-input-container { position: relative; width: 100%; margin-bottom: 12px; }
-.password-input-container input { padding-right: 40px; }
-.password-toggle-icon { position: absolute; top: 50%; right: 10px; transform: translateY(-50%); cursor: pointer; font-size: 1.1rem; color: #777; }
+.password-input-container input { width: 100%; box-sizing: border-box; }
+.password-toggle-icon { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); cursor: pointer; font-size: 1.1rem; color: #777; }
 
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display:flex; justify-content:center; align-items:center; z-index:1000; }
 .modal-content { background: white; padding: 20px; border-radius:8px; width: 90%; max-width: 420px; }

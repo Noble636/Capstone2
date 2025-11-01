@@ -10,6 +10,7 @@ const AdminEditAccount = () => {
   const [adminId, setAdminId] = useState(null);
   const [username, setUsername] = useState('');
   const [initialUsername, setInitialUsername] = useState('');
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -44,6 +45,7 @@ const AdminEditAccount = () => {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       setUsername(data.username || '');
+      setFullName(data.full_name || '');
       setInitialUsername(data.username || '');
       setEmail(data.email || '');
     } catch (e) {
@@ -76,7 +78,8 @@ const AdminEditAccount = () => {
       return;
     }
 
-    const updateData = { username, email };
+    // fullName is required by the backend for admin updates
+    const updateData = { username, fullName, email };
     if (passwordChanging) {
       updateData.currentPassword = currentPassword;
       updateData.newPassword = newPassword;
@@ -140,9 +143,13 @@ const AdminEditAccount = () => {
 
       <div className="admin-edit-main-row">
         <div className="admin-edit-box">
-          <h2>Edit Admin Account</h2>
+            <h2>Edit Admin Account</h2>
           <form onSubmit={handleUpdate} className="admin-edit-form">
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
+
+            <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Full Name" required />
+
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
 
             <div className="password-input-container">
               <input
@@ -179,8 +186,6 @@ const AdminEditAccount = () => {
                 <FontAwesomeIcon icon={showConfirmPassword ? faEye : faEyeSlash} />
               </span>
             </div>
-
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
 
             <button type="submit">Update</button>
           </form>
