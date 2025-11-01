@@ -35,8 +35,11 @@ const AdminDashboard = () => {
           <Link to="/admin-manage-accounts" className="admin-dashboard-button">
             Manage Tenant Accounts
           </Link>
-          <Link to="/admin-edit-account" className="admin-dashboard-button">
+          <Link to="/admin-edit-account" className="home-animated-btn">
             Edit Account
+          </Link>
+          <Link to="/admin-edit-rental" className="home-animated-btn">
+            Edit Rental Information
           </Link>
         </div>
         

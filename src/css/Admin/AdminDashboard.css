@@ -81,6 +81,24 @@
   z-index: 2;
 }
 
+/* reuse tenant blue animated button style for admin nav buttons */
+.admin-dashboard-nav .home-animated-btn {
+  width: 200px;
+  display: inline-block;
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: #fff;
+  background: linear-gradient(90deg, #8f94fb 0%, #4e54c8 100%);
+  box-shadow: 0 4px 24px 0 rgba(76,0,130,0.35), 0 2px 12px #4e54c880;
+  font-weight: 700;
+  text-decoration: none;
+}
+.admin-dashboard-nav .home-animated-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 18px 4px #8f94fb80, 0 2px 16px rgba(0,0,0,0.12);
+}
+
 .admin-dashboard-button {
   text-decoration: none;
   font-size: 1.2rem;

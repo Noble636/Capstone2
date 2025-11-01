@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import '../../css/Tenant/RentalConfirmation.css';
 
 const RentalConfirmation = () => {
+  const stored = typeof window !== 'undefined' ? localStorage.getItem('rentalConfirmationHtml') : null;
+  if (stored) {
+    return <div className="rental-confirmation-container" dangerouslySetInnerHTML={{ __html: stored }} />;
+  }
+
   return (
     <div className="rental-confirmation-container">
       <h1>RENTAL CONFIRMATION STATEMENT</h1>

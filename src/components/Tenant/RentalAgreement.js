@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import '../../css/Tenant/RentalAgreement.css';
 
 const RentalAgreement = () => {
+  const stored = typeof window !== 'undefined' ? localStorage.getItem('rentalAgreementHtml') : null;
+  if (stored) {
+    return <div className="rental-agreement-container" dangerouslySetInnerHTML={{ __html: stored }} />;
+  }
+
   return (
     <div className="rental-agreement-container">
       <h1 className="agreement-title">RENTAL AGREEMENT</h1>
