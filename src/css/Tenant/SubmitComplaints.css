@@ -5,8 +5,9 @@
     align-items: center;
     min-height: 100vh;
     text-align: center;
-    /* keep container transparent so the page-level <img> shows through */
-    background: transparent;
+    /* match Home page gradient so tint/colour matches other pages */
+    background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
+    animation: home-bg-move 12s ease-in-out infinite alternate;
     font-family: 'Arial', sans-serif;
     padding: 20px;
     box-sizing: border-box;
