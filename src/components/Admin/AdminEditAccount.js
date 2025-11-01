@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../../css/Admin/AdminDashboard.css';
 import '../../css/Admin/AdminEditAccount.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const AdminEditAccount = () => {
   const navigate = useNavigate();
@@ -13,6 +15,10 @@ const AdminEditAccount = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
@@ -62,6 +68,13 @@ const AdminEditAccount = () => {
     e.preventDefault();
 
     // if changing password, require currentPassword
+    if ((newPassword || confirmPassword) && !currentPassword) {
+      setMessageText('Please enter your current password to update password or username.');
+      setMessageType('error');
+      setShowMessage(true);
+      return;
+    }
+
     if (newPassword && newPassword !== confirmPassword) {
       setMessageText('New passwords do not match.');
       setMessageType('error');
@@ -105,7 +118,7 @@ const AdminEditAccount = () => {
         return;
       }
 
-      setMessageText(data.message || 'Account updated successfully!');
+  setMessageText(data.message || 'Account updated successfully!');
       setMessageType('success');
       setShowMessage(true);
       setCurrentPassword('');
@@ -149,22 +162,39 @@ const AdminEditAccount = () => {
       <div className="bubble b7"></div>
       <div className="bubble b8"></div>
 
-      <div className="admin-dashboard-box" style={{ maxWidth: 900 }}>
+      <div className="admin-dashboard-box" style={{ maxWidth: 980 }}>
         <h1>Edit Admin Account</h1>
-        <form onSubmit={handleUpdate} style={{ width: '100%', maxWidth: 600 }}>
+        <form onSubmit={handleUpdate} style={{ width: '100%', maxWidth: 640 }}>
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-          <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Full name" />
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+          <div className="password-input-container">
+            <input type={showCurrentPassword ? 'text' : 'password'} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} placeholder="Current Password (Required to change username or password)" />
+            <span className="password-toggle-icon" onClick={() => setShowCurrentPassword(!showCurrentPassword)}>
+              <FontAwesomeIcon icon={showCurrentPassword ? faEyeSlash : faEye} />
+            </span>
+          </div>
 
-          <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} placeholder="Current Password (required to change username or password)" />
-          <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="New Password (optional)" />
-          <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm New Password" />
+          <div className="password-input-container">
+            <input type={showNewPassword ? 'text' : 'password'} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="New Password (Optional)" />
+            <span className="password-toggle-icon" onClick={() => setShowNewPassword(!showNewPassword)}>
+              <FontAwesomeIcon icon={showNewPassword ? faEyeSlash : faEye} />
+            </span>
+          </div>
+
+          <div className="password-input-container">
+            <input type={showConfirmPassword ? 'text' : 'password'} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm New Password" />
+            <span className="password-toggle-icon" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+              <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+            </span>
+          </div>
+
+          <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Full Name" required />
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
 
           <button type="submit" style={{ marginTop: 12 }}>Update</button>
           <button type="button" onClick={handleCancel} className="admin-dashboard-logout-button" style={{ marginTop: 12 }}>Cancel</button>
         </form>
 
-        <div style={{ width: '100%', maxWidth: 400, marginTop: 18 }}>
+        <div style={{ width: '100%', maxWidth: 360, marginTop: 18 }}>
           <div className="account-preview-box">
             <h3>Account Preview</h3>
             <p><strong>Username:</strong> {username || <em>Not set</em>}</p>
@@ -173,8 +203,8 @@ const AdminEditAccount = () => {
           </div>
 
           <div className="edit-account-note-box">
-            <p style={{ marginTop: 0 }}><strong>Note</strong></p>
-            <ul style={{ textAlign: 'left', paddingLeft: '1.1rem', marginTop: 6 }}>
+            <strong>Note</strong>
+            <ul>
               <li>Please make sure the details you input here are updated and accurate, because this will be used by the system and other admins for identification and communication purposes.</li>
               <li>Changing your username requires entering your current password to confirm the change.</li>
             </ul>

@@ -44,8 +44,9 @@ const AdminLogin = () => {
                 if (returnedId) {
                     try {
                         localStorage.setItem('adminId', String(returnedId));
+                        sessionStorage.setItem('adminId', String(returnedId));
                     } catch (e) {
-                        console.error('Failed to persist adminId to localStorage', e);
+                        console.error('Failed to persist adminId to storage', e);
                     }
                 } else {
                     console.warn('Admin login response did not include an adminId:', data);
