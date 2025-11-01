@@ -1,4 +1,4 @@
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .home-content-wrapper {
     flex-direction: column;
     width: 98vw;
@@ -47,24 +47,24 @@
   }
 
   .home-btn-row {
-    /* each row becomes a simple container; keep spacing minimal so rows form a continuous list */
-    display: block;
-    gap: 0.3em;
-    align-items: center;
-    justify-content: center;
+    /* each row becomes a simple container; force vertical stacking */
+    display: block !important;
+    gap: 0.2em;
+    align-items: stretch;
+    justify-content: flex-start;
     margin-top: 0.25em;
     width: 100%;
   }
 
   .home-btn,
   .home-animated-btn {
-    display: block;
-    width: 95vw;
+    display: block !important;
+    width: 100%;
     max-width: 420px;
-    font-size: 1.1em;
-    padding: 1em 0.5em;
-    margin: 0.35em auto;
-    border-radius: 20px;
+    font-size: 1.05em;
+    padding: 12px 14px;
+    margin: 6px auto;
+    border-radius: 12px;
     text-align: center;
     box-shadow: 0 4px 24px 0 rgba(76,0,130,0.25), 0 2px 8px rgba(0,0,0,0.10);
     font-weight: 700;
