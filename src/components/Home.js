@@ -40,6 +40,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
+      {/* Soda bubbles */}
       <div className="bubble b1"></div>
       <div className="bubble b2"></div>
       <div className="bubble b3"></div>
@@ -57,6 +58,8 @@ const Home = () => {
                  <Link to="/about" className="home-animated-btn">About</Link>
                  <Link to="/privacy-policy" className="home-animated-btn">Privacy Policy</Link>
                  <Link to="/contact-us" className="home-animated-btn">Contact Us</Link>
+               </div>
+               <div className="home-btn-row">
                  <Link to="/rental-info" className="home-animated-btn">Rental Information</Link>
                  <Link to="/admin-login" className="home-animated-btn">Admin Login</Link>
                  <Link to="/tenant-login" className="home-animated-btn">Tenant Login</Link>
