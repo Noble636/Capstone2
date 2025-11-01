@@ -9,6 +9,7 @@ const EditAccount = () => {
 
     const [tenantId, setTenantId] = useState(null);
     const [username, setUsername] = useState('');
+    const [initialUsername, setInitialUsername] = useState('');
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [contactNumber, setContactNumber] = useState('');
@@ -51,6 +52,7 @@ const EditAccount = () => {
             }
             const data = await response.json();
             setUsername(data.username || '');
+            setInitialUsername(data.username || '');
             setFullName(data.full_name || '');
             setEmail(data.email || '');
             setContactNumber(data.contact_number || '');
@@ -69,8 +71,17 @@ const EditAccount = () => {
         e.preventDefault();
         setError('');
 
+        // Require current password if user changes password
         if ((password || confirmPassword) && !currentPassword) {
             setMessageText('Please enter your current password to update your password.');
+            setMessageType('error');
+            setShowMessage(true);
+            return;
+        }
+
+        // Require current password if user changes username
+        if (username && username !== initialUsername && !currentPassword) {
+            setMessageText('Please enter your current password to change your username.');
             setMessageType('error');
             setShowMessage(true);
             return;
@@ -84,6 +95,7 @@ const EditAccount = () => {
         }
 
         const updateData = {
+            username,
             fullName,
             email,
             contactNumber,
@@ -116,7 +128,9 @@ const EditAccount = () => {
                 setPassword('');
                 setConfirmPassword('');
                 setConfirmTouched(false);
-                fetchTenantData(tenantId);
+                    // refresh tenant data and update initialUsername
+                    fetchTenantData(tenantId);
+                    setInitialUsername(username);
             } else {
                 setMessageText(data.message || 'Failed to update account.');
                 setMessageType('error');
@@ -282,12 +296,6 @@ const EditAccount = () => {
                         <p><strong>Emergency Contact Number:</strong> {emergencyContactNumber || <em>Not set</em>}</p>
                     </div>
                     <div className="edit-account-note-box" style={{ position: 'relative', zIndex: 2 }}>
-                        <h4>Things you cannot edit:</h4>
-                        <ul>
-                            <li>
-                                <strong>Username</strong> – The username cannot be changed because it is a unique identifier in the database and for security purposes.
-                            </li>
-                        </ul>
                         <p style={{ marginTop: "12px" }}>
                             <strong>Note:</strong> Please make sure the details you input here are updated and accurate, because this will be used by the admin for identification and communication purposes.
                         </p>
