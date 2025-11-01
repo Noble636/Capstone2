@@ -38,6 +38,10 @@ const AdminLogin = () => {
             if (response.ok) {
                 setIsLoggedIn(true);
                 setMessage(data.message);
+                // store admin id in localStorage for profile pages
+                if (data.adminId) {
+                    localStorage.setItem('adminId', data.adminId);
+                }
                 setUsername('');
                 setPassword('');
                 setTimeout(() => {
