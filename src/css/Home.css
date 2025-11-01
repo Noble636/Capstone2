@@ -30,7 +30,7 @@
   .home-subtitle,
   .home-subtitle-separate {
     font-size: 1rem;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
     text-align: center;
     padding: 0 0.5em;
     line-height: 1.3;
@@ -43,16 +43,16 @@
     margin-bottom: 1.5em;
     display: flex;
     flex-direction: column;
-    gap: 1.2em;
+    gap: 0.25rem; /* reduce gap so buttons appear continuous */
   }
 
   .home-btn-row {
-    /* make each button group flow vertically and ensure each button becomes a full-width block */
+    /* each row becomes a simple container; keep spacing minimal so rows form a continuous list */
     display: block;
-    gap: 1em;
+    gap: 0.3em;
     align-items: center;
     justify-content: center;
-    margin-top: 0.5em;
+    margin-top: 0.25em;
     width: 100%;
   }
 
@@ -63,7 +63,7 @@
     max-width: 420px;
     font-size: 1.1em;
     padding: 1em 0.5em;
-    margin: 0.65em auto;
+    margin: 0.35em auto;
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 4px 24px 0 rgba(76,0,130,0.25), 0 2px 8px rgba(0,0,0,0.10);
@@ -86,6 +86,12 @@
     /* place image frame after the content (at the bottom) */
     order: 99;
   }
+
+  /* ensure the subtitle spacing isn't huge so buttons follow closely */
+  .home-subtitle-separate { margin-bottom: 0.8em; }
+
+  /* remove extra spacing between button rows to create a continuous list */
+  .home-btn-row + .home-btn-row { margin-top: 0.15em; }
 
   .home-apartment-img-full {
     max-width: 95vw;
