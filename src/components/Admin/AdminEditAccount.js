@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/Admin/AdminDashboard.css';
 import '../../css/Admin/AdminEditAccount.css';
-import '../../css/Tenant/EditAccount.css';
 
 const AdminEditAccount = () => {
   const navigate = useNavigate();

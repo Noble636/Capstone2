@@ -39,8 +39,16 @@ const AdminLogin = () => {
                 setIsLoggedIn(true);
                 setMessage(data.message);
                 // store admin id in localStorage for profile pages
-                if (data.adminId) {
-                    localStorage.setItem('adminId', data.adminId);
+                // be defensive about possible shapes (adminId, admin_id, userId)
+                const returnedId = data.adminId || data.admin_id || data.userId || (data.admin && data.admin.admin_id);
+                if (returnedId) {
+                    try {
+                        localStorage.setItem('adminId', String(returnedId));
+                    } catch (e) {
+                        console.error('Failed to persist adminId to localStorage', e);
+                    }
+                } else {
+                    console.warn('Admin login response did not include an adminId:', data);
                 }
                 setUsername('');
                 setPassword('');
