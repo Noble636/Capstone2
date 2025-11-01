@@ -5,13 +5,8 @@
     align-items: center;
     min-height: 100vh;
     text-align: center;
-    /* layer a subtle gradient over the real background image so the
-       image is visible but the existing tint remains */
-    background-image: linear-gradient(120deg, rgba(255,179,71,0.22) 0%, rgba(255,154,158,0.18) 40%, rgba(250,208,196,0.14) 70%, rgba(176,132,204,0.18) 100%), url('/Background/GB.png');
-    background-size: cover, cover;
-    background-position: center center;
-    background-attachment: fixed;
-    animation: home-bg-move 12s ease-in-out infinite alternate;
+    /* keep container transparent so the page-level <img> shows through */
+    background: transparent;
     font-family: 'Arial', sans-serif;
     padding: 20px;
     box-sizing: border-box;
@@ -21,6 +16,21 @@
 @keyframes home-bg-move {
     0% {background-position: 0% 50%;}
     100% {background-position: 100% 50%;}
+}
+
+/* Page-scoped override for the background image inserted in the JSX.
+   This makes the image more visible on this page only without changing
+   global styles. */
+.submit-complaint-container .home-bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.45; /* increase so the photo is visible under the tint */
+    z-index: 0;
+    pointer-events: none;
 }
 
 .submit-complaint-container h1 {
