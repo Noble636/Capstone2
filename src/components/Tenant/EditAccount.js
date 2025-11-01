@@ -297,7 +297,7 @@ const EditAccount = () => {
                     </div>
                     <div className="edit-account-note-box" style={{ position: 'relative', zIndex: 2 }}>
                         <p style={{ marginTop: "12px" }}>
-                            <strong>Note:</strong> Please make sure the details you input here are updated and accurate, because this will be used by the admin for identification and communication purposes.
+                            <strong>Note:</strong> Please make sure the details you input here are updated and accurate, because this will be used by the admin for identification and communication purposes. Changing your username requires entering your current password to confirm the change.
                         </p>
                     </div>
                 </div>
