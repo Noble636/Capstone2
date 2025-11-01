@@ -92,8 +92,7 @@ const SubmitComplaints = () => {
     };
 
     return (
-    // make this page non-scrollable and fill viewport to avoid scrolling on submit complaints page
-    <div className="submit-complaint-container non-scrollable">
+    <div className="submit-complaint-container">
             <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
             <div className="bubble b1"></div>
             <div className="bubble b2"></div>
@@ -105,7 +104,7 @@ const SubmitComplaints = () => {
             <div className="bubble b8"></div>
             <h1>Submit a Complaint</h1>
             <div className="submit-complaint-content">
-                <form onSubmit={handleSubmit} className="submit-complaint-form-container submit-complaint-form-scrollable">
+                <form onSubmit={handleSubmit} className="submit-complaint-form-container">
                     <textarea
                         value={complaint}
                         onChange={(e) => setComplaint(e.target.value)}
