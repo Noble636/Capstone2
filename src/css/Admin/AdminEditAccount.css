@@ -93,8 +93,8 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
-  /* make room for the inline eye button inside the input; increased so icon fits further in */
-  padding-right: 78px;
+  /* default right padding for inputs; password containers add extra padding where needed */
+  padding-right: 12px;
 }
 
 .admin-edit-form button {
@@ -133,26 +133,29 @@
 .admin-edit-note-box { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 14px 18px; width: 100%; }
 
 .password-input-container { position: relative; width: 100%; margin-bottom: 12px; }
-.password-input-container input { width: 100%; box-sizing: border-box; padding-right: 78px; }
+.password-input-container input { width: 100%; box-sizing: border-box; padding-right: 44px; }
 .password-toggle-icon {
   position: absolute;
   top: 50%;
-  /* move the icon more inside the input (higher right value shifts it left) */
-  right: 22px;
+  /* float inside the input; smaller offset so it visually sits inside without a white box */
+  right: 12px;
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 1.05rem;
   color: #777;
   z-index: 3;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  padding: 6px;
+  background: transparent;
+  border: none;
+  width: auto;
+  height: auto;
+}
+
+.password-toggle-icon svg {
+  display: block;
 }
 
 /* slightly reduce icon opacity on hover */
