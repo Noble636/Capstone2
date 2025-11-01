@@ -4,14 +4,15 @@ import '../../css/Tenant/RentalAgreement.css';
 
 const RentalAgreement = () => {
   const stored = typeof window !== 'undefined' ? localStorage.getItem('rentalAgreementHtml') : null;
-  if (stored) {
-    return <div className="rental-agreement-container" dangerouslySetInnerHTML={{ __html: stored }} />;
-  }
 
   return (
     <div className="rental-agreement-container">
       <h1 className="agreement-title">RENTAL AGREEMENT</h1>
       <div className="agreement-content">
+        {stored ? (
+          <div dangerouslySetInnerHTML={{ __html: stored }} />
+        ) : (
+        <>
         <p>This Rental Agreement ("Agreement") is entered into on this ___ day of __________, 20___, by and between:</p>
 
         <h3>Landlord Information:</h3>
@@ -100,6 +101,8 @@ const RentalAgreement = () => {
 
         <p>Landlord Signature: ____________________________ Date: ____________<br />
         Tenant Signature: _____________________________ Date: ____________</p>
+        </>
+        )}
       </div>
 
       <div className="back-button-container">

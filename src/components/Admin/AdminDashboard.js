@@ -32,14 +32,16 @@ const AdminDashboard = () => {
           <Link to="/admin-visitors" className="admin-dashboard-button">
             View Visitor Logs
           </Link>
+          {/* order: complaints, visitor logs, edit rental, manage accounts, edit account */}
+          <Link to="/admin-edit-rental" className="admin-dashboard-button">
+            Edit Rental Information
+          </Link>
           <Link to="/admin-manage-accounts" className="admin-dashboard-button">
             Manage Tenant Accounts
           </Link>
-          <Link to="/admin-edit-account" className="home-animated-btn">
+          {/* Edit Account uses blue style matching tenant dashboard */}
+          <Link to="/admin-edit-account" className="admin-edit-account-button">
             Edit Account
-          </Link>
-          <Link to="/admin-edit-rental" className="home-animated-btn">
-            Edit Rental Information
           </Link>
         </div>
         

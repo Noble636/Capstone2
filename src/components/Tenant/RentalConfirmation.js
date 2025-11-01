@@ -4,15 +4,16 @@ import '../../css/Tenant/RentalConfirmation.css';
 
 const RentalConfirmation = () => {
   const stored = typeof window !== 'undefined' ? localStorage.getItem('rentalConfirmationHtml') : null;
-  if (stored) {
-    return <div className="rental-confirmation-container" dangerouslySetInnerHTML={{ __html: stored }} />;
-  }
 
   return (
     <div className="rental-confirmation-container">
       <h1>RENTAL CONFIRMATION STATEMENT</h1>
 
       <div className="confirmation-form">
+        {stored ? (
+          <div dangerouslySetInnerHTML={{ __html: stored }} />
+        ) : (
+        <>
         <p>
           I, <input type="text" placeholder="Your Name" readOnly /> confirm that I will lease the room{' '}
           <input type="text" placeholder="Room Number" readOnly />. I understand the terms and conditions of the rental agreement and accept to be bound by the following:
@@ -57,6 +58,8 @@ const RentalConfirmation = () => {
           <p>Printed Name: <input type="text" placeholder="Your Printed Name" readOnly /></p>
           <p>Date: <input type="date" readOnly /></p>
         </div>
+        </>
+        )}
       </div>
 
       <div className="button-container">
