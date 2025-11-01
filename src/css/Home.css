@@ -47,7 +47,8 @@
   }
 
   .home-btn-row {
-    flex-direction: column;
+    /* make each button group flow vertically and ensure each button becomes a full-width block */
+    display: block;
     gap: 1em;
     align-items: center;
     justify-content: center;
@@ -57,12 +58,13 @@
 
   .home-btn,
   .home-animated-btn {
+    display: block;
     width: 95vw;
-    max-width: 370px;
+    max-width: 420px;
     font-size: 1.1em;
     padding: 1em 0.5em;
-    margin: 0.7em auto;
-    border-radius: 24px;
+    margin: 0.65em auto;
+    border-radius: 20px;
     text-align: center;
     box-shadow: 0 4px 24px 0 rgba(76,0,130,0.25), 0 2px 8px rgba(0,0,0,0.10);
     font-weight: 700;
@@ -81,6 +83,8 @@
     align-items: center;
     padding: 0;
     margin-top: 1.2em;
+    /* place image frame after the content (at the bottom) */
+    order: 99;
   }
 
   .home-apartment-img-full {
