@@ -91,9 +91,15 @@ const SubmitComplaints = () => {
         }
     };
 
+    const bgStyle = {
+        backgroundImage: `linear-gradient(120deg, rgba(255,179,71,0.22) 0%, rgba(255,154,158,0.18) 40%, rgba(250,208,196,0.14) 70%, rgba(176,132,204,0.18) 100%), url(${process.env.PUBLIC_URL + '/Background/GB.png'})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundAttachment: 'fixed',
+    };
+
     return (
-    <div className="submit-complaint-container">
-            <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
+    <div className="submit-complaint-container" style={bgStyle}>
             <div className="bubble b1"></div>
             <div className="bubble b2"></div>
             <div className="bubble b3"></div>
