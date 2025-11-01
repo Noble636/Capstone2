@@ -200,13 +200,7 @@ const AdminEditAccount = () => {
             <p><strong>Email:</strong> {email || <em>Not set</em>}</p>
           </div>
 
-          <div className="admin-edit-note-box">
-            <p style={{ marginTop: '12px', marginBottom: '8px' }}><strong>Note</strong></p>
-            <ul style={{ textAlign: 'left', paddingLeft: '1.1rem', marginTop: 0 }}>
-              <li>Changing username or password requires entering the current password to confirm the change.</li>
-              <li>This only updates your admin username and email; full name is not editable here per policy.</li>
-            </ul>
-          </div>
+          {/* Note box removed per user request */}
         </div>
       </div>
 
