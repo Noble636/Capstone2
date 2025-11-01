@@ -372,6 +372,21 @@
     font-style: italic;
 }
 
+/* Center current images in edit view */
+.edit-image-list {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.edit-image-list img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
 @media (max-width: 600px) {
   .edit-complaints-container {
     padding: 10px 2px;

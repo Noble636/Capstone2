@@ -92,8 +92,8 @@ const SubmitComplaints = () => {
     };
 
     return (
-        // make this page non-scrollable and fill viewport to avoid scrolling on submit complaints page
-        <div className="submit-complaint-container" style={{ height: '100vh', overflow: 'hidden' }}>
+    // make this page non-scrollable and fill viewport to avoid scrolling on submit complaints page
+    <div className="submit-complaint-container non-scrollable">
             <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
             <div className="bubble b1"></div>
             <div className="bubble b2"></div>
@@ -105,7 +105,7 @@ const SubmitComplaints = () => {
             <div className="bubble b8"></div>
             <h1>Submit a Complaint</h1>
             <div className="submit-complaint-content">
-                <form onSubmit={handleSubmit} className="submit-complaint-form-container">
+                <form onSubmit={handleSubmit} className="submit-complaint-form-container submit-complaint-form-scrollable">
                     <textarea
                         value={complaint}
                         onChange={(e) => setComplaint(e.target.value)}
@@ -128,14 +128,14 @@ const SubmitComplaints = () => {
                     </label>
                     {/* image previews */}
                     {imagePreviews && imagePreviews.length > 0 && (
-                        <div style={{ display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+                        <div className="image-previews">
                             {imagePreviews.map((src, idx) => (
-                                <div key={src} style={{ position: 'relative' }}>
-                                    <img src={src} alt={`preview-${idx}`} style={{ width: 110, height: 90, objectFit: 'cover', borderRadius: 6 }} />
-                                    <button type="button" onClick={() => {
+                                <div key={src} className="preview-item">
+                                    <img src={src} alt={`preview-${idx}`} />
+                                    <button type="button" className="remove-btn" onClick={() => {
                                         // remove this image
                                         setImages((prev) => prev.filter((_, i) => i !== idx));
-                                    }} style={{ position: 'absolute', top: 2, right: 2, background: 'rgba(0,0,0,0.6)', color: 'white', border: 'none', borderRadius: '50%', width: 22, height: 22, cursor: 'pointer' }}>×</button>
+                                    }}>×</button>
                                 </div>
                             ))}
                         </div>

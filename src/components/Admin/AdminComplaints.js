@@ -12,6 +12,7 @@ const AdminComplaints = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [confirmation, setConfirmation] = useState(null);
+    const [lightboxSrc, setLightboxSrc] = useState(null);
 
     useEffect(() => {
         fetchActiveComplaints();
@@ -162,7 +163,7 @@ const AdminComplaints = () => {
                                             {(complaint.images || []).length > 0 && (
                                                 <div style={{ display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap' }}>
                                                     {(complaint.images || []).map((img) => (
-                                                        <img key={img.image_id} src={img.dataUri} alt={img.filename || 'img'} style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 6 }} />
+                                                        <img key={img.image_id} src={img.dataUri} alt={img.filename || 'img'} style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 6, cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); setLightboxSrc(img.dataUri); }} />
                                                     ))}
                                                 </div>
                                             )}
@@ -211,7 +212,7 @@ const AdminComplaints = () => {
                                             {(complaint.images || []).length > 0 && (
                                                 <div style={{ display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap' }}>
                                                     {(complaint.images || []).map((img) => (
-                                                        <img key={img.image_id} src={img.dataUri} alt={img.filename || 'img'} style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 6 }} />
+                                                        <img key={img.image_id} src={img.dataUri} alt={img.filename || 'img'} style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 6, cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); setLightboxSrc(img.dataUri); }} />
                                                     ))}
                                                 </div>
                                             )}
@@ -229,6 +230,15 @@ const AdminComplaints = () => {
                         <div className="confirmation-buttons">
                             <button onClick={confirmation.onConfirm} className="confirm-button">Yes</button>
                             <button onClick={confirmation.onCancel} className="cancel-button">No</button>
+                        </div>
+                    </div>
+                )}
+                {/* Lightbox modal */}
+                {lightboxSrc && (
+                    <div className="admin-image-lightbox" onClick={() => setLightboxSrc(null)}>
+                        <div className="admin-image-lightbox-inner" onClick={(e) => e.stopPropagation()}>
+                            <img src={lightboxSrc} alt="enlarged" />
+                            <button className="admin-image-lightbox-close" onClick={() => setLightboxSrc(null)}>✕</button>
                         </div>
                     </div>
                 )}

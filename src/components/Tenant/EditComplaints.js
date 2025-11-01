@@ -244,10 +244,10 @@ const EditComplaints = () => {
                             />
                             <div style={{ marginTop: '8px' }}>
                                 <p><strong>Current Images:</strong></p>
-                                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
+                                <div className="edit-image-list">
                                     {(selectedComplaint.images || []).length === 0 && <span>No images attached.</span>}
                                     {(selectedComplaint.images || []).map((img) => (
-                                        <img key={img.image_id} src={img.dataUri} alt={img.filename || 'complaint-image'} style={{ width: 100, height: 100, objectFit: 'cover', borderRadius: 6 }} />
+                                        <img key={img.image_id} src={img.dataUri} alt={img.filename || 'complaint-image'} />
                                     ))}
                                 </div>
                                 <label style={{ display: 'block', marginTop: '8px' }}>
