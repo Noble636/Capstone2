@@ -7,21 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ensure a consistent animated gradient background across all pages
-   so the fixed background image can be used without revealing
-   other page-level background colors when scrolling. */
-html, body {
-  height: 100%;
-  /* Use the project's background image from public/Background and
-     layer a semi-transparent gradient on top so the gradient tint
-     is preserved while the image is visible on all pages. */
-  background-image: linear-gradient(120deg, rgba(255,179,71,0.32) 0%, rgba(255,154,158,0.28) 40%, rgba(250,208,196,0.24) 70%, rgba(176,132,204,0.28) 100%), url('/Background/GB.png');
-  background-size: cover, cover;
-  background-position: center center, center center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
