@@ -13,7 +13,6 @@ import AdminVisitorLogs from './components/Admin/AdminVisitorLogs';
 import ManageAccounts from './components/Admin/ManageAccounts';
 import AdminRegister from './components/Admin/AdminRegister';
 import AdminFPW from './components/Admin/AdminFPW';
-import AdminEditAccount from './components/Admin/AdminEditAccount';
 
 import Complaints from './components/Tenant/SubmitComplaints';
 import VisitorLogs from './components/Tenant/SubmitVisitors';
@@ -43,7 +42,6 @@ function App() {
         <Route path="/admin-manage-accounts" element={<ManageAccounts />} />
         <Route path="/admin-register" element={<AdminRegister />} />
         <Route path="/admin-forgot-password" element={<AdminFPW />} />
-  <Route path="/admin-edit-account" element={<AdminEditAccount />} />
         <Route path="/tenant-login" element={<TenantLogin />} />
         <Route path="/tenant-dashboard" element={<TenantDashboard />} />
         <Route path="/submitcomplaints" element={<Complaints />} />
