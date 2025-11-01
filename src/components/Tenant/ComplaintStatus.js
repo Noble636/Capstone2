@@ -7,6 +7,7 @@ const ComplaintStatus = () => {
     const [apartmentId, setApartmentId] = useState('');
     const [complaints, setComplaints] = useState([]);
     const [expandedComplaint, setExpandedComplaint] = useState(null);
+    const [lightboxSrc, setLightboxSrc] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -45,6 +46,10 @@ const ComplaintStatus = () => {
 
     const toggleExpand = (id) => {
         setExpandedComplaint(expandedComplaint === id ? null : id);
+    };
+
+    const openImage = (src) => {
+        setLightboxSrc(src);
     };
 
     if (loading) {
@@ -110,7 +115,7 @@ const ComplaintStatus = () => {
                                     {(complaint.images || []).length > 0 && (
                                         <div style={{ display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap' }}>
                                             {(complaint.images || []).map((img) => (
-                                                <img key={img.image_id} src={img.dataUri} alt={img.filename || 'img'} style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 6 }} />
+                                                <img key={img.image_id} src={img.dataUri} alt={img.filename || 'img'} style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 6, cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); openImage(img.dataUri); }} />
                                             ))}
                                         </div>
                                     )}
@@ -122,6 +127,14 @@ const ComplaintStatus = () => {
                         </div>
                     ))}
                 </div>
+                {lightboxSrc && (
+                    <div className="admin-image-lightbox" onClick={() => setLightboxSrc(null)}>
+                        <div className="admin-image-lightbox-inner" onClick={(e) => e.stopPropagation()}>
+                            <img src={lightboxSrc} alt="enlarged" />
+                            <button className="admin-image-lightbox-close" onClick={() => setLightboxSrc(null)}>✕</button>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
