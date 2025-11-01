@@ -149,10 +149,14 @@
 /* input inside the password container becomes borderless and fills the remaining space */
 .password-input-container input {
   flex: 1 1 auto;
-  border: none;
+  /* remove any inner border/rounded corners so only the outer container shows a box */
+  border: none !important;
   outline: none;
-  padding: 12px;
+  padding: 0 12px; /* vertical centering is handled by the container height */
   font-size: 1rem;
+  height: 44px; /* match regular inputs */
+  background: transparent;
+  border-radius: 0;
   box-sizing: border-box;
 }
 
@@ -162,7 +166,7 @@
   justify-content: center;
   width: 44px;
   height: 100%;
-  padding: 6px;
+  padding: 6px 8px;
   cursor: pointer;
   color: #777;
   background: transparent;
