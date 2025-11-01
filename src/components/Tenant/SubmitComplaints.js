@@ -91,15 +91,10 @@ const SubmitComplaints = () => {
         }
     };
 
-    const bgStyle = {
-        backgroundImage: `linear-gradient(120deg, rgba(255,179,71,0.22) 0%, rgba(255,154,158,0.18) 40%, rgba(250,208,196,0.14) 70%, rgba(176,132,204,0.18) 100%), url(${process.env.PUBLIC_URL + '/Background/GB.png'})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundAttachment: 'fixed',
-    };
-
     return (
-    <div className="submit-complaint-container" style={bgStyle}>
+        // make this page non-scrollable and fill viewport to avoid scrolling on submit complaints page
+        <div className="submit-complaint-container" style={{ height: '100vh', overflow: 'hidden' }}>
+            <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
             <div className="bubble b1"></div>
             <div className="bubble b2"></div>
             <div className="bubble b3"></div>
@@ -133,14 +128,14 @@ const SubmitComplaints = () => {
                     </label>
                     {/* image previews */}
                     {imagePreviews && imagePreviews.length > 0 && (
-                        <div className="image-previews">
+                        <div style={{ display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap', alignItems: 'center' }}>
                             {imagePreviews.map((src, idx) => (
-                                <div key={src} className="preview-item">
-                                    <img src={src} alt={`preview-${idx}`} />
-                                    <button type="button" className="remove-btn" onClick={() => {
+                                <div key={src} style={{ position: 'relative' }}>
+                                    <img src={src} alt={`preview-${idx}`} style={{ width: 110, height: 90, objectFit: 'cover', borderRadius: 6 }} />
+                                    <button type="button" onClick={() => {
                                         // remove this image
                                         setImages((prev) => prev.filter((_, i) => i !== idx));
-                                    }}>×</button>
+                                    }} style={{ position: 'absolute', top: 2, right: 2, background: 'rgba(0,0,0,0.6)', color: 'white', border: 'none', borderRadius: '50%', width: 22, height: 22, cursor: 'pointer' }}>×</button>
                                 </div>
                             ))}
                         </div>
