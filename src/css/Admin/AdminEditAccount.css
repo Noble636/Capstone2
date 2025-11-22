@@ -7,7 +7,6 @@
   width: 100%;
 }
 
-/* match Home background so the look is consistent */
 .admin-edit-container {
   background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
   animation: home-bg-move 12s ease-in-out infinite alternate;
@@ -22,7 +21,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* match Home opacity */
   opacity: 0.25;
   z-index: 0;
   pointer-events: none;
@@ -75,7 +73,6 @@
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  /* widen the form so password inputs and icons fit neatly */
   max-width: 480px;
   box-sizing: border-box;
   display: flex;
@@ -93,8 +90,6 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
-  /* give all inputs equal right padding so they appear visually even (space for floating icons)
-     this keeps outer box widths identical while allowing the icon to float on top */
   padding-right: 48px;
 }
 
@@ -139,26 +134,22 @@
   width: 100%;
   margin-bottom: 12px;
   box-sizing: border-box;
-  /* container gets the input-like border so the eye sits inside the box */
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
   background: #fff;
-  /* ensure the container matches the height of other inputs */
   height: 44px;
 }
 
-/* input inside the password container becomes borderless and fills the remaining space */
 .password-input-container input {
   flex: 1 1 auto;
-  /* remove any inner border/rounded corners so only the outer container shows a box */
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
-  padding: 0 12px; /* vertical centering is handled by the container height */
+  padding: 0 12px;
   font-size: 1rem;
-  height: 100%; /* fill the container height so there's no inner gap */
-  line-height: 44px; /* vertically center placeholder/text */
+  height: 100%;
+  line-height: 44px;
   background: transparent !important;
   border-radius: 0 !important;
   margin: 0;
@@ -174,7 +165,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  /* make the icon sit on a small white circle so it matches previous look */
   width: 34px;
   height: 34px;
   padding: 0;
@@ -183,12 +173,10 @@
   background: #fff;
   border-radius: 50%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  /* remove the vertical dividing line */
   border-left: none;
   margin-right: 8px;
 }
 
-/* slightly reduce icon opacity on hover */
 .password-toggle-icon:hover { color: #444; }
 
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display:flex; justify-content:center; align-items:center; z-index:1000; }

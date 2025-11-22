@@ -13,7 +13,7 @@
 }
 
 .home-bg-image {
-    position: fixed; /* keep background visible when page scrolls */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -382,7 +382,6 @@
   }
 }
 
-/* Lightbox styles for enlarged images */
 .admin-image-lightbox {
     position: fixed;
     inset: 0;

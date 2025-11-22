@@ -8,7 +8,7 @@ const AdminEditRentalInfo = () => {
   const [confirmationHtml, setConfirmationHtml] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [modalText, setModalText] = useState('');
-  const [modalMode, setModalMode] = useState('notice'); // 'notice' or 'confirm'
+  const [modalMode, setModalMode] = useState('notice');
 
   useEffect(() => {
     const a = localStorage.getItem('rentalAgreementHtml') || '';
@@ -26,7 +26,6 @@ const AdminEditRentalInfo = () => {
   };
 
   const handleRevert = () => {
-    // open an in-app confirmation modal instead of native confirm()
     setModalMode('confirm');
     setModalText('Revert to defaults? This will remove saved rental agreement and confirmation content.');
     setModalVisible(true);

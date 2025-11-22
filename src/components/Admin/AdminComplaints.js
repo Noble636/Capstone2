@@ -233,7 +233,6 @@ const AdminComplaints = () => {
                         </div>
                     </div>
                 )}
-                {/* Lightbox modal */}
                 {lightboxSrc && (
                     <div className="admin-image-lightbox" onClick={() => setLightboxSrc(null)}>
                         <div className="admin-image-lightbox-inner" onClick={(e) => e.stopPropagation()}>

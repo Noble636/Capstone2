@@ -28,11 +28,7 @@ const SubmitComplaints = () => {
         }
     }, []);
 
-    // (no page-scoped body changes) keep global body styles untouched
-
-    // create and cleanup object URLs for previews
     useEffect(() => {
-        // revoke old URLs
         imagePreviews.forEach((url) => URL.revokeObjectURL(url));
         const previews = images.map((file) => URL.createObjectURL(file));
         setImagePreviews(previews);
@@ -40,7 +36,6 @@ const SubmitComplaints = () => {
         return () => {
             previews.forEach((url) => URL.revokeObjectURL(url));
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [images]);
 
     const handleSubmit = async (e) => {
@@ -60,7 +55,6 @@ const SubmitComplaints = () => {
             formData.append('tenantId', parseInt(tenantId));
             formData.append('complaint', complaint);
             formData.append('date', date);
-            // append up to 3 images
             if (images && images.length > 0) {
                 images.slice(0, 3).forEach((file) => {
                     formData.append('images', file);
@@ -122,19 +116,16 @@ const SubmitComplaints = () => {
                             multiple
                             onChange={(e) => {
                                 const files = Array.from(e.target.files || []);
-                                // limit to 3 files
                                 setImages(files.slice(0, 3));
                             }}
                         />
                     </label>
-                    {/* image previews */}
                     {imagePreviews && imagePreviews.length > 0 && (
                         <div className="image-previews">
                             {imagePreviews.map((src, idx) => (
                                 <div key={src} className="preview-item">
                                     <img src={src} alt={`preview-${idx}`} />
                                     <button type="button" className="remove-btn" onClick={() => {
-                                        // remove this image
                                         setImages((prev) => prev.filter((_, i) => i !== idx));
                                     }}>×</button>
                                 </div>

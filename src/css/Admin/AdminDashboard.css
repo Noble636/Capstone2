@@ -81,7 +81,6 @@
   z-index: 2;
 }
 
-/* reuse tenant blue animated button style for admin nav buttons */
 .admin-dashboard-nav .home-animated-btn {
   width: 200px;
   display: inline-block;
@@ -99,7 +98,6 @@
   box-shadow: 0 0 18px 4px #8f94fb80, 0 2px 16px rgba(0,0,0,0.12);
 }
 
-/* blue Edit Account button matching tenant dashboard */
 .admin-dashboard-nav .admin-edit-account-button {
   background-color: #2196f3;
   color: white;

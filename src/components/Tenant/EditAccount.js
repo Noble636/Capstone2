@@ -104,15 +104,12 @@ const EditAccount = () => {
             emergencyContactNumber,
         };
 
-        // If user provided a new password, include password change fields
         if (password) {
             updateData.currentPassword = currentPassword;
             updateData.newPassword = password;
         }
 
-        // If username changed, include currentPassword so backend can verify the change
         if (username && username !== initialUsername) {
-            // ensure currentPassword is sent (may be blank if user didn't type it — server will reject)
             updateData.currentPassword = currentPassword;
         }
 
@@ -135,7 +132,6 @@ const EditAccount = () => {
                 setPassword('');
                 setConfirmPassword('');
                 setConfirmTouched(false);
-                    // refresh tenant data and update initialUsername
                     fetchTenantData(tenantId);
                     setInitialUsername(username);
             } else {

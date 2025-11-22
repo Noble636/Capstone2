@@ -60,7 +60,6 @@ const AdminEditAccount = () => {
     e.preventDefault();
     setError('');
 
-    // If changing username or password, require current password
     const usernameChanged = username && username !== initialUsername;
     const passwordChanging = newPassword || confirmPassword;
 
@@ -78,7 +77,6 @@ const AdminEditAccount = () => {
       return;
     }
 
-    // fullName is required by the backend for admin updates
     const updateData = { username, fullName, email };
     if (passwordChanging) {
       updateData.currentPassword = currentPassword;
@@ -200,7 +198,6 @@ const AdminEditAccount = () => {
             <p><strong>Email:</strong> {email || <em>Not set</em>}</p>
           </div>
 
-          {/* Note box removed per user request */}
         </div>
       </div>
 

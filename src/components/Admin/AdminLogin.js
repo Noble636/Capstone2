@@ -38,7 +38,6 @@ const AdminLogin = () => {
             if (response.ok) {
                 setIsLoggedIn(true);
                 setMessage(data.message);
-                // store admin id and name so admin edit page can read it
                 if (data.adminId) {
                     localStorage.setItem('adminId', data.adminId);
                 }
@@ -75,9 +74,7 @@ const AdminLogin = () => {
 
     return (
         <div className="admin-login-container">
-            {/* Background image behind bubbles */}
             <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
-            {/* Bubble effect elements */}
             <div className="bubble b1"></div>
             <div className="bubble b2"></div>
             <div className="bubble b3"></div>

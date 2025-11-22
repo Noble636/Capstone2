@@ -10,7 +10,7 @@
 }
 
 .ec-home-bg-image {
-    position: fixed; /* let background remain visible while scrolling */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
