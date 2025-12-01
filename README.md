@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+# Apartment Maintenance — Tenant Complaint & Security Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Apartment Maintenance is a web-based Tenant Complaint and Security Management System that centralizes maintenance requests, visitor logging, and administrative workflows for apartment complexes.
 
-## Available Scripts
+The system is designed to replace manual and fragmented processes (paper logs, phone calls, and ad-hoc messages) with a single, auditable platform that improves response time, transparency, and accountability. Tenants can submit detailed maintenance requests and track progress, while administrators and maintenance staff receive timely notifications and tools to assign and resolve work orders.
 
-In the project directory, you can run:
+Intended users include tenants, property managers, maintenance crews, and security personnel. Role-based access ensures each user sees the appropriate interface and data. The project is implemented as a modular stack: a React frontend, a Node.js/Express API, and a MySQL database (Aiven in production). Email-based OTP verification via the Gmail API is used for sensitive authentication flows.
 
-### `npm start`
+## Authors
+- Danyael Kaye C. Apil
+- John Nikko B. Arangorin
+- John Peter C. Gonzales
+- Shane B. Salonga
+- Jacques Lynn B. Toledo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Deployments
+- Frontend (Vercel): replace with project URL
+- Backend (Render): replace with project URL
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
+- Submit and track maintenance complaints
+- Admin dashboard: assign, update, resolve tasks
+- Visitor entry/exit logging for security
+- Role-based access control (Tenant, Admin/Manager, Security)
+- Email OTP verification (Gmail API)
 
-### `npm test`
+Each feature in brief:
+- Complaint submission: Tenants can create maintenance requests with category, priority, description, and optional attachments. Submissions include timestamps and an auto-generated complaint ID.
+- Complaint tracking: Tenants and admins can view complaint status (Submitted, In Progress, Resolved, Closed), comments, and resolution timestamps. History is maintained per tenant.
+- Admin dashboard: Property managers can view all complaints, filter by priority/status, assign work to maintenance staff, and record resolution notes.
+- Visitor management: Security personnel can register visitor entries and exits, record visitor details and purpose, and search visitor logs for a given date range.
+- Role-based access: The system enforces roles so each user sees only the interfaces and actions permitted to their role.
+- Email OTP verification: On sensitive flows (e.g., registration or password reset), the system issues a one-time password via Gmail API to verify the user's email.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech Stack
+- Frontend: React (Create React App)
+- Backend: Node.js + Express
+- Database: MySQL (Aiven managed MySQL in production)
+- Tools: MySQL Workbench for DB management; Gmail API for email/OTP
 
-### `npm run build`
+## Repository layout
+- `tenantportal/` — frontend React app
+- `tenantportalbackend/` — backend Node/Express API (includes `server.js`, mailer utilities, and `SQL Codes/`)
+- `Capstone 2.txt` — project documentation and write-up
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## How it works (high level)
+- User accounts: Tenants, Admins, and Security staff register and authenticate. JWT-based sessions or tokens are used for API requests.
+- Complaint flow: Tenant creates complaint -> Admin receives and assigns -> Maintenance updates status -> Admin/tenant confirm resolution.
+- Visitor flow: Security logs visitor entry -> optional admin/tenant notification -> security logs exit when visitor leaves.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## User roles
+- Tenant: Submit and view own complaints; view relevant notices and confirmations.
+- Admin / Manager: Full access to complaint lists, assignment, user management, and reports.
+- Security: Access to visitor logs, search, and daily reports.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Quick start (development)
 
-### `npm run eject`
+1. Frontend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```powershell
+cd tenantportal
+npm install
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Backend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```powershell
+cd tenantportalbackend
+npm install
+node server.js
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Database
+- Use Aiven (production) or a local MySQL instance. Use MySQL Workbench to connect and run the SQL scripts in `tenantportalbackend/SQL Codes` to create schema and seed data.
 
-## Learn More
+## Environment variables (backend)
+Create a `.env` in `tenantportalbackend/` with at minimum:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+PORT=3001
+DB_HOST=<host>
+DB_USER=<user>
+DB_PASSWORD=<password>
+DB_NAME=<database>
+JWT_SECRET=<secret>
+GMAIL_CLIENT_ID=<id>
+GMAIL_CLIENT_SECRET=<secret>
+GMAIL_REFRESH_TOKEN=<refresh_token>
+EMAIL_FROM=<email>
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Do not commit secrets to version control.
 
-### Code Splitting
+## Build (frontend)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```powershell
+cd tenantportal
+npm run build
+```
 
-### Analyzing the Bundle Size
+## Deployment notes
+- Set backend environment variables on Render and configure the managed MySQL instance (Aiven) connection.
+- Configure frontend build to point to the deployed backend API base URL.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Testing
+- Frontend: `npm test` in `tenantportal/` if tests exist.
+- Backend: add and run tests as configured (Jest/Mocha) if present.
 
-### Making a Progressive Web App
+## Contact
+Project authors listed above.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
