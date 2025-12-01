@@ -23,6 +23,27 @@ html, body {
 }
 
 .tenant-register-container {
+    position: relative;
+    z-index: 1;
+}
+
+.ec-home-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.ec-bubble {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.tenant-register-container {
     display: flex !important;
     flex-direction: row !important;
     justify-content: center !important;
@@ -36,14 +57,16 @@ html, body {
 .tenant-register-box,
 .terms-box,
 .privacy-warning-text {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-  padding: 24px 20px;
-  max-width: 370px;
-  min-width: 260px;
-  box-sizing: border-box;
-  height: auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    padding: 24px 20px;
+    max-width: 370px;
+    min-width: 260px;
+    box-sizing: border-box;
+    height: auto;
+    position: relative; /* ensure boxes are above background */
+    z-index: 2;
 }
 
 .tenant-register-container .tenant-register-box h2 {
