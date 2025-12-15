@@ -86,6 +86,9 @@ const RentalAgreement = () => {
           <li>Overnight visitors are restricted to 7 consecutive unless permission is granted.</li>
           <li>Tenants will be entirely responsible for the actions, behavior, and damages created by their overnight guests.</li>
           <li>Not informing or seeking permission for overnight guests could be treated as a breach of this Agreement and could lead to penalties or cancellation of the lease.</li>
+          <li>
+            <strong>Note:</strong> For security purposes, the property is equipped with CCTV. All tenants are required to input the names of their visitors into the system or notify the Owner/Caretaker. This information will be used to verify visitors seen on CCTV and maintain accurate visitor logs for the safety of all residents.
+          </li>
         </ul>
 
         <h4>Caretakers & Maintenance Staff:</h4>
