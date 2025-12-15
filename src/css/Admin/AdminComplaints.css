@@ -1,20 +1,18 @@
 .admin-complaints-container {
     min-height: 100vh;
     width: 100vw;
-    display: block;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    z-index: 0;
     background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
-    background-size: cover;
     background-attachment: fixed;
     animation: admin-dashboard-bg-move 12s ease-in-out infinite alternate;
     font-family: Arial, sans-serif;
     text-align: center;
     padding-top: 32px;
     padding-bottom: 32px;
-    scrollbar-width: thin;
-    scrollbar-color: #7c2ae8 #e0b0ff;
 }
 .admin-complaints-container::-webkit-scrollbar {
     width: 10px;
