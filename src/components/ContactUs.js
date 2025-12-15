@@ -48,6 +48,15 @@ const ContactUs = () => {
             </div>
           </li>
         </ul>
+        <div className="contactus-apartment-info" style={{ marginBottom: "32px" }}>
+          <div style={{ fontSize: "2.3rem", fontWeight: "bold", color: "#333" }}>RMR Apartment</div>
+          <div style={{ fontSize: "1.15rem", marginTop: "8px", color: "#444" }}>
+            Owner: Divina Barboza Catabay
+          </div>
+          <div style={{ fontSize: "1.1rem", marginTop: "4px", color: "#444" }}>
+            <span role="img" aria-label="email">📧</span> divine829@gmail.com
+          </div>
+        </div>
         <hr style={{margin:'32px 0', border:'none', borderTop:'2px dashed #b0e0ff'}} />
         <div style={{textAlign:'center', marginBottom:'8px', fontSize:'1.1rem', color:'#333'}}>
           <span role="img" aria-label="info">ℹ️</span> For general inquiries, please email any of the team members above.<br/>
