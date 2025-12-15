@@ -67,6 +67,7 @@
     align-items: center;
     z-index: 2;
     position: relative;
+    border: 2.5px solid #000;
 }
 
 .manage-accounts-box h1 {
@@ -322,6 +323,7 @@
     padding: 12px;
     font-size: 0.98rem;
     margin-bottom: 10px;
+    border: 2.5px solid #000;
   }
 
   .tenant-summary {
