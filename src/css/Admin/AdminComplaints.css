@@ -7,9 +7,11 @@
     position: relative;
     background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
     animation: admin-dashboard-bg-move 12s ease-in-out infinite alternate;
-    overflow: hidden;
+    overflow-y: auto; /* Show vertical scrollbar if needed */
     font-family: Arial, sans-serif;
     text-align: center;
+    padding-top: 32px;   /* Add space at the top */
+    padding-bottom: 32px; /* Add space at the bottom */
 }
 
 .admin-complaints-container {
