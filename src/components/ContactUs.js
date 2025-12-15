@@ -8,9 +8,13 @@ const ContactUs = () => {
   return (
     <div className="contactus-container">
       <div className="contactus-box">
-        {/* Apartment Info Block FIRST */}
-        <div className="contactus-apartment-info" style={{ marginBottom: "32px" }}>
-          <div style={{ fontSize: "2.3rem", fontWeight: "bold", color: "#333" }}>RMR Apartment</div>
+        <h1 className="contactus-title">Contact Us</h1>
+        <p className="contactus-desc">
+          If you have questions about the program application please contact the following:
+        </p>
+
+        <div className="contactus-apartment-info" style={{ margin: "32px 0" }}>
+          <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#333" }}>RMR Apartment</div>
           <div style={{ fontSize: "1.15rem", marginTop: "8px", color: "#444" }}>
             Owner: Divina Barboza Catabay
           </div>
@@ -18,10 +22,6 @@ const ContactUs = () => {
             <span role="img" aria-label="email">📧</span> divine829@gmail.com
           </div>
         </div>
-        <h1 className="contactus-title">Contact Us</h1>
-        <p className="contactus-desc">
-          If you have questions about the program application please contact the following:
-        </p>
 
         <div className="contactus-developers-label" style={{ marginTop: "28px", display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span role="img" aria-label="team">👥</span> Developers:
