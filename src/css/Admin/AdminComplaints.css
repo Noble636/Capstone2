@@ -10,7 +10,7 @@
     overflow: hidden;
     font-family: Arial, sans-serif;
     text-align: center;
-    border: 3px solid #000; /* Added black border */
+    /* border removed */
 }
 
 .home-bg-image {
@@ -66,7 +66,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2.5px solid #000; /* Added black border */
+    /* border removed */
 }
 
 .admin-complaints-box h1 {
@@ -106,7 +106,7 @@
     gap: 20px;
     margin-bottom: 20px;
     width: 100%;
-    border: 2px solid #000; /* Added black border */
+    /* border removed */
 }
 
 .complaints-nav-button {
@@ -128,7 +128,7 @@
 .complaints-log {
     margin-top: 20px;
     width: 100%;
-    border: 2px solid #000; /* Added black border */
+    /* border removed */
 }
 
 .complaint-item {
@@ -146,22 +146,39 @@
     font-size: 1rem;
     position: relative;
     z-index: 2;
-    border: 2.5px solid #000; /* Added black border */
+    border: 2.5px solid #000; /* Only complaint items have black border */
 }
 
 .complaint-item:hover {
     background-color: #f1f1f1;
 }
 
+.complaint-log-item {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 2.5px solid #000; /* Only log items have black border */
+    box-shadow: 0 2px 12px 0 rgba(34,34,34,0.08);
+}
+
+.complaint-log-item p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
 .message-textarea {
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
     resize: none;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 1rem;
     color: #333;
+    box-sizing: border-box;
 }
 
 .message-textarea::placeholder {
@@ -195,26 +212,14 @@
 }
 
 .complaint-actions .decline_complaint_button {
-    background-color: #dc3545;
-    color: white;
+    background-color: #dc3545 !important;
+    color: #fff !important;
+    border: none !important;
+    transition: background 0.3s;
 }
 
 .complaint-actions .decline_complaint_button:hover {
     background-color: #c82333;
-}
-
-.complaint-log-item {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    border: 2.5px solid #000; /* Added black border */
-    box-shadow: 0 2px 12px 0 rgba(34,34,34,0.08);
-}
-
-.complaint-log-item p {
-    margin: 5px 0;
-    font-size: 1rem;
 }
 
 .confirmation-popup {
@@ -228,7 +233,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     text-align: center;
-    border: 2.5px solid #000; /* Added black border */
+    border: 2.5px solid #000;
 }
 
 .confirmation-popup p {
