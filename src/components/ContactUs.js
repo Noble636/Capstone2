@@ -19,7 +19,15 @@ const ContactUs = () => {
             Owner: Divina Barboza Catabay
           </div>
           <div style={{ fontSize: "1.1rem", marginTop: "4px", color: "#444" }}>
-            <span role="img" aria-label="email">📧</span> divine829@gmail.com
+            <span role="img" aria-label="email">📧</span>
+            <a
+              href="mailto:divine829@gmail.com"
+              style={{ color: "#007bff", fontWeight: "bold", textDecoration: "none", marginLeft: "4px" }}
+              onMouseOver={e => (e.target.style.textDecoration = "underline")}
+              onMouseOut={e => (e.target.style.textDecoration = "none")}
+            >
+              divine829@gmail.com
+            </a>
           </div>
         </div>
 
