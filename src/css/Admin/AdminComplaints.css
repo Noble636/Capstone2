@@ -10,6 +10,7 @@
     overflow: hidden;
     font-family: Arial, sans-serif;
     text-align: center;
+    border: 3px solid #000; /* Added black border */
 }
 
 .home-bg-image {
@@ -65,6 +66,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 2.5px solid #000; /* Added black border */
 }
 
 .admin-complaints-box h1 {
@@ -104,6 +106,7 @@
     gap: 20px;
     margin-bottom: 20px;
     width: 100%;
+    border: 2px solid #000; /* Added black border */
 }
 
 .complaints-nav-button {
@@ -125,6 +128,7 @@
 .complaints-log {
     margin-top: 20px;
     width: 100%;
+    border: 2px solid #000; /* Added black border */
 }
 
 .complaint-item {
@@ -142,6 +146,7 @@
     font-size: 1rem;
     position: relative;
     z-index: 2;
+    border: 2.5px solid #000; /* Added black border */
 }
 
 .complaint-item:hover {
@@ -203,7 +208,8 @@
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 15px;
-    border: 2px solid #ddd;
+    border: 2.5px solid #000; /* Added black border */
+    box-shadow: 0 2px 12px 0 rgba(34,34,34,0.08);
 }
 
 .complaint-log-item p {
@@ -222,6 +228,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     text-align: center;
+    border: 2.5px solid #000; /* Added black border */
 }
 
 .confirmation-popup p {
