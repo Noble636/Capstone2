@@ -3,6 +3,8 @@
   width: 100vw;
   display: flex;
   flex-direction: column;
+  align-items: center;
+
   position: relative;
   background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
   animation: admin-dashboard-bg-move 12s ease-in-out infinite alternate;
