@@ -202,12 +202,12 @@
 }
 
 .complaint-actions .decline_complaint_button {
-    background-color: #dc3545;
-    color: white;
+    background-color: #dc3545 !important;
+    color: #fff !important;
 }
 
 .complaint-actions .decline_complaint_button:hover {
-    background-color: #c82333;
+    background-color: #b30021 !important;
 }
 
 .complaint-log-item {
@@ -278,7 +278,6 @@
 
 .complaints-nav-button,
 .complaint-actions .mark_as_attended_button,
-.complaint-actions .decline_complaint_button,
 .confirmation-buttons .confirm-button,
 .confirmation-buttons .cancel-button {
     background: #222;
@@ -352,10 +351,17 @@
     font-size: 0.95rem;
   }
 
-  .message-textarea {
-    font-size: 0.95rem;
-    padding: 8px;
-  }
+    .message-textarea {
+        width: 95%;
+        min-width: 180px;
+        max-width: 99vw;
+        height: 70px;
+        min-height: 50px;
+        max-height: 180px;
+        font-size: 1.08rem;
+        padding: 14px;
+        box-sizing: border-box;
+    }
 
   .complaint-actions {
     flex-direction: column;
