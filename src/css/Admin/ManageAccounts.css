@@ -107,6 +107,8 @@
     width: 100%;
     z-index: 2;
     position: relative;
+    padding-top: 24px;
+    padding-bottom: 24px;
 }
 
 .tenant-item {
@@ -115,7 +117,7 @@
     border-radius: 8px;
     margin-bottom: 15px;
     cursor: pointer;
-    border: 2px solid #ddd;
+    border: 2.5px solid #000;
     transition: background-color 0.3s;
     z-index: 2;
     position: relative;
