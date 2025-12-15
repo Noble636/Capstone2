@@ -121,7 +121,6 @@ const VisitorLogs = () => {
                         <p><strong>Unit Owner:</strong> {fullName}</p>
                         <p><strong>Apartment ID:</strong> {apartmentId}</p>
                     </div>
-
                     <input
                         type="text"
                         value={visitorName}
@@ -137,12 +136,10 @@ const VisitorLogs = () => {
                         className="submit-visitor-purpose-input"
                     />
                     <p className="visitor-name-disclaimer">Use commas for multiple names (e.g., Name 1, Name 2, Name 3)</p>
-
                     <input
                         type="date"
                         value={visitDate}
                         onChange={(e) => setVisitDate(e.target.value)}
-                        max={new Date().toISOString().split('T')[0]}
                         required
                     />
                     <input
@@ -153,20 +150,20 @@ const VisitorLogs = () => {
                         required
                     />
                     <button type="submit" className="submit-visitor-submit-button">Submit Log</button>
-            {showConfirmModal && (
-                <div className="submit-visitor-message-box fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-                    <div className="submit-visitor-confirm-modal flex flex-col items-center">
-                        <p className="text-2xl font-bold text-yellow-600 mb-2">Confirm Visitor Info</p>
-                        <div className="submit-visitor-confirm-note">Please double check and confirm the visitors information before submitting.<br/> <span style={{fontWeight:'normal',color:'#b52a37'}}>This cannot be edited later.</span></div>
-                        <div className="submit-visitor-confirm-names">Visitor Name(s): <span>{pendingVisitor.visitorNames}</span></div>
-                        <div className="flex gap-4">
-                            <button onClick={handleConfirmSubmit} className="submit-visitor-confirm-btn">Confirm</button>
-                            <button onClick={() => setShowConfirmModal(false)} className="submit-visitor-cancel-btn">Cancel</button>
+                </form>
+                {showConfirmModal && (
+                    <div className="submit-visitor-message-box fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+                        <div className="submit-visitor-confirm-modal flex flex-col items-center">
+                            <p className="text-2xl font-bold text-yellow-600 mb-2">Confirm Visitor Info</p>
+                            <div className="submit-visitor-confirm-note">Please double check and confirm the visitors information before submitting.<br/> <span style={{fontWeight:'normal',color:'#b52a37'}}>This cannot be edited later.</span></div>
+                            <div className="submit-visitor-confirm-names">Visitor Name(s): <span>{pendingVisitor.visitorNames}</span></div>
+                            <div className="flex gap-4">
+                                <button onClick={handleConfirmSubmit} className="submit-visitor-confirm-btn">Confirm</button>
+                                <button onClick={() => setShowConfirmModal(false)} className="submit-visitor-cancel-btn">Cancel</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
-                </form>
+                )}
                 <aside className="submit-visitor-disclaimer">
                     <p><strong>Important:</strong> This visitor data is confidential and will be securely stored, accessible only to authorized administrators. We are committed to protecting the privacy of your visitors' details in accordance with our privacy policy and the terms of your rental agreement regarding guests.</p>
                     <p>Please ensure all information provided is accurate and consistent with the&nbsp;</p>
