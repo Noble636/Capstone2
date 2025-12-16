@@ -108,12 +108,12 @@ const Home = () => {
               You're trying to open the web version.<br />
               We also have a mobile version that you can try for ease of access on your device.
             </p>
-            <a
-              href="https://apartmentmaintenancemobile.vercel.app"
+            <button
+              onClick={() => { window.location.href = "https://apartmentmaintenancemobile.vercel.app"; }}
               style={{
-                display: 'block',
+                width: '100%',
                 margin: '8px auto 0 auto',
-                padding: '12px 24px',
+                padding: '14px 0',
                 background: '#2d98da',
                 color: '#fff',
                 borderRadius: 12,
@@ -121,13 +121,13 @@ const Home = () => {
                 fontWeight: 700,
                 fontSize: 16,
                 boxShadow: '0 2px 8px rgba(44,62,80,0.12)',
+                border: 'none',
+                cursor: 'pointer',
                 transition: 'background 0.2s'
               }}
-              target="_blank"
-              rel="noopener noreferrer"
             >
               apartmentmaintenancemobile.vercel.app
-            </a>
+            </button>
           </div>
         </div>
       )}
