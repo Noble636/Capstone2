@@ -19,6 +19,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative; /* Add this */
+  z-index: 2;         /* Add this */
 }
 
 .tenant-fpw-container .tenant-fpw-box h2,
