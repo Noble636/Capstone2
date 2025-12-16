@@ -3,28 +3,20 @@ import { Link } from 'react-router-dom';
 import '../css/Home.css';
 
 const apartmentImages = [
-  {
-    src: '/Homepage images/Apartment 1.jpg',
-    label: 'Apartment 1'
-  },
-  {
-    src: '/Homepage images/Apartment 2.jpg',
-    label: 'Apartment 2'
-  },
-  {
-    src: '/Homepage images/Apartment 3.jpg',
-    label: 'Apartment 3'
-  },
-  {
-    src: '/Homepage images/Apartment 4.jpg',
-    label: 'Apartment 4'
-  },
+  { src: '/Homepage images/Apartment 1.jpg', label: 'Apartment 1' },
+  { src: '/Homepage images/Apartment 2.jpg', label: 'Apartment 2' },
+  { src: '/Homepage images/Apartment 3.jpg', label: 'Apartment 3' },
+  { src: '/Homepage images/Apartment 4.jpg', label: 'Apartment 4' },
   { src: process.env.PUBLIC_URL + '/Homepage images/Apartment 5.jpg', label: 'Apartment 5' },
   { src: process.env.PUBLIC_URL + '/Homepage images/Apartment 6.jpg', label: 'Apartment 6' },
 ];
 
-const isMobile = () => {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isMobilePhone = () => {
+  const ua = navigator.userAgent;
+  const isMobileUA = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+  const isTabletUA = /iPad|Tablet|PlayBook|Silk/i.test(ua);
+  const isSmallScreen = window.innerWidth <= 700;
+  return isMobileUA && !isTabletUA && isSmallScreen;
 };
 
 const Home = () => {
@@ -39,7 +31,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (isMobile()) {
+    if (isMobilePhone()) {
       setShowMobilePopup(true);
     }
   }, []);
@@ -49,7 +41,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="home-bg-image" />
-      {/* Soda bubbles */}
+
       <div className="bubble b1"></div>
       <div className="bubble b2"></div>
       <div className="bubble b3"></div>
@@ -59,7 +51,6 @@ const Home = () => {
       <div className="bubble b7"></div>
       <div className="bubble b8"></div>
 
-      {/* Mobile version suggestion popup */}
       {showMobilePopup && (
         <div style={{
           position: 'fixed',
@@ -120,8 +111,8 @@ const Home = () => {
             <a
               href="https://apartmentmaintenancemobile.vercel.app"
               style={{
-                display: 'inline-block',
-                marginTop: 8,
+                display: 'block',
+                margin: '8px auto 0 auto',
                 padding: '12px 24px',
                 background: '#2d98da',
                 color: '#fff',
