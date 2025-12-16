@@ -126,7 +126,7 @@ const Home = () => {
                 transition: 'background 0.2s'
               }}
             >
-              Take me there
+              Take Me There!
             </button>
           </div>
         </div>
