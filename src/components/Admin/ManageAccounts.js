@@ -177,8 +177,11 @@ const ManageAccounts = () => {
                                                     </button>
                                                 </div>
                                                 {showTokenModal && (
-                                                    <div className="modal-overlay">
-                                                        <div className="modal-content">
+                                                    <div className="modal-overlay" onClick={() => setShowTokenModal(false)}>
+                                                        <div
+                                                            className="modal-content"
+                                                            onClick={e => e.stopPropagation()} // <-- Add this line
+                                                        >
                                                             <h2>Enter Developer Token</h2>
                                                             <form onSubmit={handleTokenSubmit}>
                                                                 <input
