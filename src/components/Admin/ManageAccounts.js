@@ -183,11 +183,10 @@ const ManageAccounts = () => {
                         tenants.map((tenant) => (
                             <div key={tenant.tenant_id} className="tenant-item" onClick={() => handleToggleExpand(tenant.tenant_id)}>
                                 <div className="tenant-summary">
-                                    <p><strong>{tenant.full_name}</strong> - {tenant.username}</p>
+                                    <p><strong>{tenant.full_name}</strong></p>
                                 </div>
                                 {expandedTenant === tenant.tenant_id && (
                                     <div className="tenant-details">
-                                        <p><strong>Name:</strong> {tenant.full_name}</p>
                                         <p><strong>Username:</strong> {revealedTenants[tenant.tenant_id] ? tenant.username : <span className="spoiler">••••••••</span>}</p>
                                         <p><strong>Apartment ID:</strong> {tenant.apartment_id || 'N/A'}</p>
                                         <p><strong>Phone:</strong> {revealedTenants[tenant.tenant_id] ? tenant.contact_number : <span className="spoiler">••••••••</span>}</p>
@@ -202,9 +201,7 @@ const ManageAccounts = () => {
                                                 style={{
                                                     marginRight: '10px',
                                                     marginBottom: '16px',
-                                                    background: revealEnabled
-                                                        ? (revealedTenants[tenant.tenant_id] ? '#6c757d' : '#dc3545')
-                                                        : '#aaa',
+                                                    background: revealEnabled ? '#222' : '#aaa',
                                                     color: '#fff',
                                                     cursor: revealEnabled ? 'pointer' : 'not-allowed',
                                                     border: 'none',
