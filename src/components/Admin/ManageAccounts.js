@@ -154,6 +154,26 @@ const ManageAccounts = () => {
                         <button className="back_to_dashboard_manage_accounts_button" onClick={handleBack}>
                             <span style={{ fontSize: '1.5rem' }}>🏠</span> Back to Dashboard
                         </button>
+                        <button
+        className="enable-reveal-btn"
+        onClick={() => setShowTokenModal(true)}
+        style={{
+            marginBottom: '16px',
+            marginTop: '8px',
+            background: '#7a4f13',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '8px',
+            padding: '12px 0',
+            fontSize: '1.1rem',
+            fontWeight: 'bold',
+            width: '100%',
+            maxWidth: '300px',
+            cursor: 'pointer'
+        }}
+    >
+        Enable Reveal Information
+    </button>
                         <div className="tenant-list">
                             {tenants.length === 0 ? (
                                 <p>No tenant accounts found.</p>
