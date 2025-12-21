@@ -196,21 +196,23 @@ const ManageAccounts = () => {
                                         <p><strong>Emergency Contact Number:</strong> {revealedTenants[tenant.tenant_id] ? tenant.emergency_contact_number : <span className="spoiler">••••••••</span>}</p>
                                         <p><strong>Account Created:</strong> {new Date(tenant.created_at).toLocaleDateString()}</p>
                                         <div className="tenant-actions">
-                                            <button className="delete-button" onClick={(e) => { e.stopPropagation(); handleDeleteAccount(tenant.tenant_id, tenant.full_name); }}>
-                                                Delete Account
-                                            </button>
                                             <button
                                                 className="reveal-sensitive-btn"
                                                 disabled={!revealEnabled}
                                                 style={{
-                                                    marginLeft: '10px',
+                                                    marginRight: '10px',
                                                     marginBottom: '16px',
-                                                    background: revealEnabled ? '#222' : '#aaa',
+                                                    background: revealEnabled
+                                                        ? (revealedTenants[tenant.tenant_id] ? '#6c757d' : '#dc3545')
+                                                        : '#aaa',
                                                     color: '#fff',
                                                     cursor: revealEnabled ? 'pointer' : 'not-allowed',
                                                     border: 'none',
                                                     borderRadius: '5px',
-                                                    padding: '10px 15px'
+                                                    padding: '10px 15px',
+                                                    fontSize: '1rem',
+                                                    fontWeight: 'bold',
+                                                    transition: 'background 0.2s'
                                                 }}
                                                 onClick={e => {
                                                     e.stopPropagation();
@@ -222,6 +224,18 @@ const ManageAccounts = () => {
                                                 }}
                                             >
                                                 <FontAwesomeIcon icon={faEye} /> {revealedTenants[tenant.tenant_id] ? "Hide Sensitive Info" : "Reveal Sensitive Info"}
+                                            </button>
+                                            <button
+                                                className="delete-button"
+                                                onClick={e => {
+                                                    e.stopPropagation();
+                                                    handleDeleteAccount(tenant.tenant_id, tenant.full_name);
+                                                }}
+                                                style={{
+                                                    marginBottom: '16px'
+                                                }}
+                                            >
+                                                Delete Account
                                             </button>
                                         </div>
                                     </div>
