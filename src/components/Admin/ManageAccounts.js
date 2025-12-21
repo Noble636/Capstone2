@@ -162,11 +162,13 @@ const ManageAccounts = () => {
                                         </div>
                                         {expandedTenant === tenant.tenant_id && (
                                             <div className="tenant-details">
+                                                <p><strong>Name:</strong> {tenant.full_name}</p>
+                                                <p><strong>Username:</strong> {showSensitive ? tenant.username : <span className="spoiler">••••••••</span>}</p>
                                                 <p><strong>Apartment ID:</strong> {tenant.apartment_id || 'N/A'}</p>
-                                                <p><strong>Phone:</strong> {tenant.contact_number || 'N/A'}</p>
-                                                <p><strong>Email:</strong> {tenant.email || 'N/A'}</p>
-                                                <p><strong>Emergency Contact Name:</strong> {tenant.emergency_contact || 'N/A'}</p>
-                                                <p><strong>Emergency Contact Number:</strong> {tenant.emergency_contact_number || 'N/A'}</p>
+                                                <p><strong>Phone:</strong> {showSensitive ? tenant.contact_number : <span className="spoiler">••••••••</span>}</p>
+                                                <p><strong>Email:</strong> {showSensitive ? tenant.email : <span className="spoiler">••••••••</span>}</p>
+                                                <p><strong>Emergency Contact Name:</strong> {showSensitive ? tenant.emergency_contact : <span className="spoiler">••••••••</span>}</p>
+                                                <p><strong>Emergency Contact Number:</strong> {showSensitive ? tenant.emergency_contact_number : <span className="spoiler">••••••••</span>}</p>
                                                 <p><strong>Account Created:</strong> {new Date(tenant.created_at).toLocaleDateString()}</p>
                                                 <div className="tenant-actions">
                                                     <button className="delete-button" onClick={(e) => { e.stopPropagation(); handleDeleteAccount(tenant.tenant_id, tenant.full_name); }}>
