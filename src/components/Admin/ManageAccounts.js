@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/Admin/ManageAccounts.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 const ManageAccounts = () => {
     const navigate = useNavigate();
@@ -17,6 +19,11 @@ const ManageAccounts = () => {
     const [showMessage, setShowMessage] = useState(false);
     const [messageText, setMessageText] = useState('');
     const [messageType, setMessageType] = useState('');
+
+    const [showSensitive, setShowSensitive] = useState(false);
+    const [showTokenModal, setShowTokenModal] = useState(false);
+    const [tokenInput, setTokenInput] = useState('');
+    const [tokenError, setTokenError] = useState('');
 
     useEffect(() => {
         fetchTenants();
@@ -104,6 +111,22 @@ const ManageAccounts = () => {
         navigate('/admin-dashboard');
     };
 
+    const handleRevealClick = () => {
+        setShowTokenModal(true);
+        setTokenInput('');
+        setTokenError('');
+    };
+
+    const handleTokenSubmit = (e) => {
+        e.preventDefault();
+        if (tokenInput === 'Token') { // Replace with your actual token logic
+            setShowSensitive(true);
+            setShowTokenModal(false);
+        } else {
+            setTokenError('Incorrect developer token.');
+        }
+    };
+
     if (loading) {
         return <p>Loading tenant accounts...</p>;
     }
@@ -149,7 +172,53 @@ const ManageAccounts = () => {
                                                     <button className="delete-button" onClick={(e) => { e.stopPropagation(); handleDeleteAccount(tenant.tenant_id, tenant.full_name); }}>
                                                         Delete Account
                                                     </button>
+                                                    <button className="reveal-sensitive-btn" onClick={handleRevealClick} style={{marginBottom: '16px'}}>
+                                                        <FontAwesomeIcon icon={faEye} /> Reveal Sensitive Info
+                                                    </button>
                                                 </div>
+                                                {showTokenModal && (
+                                                    <div className="modal-overlay">
+                                                        <div className="modal-content">
+                                                            <h2>Enter Developer Token</h2>
+                                                            <form onSubmit={handleTokenSubmit}>
+                                                                <input
+                                                                    type="password"
+                                                                    value={tokenInput}
+                                                                    onChange={e => setTokenInput(e.target.value)}
+                                                                    placeholder="Developer Token"
+                                                                    required
+                                                                />
+                                                                {tokenError && <p style={{ color: 'red' }}>{tokenError}</p>}
+                                                                <div className="modal-actions">
+                                                                    <button type="submit" className="modal-button confirm">Reveal</button>
+                                                                    <button type="button" className="modal-button cancel" onClick={() => setShowTokenModal(false)}>Cancel</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                {showSensitive && (
+                                                    <div className="sensitive-info">
+                                                        <p><strong>SSN:</strong> {tenant.ssn || 'N/A'}</p>
+                                                        <p><strong>Bank Account:</strong> {tenant.bank_account || 'N/A'}</p>
+                                                        <p><strong>Credit Card:</strong> {tenant.credit_card || 'N/A'}</p>
+                                                    </div>
+                                                )}
+                                                <span className={showSensitive ? '' : 'spoiler'}>
+                                                    {showSensitive ? tenant.username : '••••••••'}
+                                                </span>
+                                                <span className={showSensitive ? '' : 'spoiler'}>
+                                                    {showSensitive ? tenant.email : '••••••••'}
+                                                </span>
+                                                <span className={showSensitive ? '' : 'spoiler'}>
+                                                    {showSensitive ? tenant.contact_number : '••••••••'}
+                                                </span>
+                                                <span className={showSensitive ? '' : 'spoiler'}>
+                                                    {showSensitive ? tenant.emergency_contact : '••••••••'}
+                                                </span>
+                                                <span className={showSensitive ? '' : 'spoiler'}>
+                                                    {showSensitive ? tenant.emergency_contact_number : '••••••••'}
+                                                </span>
                                             </div>
                                         )}
                                     </div>

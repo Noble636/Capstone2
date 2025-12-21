@@ -4,6 +4,7 @@ import '../../css/Tenant/TenantRegister.css';
 import '../../css/Tenant/EditComplaints.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import CryptoJS from 'crypto-js';
 
 const TenantRegister = () => {
     const navigate = useNavigate();
@@ -60,6 +61,34 @@ const TenantRegister = () => {
         }
     };
 
+    const encrypt = (text) => {
+        const key = 'your-encryption-key'; // Use a secure key and store it safely
+        const iv = CryptoJS.lib.WordArray.random(128 / 8);
+        const encrypted = CryptoJS.AES.encrypt(text, CryptoJS.enc.Utf8.parse(key), {
+            iv: iv,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7,
+        });
+        return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+    };
+
+    const decrypt = (ciphertext) => {
+        const key = 'your-encryption-key'; // Use the same secure key for decryption
+        const decodedData = CryptoJS.enc.Base64.parse(ciphertext);
+        const iv = CryptoJS.lib.WordArray.create(decodedData.words.slice(0, 4));
+        const encrypted = CryptoJS.lib.WordArray.create(decodedData.words.slice(4));
+        const decrypted = CryptoJS.AES.decrypt(
+            { ciphertext: encrypted, salt: iv },
+            CryptoJS.enc.Utf8.parse(key),
+            {
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7,
+            }
+        );
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setRegistrationError('');
@@ -73,6 +102,9 @@ const TenantRegister = () => {
             return;
         }
 
+        const encryptedUsername = encrypt(username);
+        const encryptedEmail = encrypt(email);
+
         try {
             const response = await fetch('https://tenantportal-backend.onrender.com/api/tenant/register', {
                 method: 'POST',
@@ -80,10 +112,10 @@ const TenantRegister = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username,
+                    username: encryptedUsername,
                     password,
                     fullName,
-                    email,
+                    email: encryptedEmail,
                     contactNumber,
                     apartmentId,
                     emergencyContact,
