@@ -25,6 +25,9 @@ const ManageAccounts = () => {
     const [tokenInput, setTokenInput] = useState('');
     const [tokenError, setTokenError] = useState('');
 
+    const [revealEnabled, setRevealEnabled] = useState(false);
+    const [revealedTenants, setRevealedTenants] = useState({});
+
     useEffect(() => {
         fetchTenants();
     }, []);
@@ -163,40 +166,93 @@ const ManageAccounts = () => {
                                         {expandedTenant === tenant.tenant_id && (
                                             <div className="tenant-details">
                                                 <p><strong>Name:</strong> {tenant.full_name}</p>
-                                                <p><strong>Username:</strong> {showSensitive ? tenant.username : <span className="spoiler">••••••••</span>}</p>
+                                                <p><strong>Username:</strong> {revealedTenants[tenant.tenant_id] ? tenant.username : <span className="spoiler">••••••••</span>}</p>
                                                 <p><strong>Apartment ID:</strong> {tenant.apartment_id || 'N/A'}</p>
-                                                <p><strong>Phone:</strong> {showSensitive ? tenant.contact_number : <span className="spoiler">••••••••</span>}</p>
-                                                <p><strong>Email:</strong> {showSensitive ? tenant.email : <span className="spoiler">••••••••</span>}</p>
-                                                <p><strong>Emergency Contact Name:</strong> {showSensitive ? tenant.emergency_contact : <span className="spoiler">••••••••</span>}</p>
-                                                <p><strong>Emergency Contact Number:</strong> {showSensitive ? tenant.emergency_contact_number : <span className="spoiler">••••••••</span>}</p>
+                                                <p><strong>Phone:</strong> {revealedTenants[tenant.tenant_id] ? tenant.contact_number : <span className="spoiler">••••••••</span>}</p>
+                                                <p><strong>Email:</strong> {revealedTenants[tenant.tenant_id] ? tenant.email : <span className="spoiler">••••••••</span>}</p>
+                                                <p><strong>Emergency Contact Name:</strong> {revealedTenants[tenant.tenant_id] ? tenant.emergency_contact : <span className="spoiler">••••••••</span>}</p>
+                                                <p><strong>Emergency Contact Number:</strong> {revealedTenants[tenant.tenant_id] ? tenant.emergency_contact_number : <span className="spoiler">••••••••</span>}</p>
                                                 <p><strong>Account Created:</strong> {new Date(tenant.created_at).toLocaleDateString()}</p>
                                                 <div className="tenant-actions">
                                                     <button className="delete-button" onClick={(e) => { e.stopPropagation(); handleDeleteAccount(tenant.tenant_id, tenant.full_name); }}>
                                                         Delete Account
                                                     </button>
-                                                    <button className="reveal-sensitive-btn" onClick={handleRevealClick} style={{marginBottom: '16px'}}>
-                                                        <FontAwesomeIcon icon={faEye} /> Reveal Sensitive Info
+                                                    <button className="enable-reveal-btn" onClick={() => setShowTokenModal(true)} style={{marginBottom: '16px', marginTop: '8px', background: '#7a4f13', color: '#fff', border: 'none', borderRadius: '8px', padding: '12px 0', fontSize: '1.1rem', fontWeight: 'bold', width: '100%', maxWidth: '300px', cursor: 'pointer'}}>
+                                                        Enable Reveal Information
+                                                    </button>
+                                                    <button
+                                                        className="reveal-sensitive-btn"
+                                                        disabled={!revealEnabled}
+                                                        style={{
+                                                            marginLeft: '10px',
+                                                            marginBottom: '16px',
+                                                            background: revealEnabled ? '#222' : '#aaa',
+                                                            color: '#fff',
+                                                            cursor: revealEnabled ? 'pointer' : 'not-allowed',
+                                                            border: 'none',
+                                                            borderRadius: '5px',
+                                                            padding: '10px 15px'
+                                                        }}
+                                                        onClick={e => {
+                                                            e.stopPropagation();
+                                                            if (!revealEnabled) return;
+                                                            setRevealedTenants(prev => ({
+                                                                ...prev,
+                                                                [tenant.tenant_id]: !prev[tenant.tenant_id]
+                                                            }));
+                                                        }}
+                                                    >
+                                                        <FontAwesomeIcon icon={faEye} /> {revealedTenants[tenant.tenant_id] ? "Hide Sensitive Info" : "Reveal Sensitive Info"}
                                                     </button>
                                                 </div>
                                                 {showTokenModal && (
                                                     <div className="modal-overlay" onClick={() => setShowTokenModal(false)}>
                                                         <div
                                                             className="modal-content"
-                                                            onClick={e => e.stopPropagation()} // <-- Add this line
+                                                            style={{
+                                                                background: "rgba(255,255,255,0.95)",
+                                                                borderRadius: "12px",
+                                                                boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+                                                                padding: "32px 40px",
+                                                                maxWidth: "400px",
+                                                                width: "90%",
+                                                                textAlign: "center"
+                                                            }}
+                                                            onClick={e => e.stopPropagation()}
                                                         >
-                                                            <h2>Enter Developer Token</h2>
-                                                            <form onSubmit={handleTokenSubmit}>
+                                                            <h2 style={{ fontWeight: 700, marginBottom: 18 }}>Sensitive Information Access</h2>
+                                                            <p style={{ color: "#b71c1c", background: "#fff3cd", borderRadius: 8, padding: 12, marginBottom: 18, fontSize: "1.05rem" }}>
+                                                                <strong>Warning:</strong> This information is sensitive and for the eyes of authorized administrators only. Please do not share or misuse this data.
+                                                            </p>
+                                                            <form onSubmit={e => {
+                                                                e.preventDefault();
+                                                                if (tokenInput === 'Token') {
+                                                                    setRevealEnabled(true);
+                                                                    setShowTokenModal(false);
+                                                                    setTokenError('');
+                                                                } else {
+                                                                    setTokenError('Incorrect developer token.');
+                                                                }
+                                                            }}>
                                                                 <input
                                                                     type="password"
                                                                     value={tokenInput}
                                                                     onChange={e => setTokenInput(e.target.value)}
                                                                     placeholder="Developer Token"
                                                                     required
+                                                                    style={{
+                                                                        width: "100%",
+                                                                        padding: "14px",
+                                                                        fontSize: "1.1rem",
+                                                                        border: "1px solid #ddd",
+                                                                        borderRadius: "8px",
+                                                                        marginBottom: "12px"
+                                                                    }}
                                                                 />
-                                                                {tokenError && <p style={{ color: 'red' }}>{tokenError}</p>}
-                                                                <div className="modal-actions">
-                                                                    <button type="submit" className="modal-button confirm">Reveal</button>
-                                                                    <button type="button" className="modal-button cancel" onClick={() => setShowTokenModal(false)}>Cancel</button>
+                                                                {tokenError && <p style={{ color: 'red', marginBottom: 10 }}>{tokenError}</p>}
+                                                                <div className="modal-actions" style={{ display: "flex", gap: 12, justifyContent: "center" }}>
+                                                                    <button type="submit" className="modal-button confirm" style={{ background: "#7a4f13", color: "#fff" }}>Enable</button>
+                                                                    <button type="button" className="modal-button cancel" style={{ background: "#6c757d", color: "#fff" }} onClick={() => setShowTokenModal(false)}>Cancel</button>
                                                                 </div>
                                                             </form>
                                                         </div>
