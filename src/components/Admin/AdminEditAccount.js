@@ -195,9 +195,11 @@ const AdminEditAccount = () => {
             </div>
 
             <p className="admin-edit-info-text" style={{marginTop: '10px', marginBottom: '5px'}}>
-              This is your <b>Admin Token</b>. You will use this for sensitive actions and password recovery. Please keep it safe and do not share it with others.
-              <br />
-              <span style={{color: '#888', fontSize: '0.95em'}}>(Optional: Only fill if you want to update your admin token)</span>
+              This is your <b>Admin Token</b>. You will use this for sensitive actions and password recovery. Please keep it safe and do not share it with others.<br />
+              <span style={{color: '#888', fontSize: '0.95em'}}>
+                (Optional: Only fill if you want to update your admin token)<br />
+                <b>Note:</b> You must enter your current password to change your admin token.
+              </span>
             </p>
             <div className="password-input-container">
               <input
