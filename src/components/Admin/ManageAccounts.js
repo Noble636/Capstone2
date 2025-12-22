@@ -243,7 +243,7 @@ const ManageAccounts = () => {
                                                         }));
                                                         setRevealCountdowns(prev => ({
                                                             ...prev,
-                                                            [tenant.tenant_id]: 30
+                                                            [tenant.tenant_id]: 15
                                                         }));
                                                         if (countdownRefs.current[tenant.tenant_id]) {
                                                             clearInterval(countdownRefs.current[tenant.tenant_id]);
@@ -310,7 +310,7 @@ const ManageAccounts = () => {
                             <p style={{ color: "#b71c1c", background: "#fff3cd", borderRadius: 8, padding: 12, marginBottom: 18, fontSize: "1.05rem" }}>
                                 <strong>Warning:</strong> This information is sensitive and for the eyes of authorized administrators only. Please do not share or misuse this data.
                             </p>
-                            <form onSubmit={handleTokenSubmit}>
+                            <form onSubmit={handleTokenSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <input
                                     type="password"
                                     value={tokenInput}
@@ -319,11 +319,16 @@ const ManageAccounts = () => {
                                     required
                                     style={{
                                         width: "100%",
+                                        maxWidth: "340px",
                                         padding: "14px",
                                         fontSize: "1.1rem",
-                                        border: "1px solid #ddd",
+                                        border: "2px solid #111",
                                         borderRadius: "8px",
-                                        marginBottom: "12px"
+                                        marginBottom: "12px",
+                                        boxSizing: "border-box",
+                                        display: "block",
+                                        marginLeft: "auto",
+                                        marginRight: "auto"
                                     }}
                                 />
                                 {tokenError && <p style={{ color: 'red', marginBottom: 10 }}>{tokenError}</p>}
