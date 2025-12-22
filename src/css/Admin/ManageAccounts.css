@@ -378,7 +378,7 @@
 
   .modal-actions {
     flex-direction: column;
-    gap: 10px;
+    gap: 24px;
   }
 
   .modal-button {
