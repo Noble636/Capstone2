@@ -127,6 +127,9 @@ const AdminEditAccount = () => {
     setShowMessage(false);
     setMessageText('');
     setMessageType('');
+    if (messageType === 'success') {
+      navigate('/admin-dashboard');
+    }
   };
 
   if (loading) return <p>Loading admin data...</p>;
