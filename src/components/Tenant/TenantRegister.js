@@ -4,7 +4,6 @@ import '../../css/Tenant/TenantRegister.css';
 import '../../css/Tenant/EditComplaints.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import CryptoJS from 'crypto-js';
 
 const TenantRegister = () => {
     const navigate = useNavigate();
@@ -60,8 +59,6 @@ const TenantRegister = () => {
                 break;
         }
     };
-
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
