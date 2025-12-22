@@ -232,6 +232,7 @@ const TenantRegister = () => {
                         value={emergencyContactNumber}
                         onChange={handleInputChange}
                         placeholder="Emergency Contact Number (Optional)"
+                        maxLength={30}
                     />
                     <button type="submit" disabled={!acceptedTerms}>Register</button>
                 </form>
