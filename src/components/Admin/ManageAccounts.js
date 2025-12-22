@@ -276,8 +276,10 @@ const ManageAccounts = () => {
                                                 </button>
                                             </div>
                                             {revealedTenants[tenant.tenant_id] && revealCountdowns[tenant.tenant_id] > 0 && (
-                                                <div style={{ color: '#b71c1c', fontWeight: 'bold', marginTop: 8, width: '100%', textAlign: 'center', display: 'block' }}>
-                                                    The information will hide in: ({revealCountdowns[tenant.tenant_id]})
+                                                <div style={{ width: '100%' }}>
+                                                    <div style={{ color: '#b71c1c', fontWeight: 'bold', marginTop: 8, textAlign: 'center', display: 'block' }}>
+                                                        The information will hide in: ({revealCountdowns[tenant.tenant_id]})
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>
