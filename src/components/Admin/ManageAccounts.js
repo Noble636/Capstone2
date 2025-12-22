@@ -217,7 +217,7 @@ const ManageAccounts = () => {
                                         <p><strong>Emergency Contact Number:</strong> {revealedTenants[tenant.tenant_id] ? tenant.emergency_contact_number : <span className="spoiler">••••••••</span>}</p>
                                         <p><strong>Account Created:</strong> {new Date(tenant.created_at).toLocaleDateString()}</p>
                                         <div className="tenant-actions" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                                            <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
+                                            <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'flex-start' }}>
                                                 <button
                                                     className="reveal-sensitive-btn"
                                                     disabled={!revealEnabled || revealCountdowns[tenant.tenant_id] > 0}
