@@ -22,9 +22,7 @@ const ManageAccounts = () => {
 
     const [showTokenModal, setShowTokenModal] = useState(false);
     const [tokenInput, setTokenInput] = useState('');
-    const [adminTokenInput, setAdminTokenInput] = useState('');
     const [tokenError, setTokenError] = useState('');
-    const [adminTokenError, setAdminTokenError] = useState('');
     const [verifyingAdminToken, setVerifyingAdminToken] = useState(false);
 
     const [revealEnabled, setRevealEnabled] = useState(false);
@@ -127,35 +125,28 @@ const ManageAccounts = () => {
     const handleTokenSubmit = async (e) => {
         e.preventDefault();
         setTokenError('');
-        setAdminTokenError('');
-        if (tokenInput !== 'Token') {
-            setTokenError('Incorrect developer token.');
-            return;
-        }
-        if (!adminTokenInput) {
-            setAdminTokenError('Admin token is required.');
+        if (tokenInput === 'Token') {
+            setRevealEnabled(true);
+            setShowTokenModal(false);
             return;
         }
         setVerifyingAdminToken(true);
         try {
-            // Get adminId from localStorage (set on login)
             const adminId = localStorage.getItem('adminId');
             const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/verify-admin-token', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ adminId, adminToken: adminTokenInput })
+                body: JSON.stringify({ adminId, adminToken: tokenInput })
             });
             const data = await response.json();
             if (response.ok && data.valid) {
                 setRevealEnabled(true);
                 setShowTokenModal(false);
-                setTokenError('');
-                setAdminTokenError('');
             } else {
-                setAdminTokenError(data.message || 'Invalid admin token.');
+                setTokenError(data.message || 'Invalid token.');
             }
         } catch (err) {
-            setAdminTokenError('Error verifying admin token.');
+            setTokenError('Error verifying token.');
         } finally {
             setVerifyingAdminToken(false);
         }
@@ -294,7 +285,7 @@ const ManageAccounts = () => {
                                     type="password"
                                     value={tokenInput}
                                     onChange={e => setTokenInput(e.target.value)}
-                                    placeholder="Developer Token"
+                                    placeholder="Developer or Admin Token"
                                     required
                                     style={{
                                         width: "100%",
@@ -306,22 +297,6 @@ const ManageAccounts = () => {
                                     }}
                                 />
                                 {tokenError && <p style={{ color: 'red', marginBottom: 10 }}>{tokenError}</p>}
-                                <input
-                                    type="password"
-                                    value={adminTokenInput}
-                                    onChange={e => setAdminTokenInput(e.target.value)}
-                                    placeholder="Admin Token"
-                                    required
-                                    style={{
-                                        width: "100%",
-                                        padding: "14px",
-                                        fontSize: "1.1rem",
-                                        border: "1px solid #ddd",
-                                        borderRadius: "8px",
-                                        marginBottom: "12px"
-                                    }}
-                                />
-                                {adminTokenError && <p style={{ color: 'red', marginBottom: 10 }}>{adminTokenError}</p>}
                                 <div className="modal-actions" style={{ display: "flex", gap: 12, justifyContent: "center" }}>
                                     <button type="submit" className="modal-button confirm" style={{ background: "#7a4f13", color: "#fff" }} disabled={verifyingAdminToken}>{verifyingAdminToken ? 'Verifying...' : 'Enable'}</button>
                                     <button type="button" className="modal-button cancel" style={{ background: "#6c757d", color: "#fff" }} onClick={() => setShowTokenModal(false)}>Cancel</button>
