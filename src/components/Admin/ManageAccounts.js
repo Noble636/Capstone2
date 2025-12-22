@@ -262,11 +262,6 @@ const ManageAccounts = () => {
                                             >
                                                 <FontAwesomeIcon icon={faEye} /> Reveal Sensitive Info
                                             </button>
-                                            {revealedTenants[tenant.tenant_id] && revealCountdowns[tenant.tenant_id] > 0 && (
-                                                <div style={{ color: '#b71c1c', fontWeight: 'bold', marginBottom: 8 }}>
-                                                    The information will hide in: ({revealCountdowns[tenant.tenant_id]})
-                                                </div>
-                                            )}
                                             <button
                                                 className="delete-button"
                                                 onClick={e => {
@@ -279,6 +274,11 @@ const ManageAccounts = () => {
                                             >
                                                 Delete Account
                                             </button>
+                                            {revealedTenants[tenant.tenant_id] && revealCountdowns[tenant.tenant_id] > 0 && (
+                                                <div style={{ color: '#b71c1c', fontWeight: 'bold', marginTop: 8 }}>
+                                                    The information will hide in: ({revealCountdowns[tenant.tenant_id]})
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 )}
