@@ -223,6 +223,7 @@ const ManageAccounts = () => {
                                                     disabled={!revealEnabled || revealCountdowns[tenant.tenant_id] > 0}
                                                     style={{
                                                         marginBottom: '16px',
+                                                        marginRight: '18px',
                                                         background: revealEnabled && !revealCountdowns[tenant.tenant_id] ? '#222' : '#aaa',
                                                         color: '#fff',
                                                         cursor: revealEnabled && !revealCountdowns[tenant.tenant_id] ? 'pointer' : 'not-allowed',
