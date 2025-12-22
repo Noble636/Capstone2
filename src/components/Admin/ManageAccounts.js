@@ -216,64 +216,65 @@ const ManageAccounts = () => {
                                         <p><strong>Emergency Contact Name:</strong> {revealedTenants[tenant.tenant_id] ? tenant.emergency_contact : <span className="spoiler">••••••••</span>}</p>
                                         <p><strong>Emergency Contact Number:</strong> {revealedTenants[tenant.tenant_id] ? tenant.emergency_contact_number : <span className="spoiler">••••••••</span>}</p>
                                         <p><strong>Account Created:</strong> {new Date(tenant.created_at).toLocaleDateString()}</p>
-                                        <div className="tenant-actions">
-                                            <button
-                                                className="reveal-sensitive-btn"
-                                                disabled={!revealEnabled || revealCountdowns[tenant.tenant_id] > 0}
-                                                style={{
-                                                    marginRight: '10px',
-                                                    marginBottom: '16px',
-                                                    background: revealEnabled && !revealCountdowns[tenant.tenant_id] ? '#222' : '#aaa',
-                                                    color: '#fff',
-                                                    cursor: revealEnabled && !revealCountdowns[tenant.tenant_id] ? 'pointer' : 'not-allowed',
-                                                    border: 'none',
-                                                    borderRadius: '5px',
-                                                    padding: '10px 15px',
-                                                    fontSize: '1rem',
-                                                    fontWeight: 'bold',
-                                                    transition: 'background 0.2s'
-                                                }}
-                                                onClick={e => {
-                                                    e.stopPropagation();
-                                                    if (!revealEnabled || revealCountdowns[tenant.tenant_id] > 0) return;
-                                                    setRevealedTenants(prev => ({
-                                                        ...prev,
-                                                        [tenant.tenant_id]: true
-                                                    }));
-                                                    setRevealCountdowns(prev => ({
-                                                        ...prev,
-                                                        [tenant.tenant_id]: 30
-                                                    }));
-                                                    if (countdownRefs.current[tenant.tenant_id]) {
-                                                        clearInterval(countdownRefs.current[tenant.tenant_id]);
-                                                    }
-                                                    countdownRefs.current[tenant.tenant_id] = setInterval(() => {
-                                                        setRevealCountdowns(prev => {
-                                                            const newVal = (prev[tenant.tenant_id] || 0) - 1;
-                                                            if (newVal <= 0) {
-                                                                clearInterval(countdownRefs.current[tenant.tenant_id]);
-                                                                setRevealedTenants(p => ({ ...p, [tenant.tenant_id]: false }));
-                                                                return { ...prev, [tenant.tenant_id]: 0 };
-                                                            }
-                                                            return { ...prev, [tenant.tenant_id]: newVal };
-                                                        });
-                                                    }, 1000);
-                                                }}
-                                            >
-                                                <FontAwesomeIcon icon={faEye} /> Reveal Sensitive Info
-                                            </button>
-                                            <button
-                                                className="delete-button"
-                                                onClick={e => {
-                                                    e.stopPropagation();
-                                                    handleDeleteAccount(tenant.tenant_id, tenant.full_name);
-                                                }}
-                                                style={{
-                                                    marginBottom: '16px'
-                                                }}
-                                            >
-                                                Delete Account
-                                            </button>
+                                        <div className="tenant-actions" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                            <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
+                                                <button
+                                                    className="reveal-sensitive-btn"
+                                                    disabled={!revealEnabled || revealCountdowns[tenant.tenant_id] > 0}
+                                                    style={{
+                                                        marginBottom: '16px',
+                                                        background: revealEnabled && !revealCountdowns[tenant.tenant_id] ? '#222' : '#aaa',
+                                                        color: '#fff',
+                                                        cursor: revealEnabled && !revealCountdowns[tenant.tenant_id] ? 'pointer' : 'not-allowed',
+                                                        border: 'none',
+                                                        borderRadius: '5px',
+                                                        padding: '10px 15px',
+                                                        fontSize: '1rem',
+                                                        fontWeight: 'bold',
+                                                        transition: 'background 0.2s'
+                                                    }}
+                                                    onClick={e => {
+                                                        e.stopPropagation();
+                                                        if (!revealEnabled || revealCountdowns[tenant.tenant_id] > 0) return;
+                                                        setRevealedTenants(prev => ({
+                                                            ...prev,
+                                                            [tenant.tenant_id]: true
+                                                        }));
+                                                        setRevealCountdowns(prev => ({
+                                                            ...prev,
+                                                            [tenant.tenant_id]: 30
+                                                        }));
+                                                        if (countdownRefs.current[tenant.tenant_id]) {
+                                                            clearInterval(countdownRefs.current[tenant.tenant_id]);
+                                                        }
+                                                        countdownRefs.current[tenant.tenant_id] = setInterval(() => {
+                                                            setRevealCountdowns(prev => {
+                                                                const newVal = (prev[tenant.tenant_id] || 0) - 1;
+                                                                if (newVal <= 0) {
+                                                                    clearInterval(countdownRefs.current[tenant.tenant_id]);
+                                                                    setRevealedTenants(p => ({ ...p, [tenant.tenant_id]: false }));
+                                                                    return { ...prev, [tenant.tenant_id]: 0 };
+                                                                }
+                                                                return { ...prev, [tenant.tenant_id]: newVal };
+                                                            });
+                                                        }, 1000);
+                                                    }}
+                                                >
+                                                    <FontAwesomeIcon icon={faEye} /> Reveal Sensitive Info
+                                                </button>
+                                                <button
+                                                    className="delete-button"
+                                                    onClick={e => {
+                                                        e.stopPropagation();
+                                                        handleDeleteAccount(tenant.tenant_id, tenant.full_name);
+                                                    }}
+                                                    style={{
+                                                        marginBottom: '16px'
+                                                    }}
+                                                >
+                                                    Delete Account
+                                                </button>
+                                            </div>
                                             {revealedTenants[tenant.tenant_id] && revealCountdowns[tenant.tenant_id] > 0 && (
                                                 <div style={{ color: '#b71c1c', fontWeight: 'bold', marginTop: 8 }}>
                                                     The information will hide in: ({revealCountdowns[tenant.tenant_id]})
