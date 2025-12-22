@@ -50,7 +50,7 @@ const ManageAccounts = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }
 
     const handleToggleExpand = (id) => {
         setExpandedTenant(expandedTenant === id ? null : id);
@@ -285,13 +285,12 @@ const ManageAccounts = () => {
                                             </div>
                                         </div>
                                         </div>
-                                    </div>
-                                )}
-                            </div>
-                        ))
-                    )}
-                </div>
-                {showTokenModal && (
+                                    )}
+                                </div>
+                            ))
+                        )}
+                    </div>
+                    {showTokenModal && (
                     <div className="modal-overlay" onClick={() => setShowTokenModal(false)}>
                         <div
                             className="modal-content"
