@@ -6,7 +6,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const AdminFPW = () => {
     const navigate = useNavigate();
-    const [developerToken, setDeveloperToken] = useState('');
+    const [tokenInput, setTokenInput] = useState('');
     const [username, setUsername] = useState('');
     const [adminDetails, setAdminDetails] = useState(null);
     const [otp, setOtp] = useState('');
@@ -18,7 +18,7 @@ const AdminFPW = () => {
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
 
-    const handleDeveloperTokenSubmit = async (e) => {
+    const handleTokenSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setMessage('');
@@ -26,17 +26,17 @@ const AdminFPW = () => {
             const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/forgot-password/verify-token', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ developerToken }),
+                body: JSON.stringify({ token: tokenInput }),
             });
             const data = await response.json();
             if (response.ok) {
                 setMessage(data.message);
                 setStage('username');
             } else {
-                setError(data.message || 'Invalid developer token.');
+                setError(data.message || 'Invalid token.');
             }
         } catch (error) {
-            console.error('Error verifying developer token:', error);
+            console.error('Error verifying token:', error);
             setError('Failed to connect to the server.');
         }
     };
@@ -146,19 +146,19 @@ const AdminFPW = () => {
                 {message && <div className="success-message">{message}</div>}
 
                 {stage === 'token' && (
-                    <form onSubmit={handleDeveloperTokenSubmit} className="fpw-form">
+                    <form onSubmit={handleTokenSubmit} className="fpw-form">
                         <p className="admin-fpw-info-text">
                             <strong style={{ color: 'red' }}>Warning: This portal is exclusively for System Administrators.</strong>
                             <br /><br />
                             Accessing this page without proper authorization or attempting unauthorized password resets is strictly prohibited and may lead to account suspension or other security measures.
                             <br /><br />
-                            Please enter the **Developer Token** provided by the system developers to initiate the password recovery process for an administrative account.
+                            Please enter your <b>Developer Token</b> or <b>Admin Token</b> to initiate the password recovery process for an administrative account.
                         </p>
                         <input
                             type="password"
-                            value={developerToken}
-                            onChange={(e) => setDeveloperToken(e.target.value)}
-                            placeholder="Enter Developer Token"
+                            value={tokenInput}
+                            onChange={(e) => setTokenInput(e.target.value)}
+                            placeholder="Enter Developer or Admin Token"
                             required
                         />
                         <button type="submit">Verify Token</button>

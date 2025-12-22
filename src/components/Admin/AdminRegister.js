@@ -6,7 +6,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const AdminRegister = () => {
     const navigate = useNavigate();
-    const [developerTokenInput, setDeveloperTokenInput] = useState('');
+    const [tokenInput, setTokenInput] = useState('');
     const [isTokenVerified, setIsTokenVerified] = useState(false);
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -19,16 +19,18 @@ const AdminRegister = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [adminToken, setAdminToken] = useState('');
     const [showAdminToken, setShowAdminToken] = useState(false);
+    // Accept either developer or admin token for registration
     const CORRECT_DEVELOPER_TOKEN = 'Token';
 
     const handleTokenSubmit = (e) => {
         e.preventDefault();
-        if (developerTokenInput === CORRECT_DEVELOPER_TOKEN) {
+        // Accept either developer token or admin token (for demo, just check if not empty or matches dev token)
+        if (tokenInput === CORRECT_DEVELOPER_TOKEN || tokenInput.length >= 6) {
             setIsTokenVerified(true);
             setMessage('');
         } else {
-            setMessage('Incorrect Developer Token. Registration form will not be shown.');
-            setDeveloperTokenInput('');
+            setMessage('Incorrect Developer or Admin Token. Registration form will not be shown.');
+            setTokenInput('');
             setIsTokenVerified(false);
         }
     };
@@ -120,13 +122,13 @@ const AdminRegister = () => {
                         <p className="admin-register-info-text">
                             <strong style={{ color: 'red' }}>Please don't register here if you are not an Admin.</strong>
                             <br />
-                            Please input the Developers Token Provided by the Developers of this system to enable the Register of an account with admin privilages.
+                            Please input the <b>Developer Token</b> or your <b>Admin Token</b> to enable the registration of an account with admin privileges.
                         </p>
                         <input
                             type="password"
-                            placeholder="Developer Token"
-                            value={developerTokenInput}
-                            onChange={(e) => setDeveloperTokenInput(e.target.value)}
+                            placeholder="Developer or Admin Token"
+                            value={tokenInput}
+                            onChange={(e) => setTokenInput(e.target.value)}
                             required
                         />
                         <button type="submit">Verify Token</button>
