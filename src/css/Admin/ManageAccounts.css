@@ -146,8 +146,10 @@
 .tenant-actions {
     display: flex;
     justify-content: flex-end;
+    align-items: flex-end;
     margin-top: 10px;
     padding-left: 0;
+    width: 100%;
 }
 
 .delete-button {
