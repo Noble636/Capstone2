@@ -17,6 +17,8 @@ const AdminRegister = () => {
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [adminToken, setAdminToken] = useState('');
+    const [showAdminToken, setShowAdminToken] = useState(false);
     const CORRECT_DEVELOPER_TOKEN = 'Token';
 
     const handleTokenSubmit = (e) => {
@@ -47,7 +49,7 @@ const AdminRegister = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ fullName, email, username, password }),
+                body: JSON.stringify({ fullName, email, username, password, adminToken }),
             });
             const data = await response.json();
             if (response.ok) {
@@ -84,6 +86,9 @@ const AdminRegister = () => {
     };
     const toggleConfirmPasswordVisibility = () => {
         setShowConfirmPassword(!showConfirmPassword);
+    };
+    const toggleAdminTokenVisibility = () => {
+        setShowAdminToken(!showAdminToken);
     };
 
     return (
@@ -180,6 +185,21 @@ const AdminRegister = () => {
                             <span className="admin-register-password-toggle-icon" onClick={toggleConfirmPasswordVisibility}>
                                 <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
                             </span>
+                        </div>
+                        <p className="admin-register-info-text" style={{marginTop: '10px', marginBottom: '5px'}}>
+                          This is your <b>Admin Token</b>. You will use this for sensitive actions and password recovery. Please keep it safe and do not share it with others.
+                        </p>
+                        <div className="admin-register-password-input-wrapper">
+                          <input
+                            type={showAdminToken ? 'text' : 'password'}
+                            placeholder="Admin Token"
+                            value={adminToken}
+                            onChange={(e) => setAdminToken(e.target.value)}
+                            required
+                          />
+                          <span className="admin-register-password-toggle-icon" onClick={() => setShowAdminToken(!showAdminToken)}>
+                            <FontAwesomeIcon icon={showAdminToken ? faEyeSlash : faEye} />
+                          </span>
                         </div>
                         <button type="submit">Register Admin Account</button>
                         <button type="button" onClick={handleCancel} className="admin-register-cancel-button">

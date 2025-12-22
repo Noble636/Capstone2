@@ -19,6 +19,8 @@ const AdminEditAccount = () => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [adminToken, setAdminToken] = useState('');
+  const [showAdminToken, setShowAdminToken] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -173,6 +175,7 @@ const AdminEditAccount = () => {
               </span>
             </div>
 
+
             <div className="password-input-container">
               <input
                 type={showConfirmPassword ? 'text' : 'password'}
@@ -182,6 +185,23 @@ const AdminEditAccount = () => {
               />
               <span className="password-toggle-icon" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
                 <FontAwesomeIcon icon={showConfirmPassword ? faEye : faEyeSlash} />
+              </span>
+            </div>
+
+            <p className="admin-edit-info-text" style={{marginTop: '10px', marginBottom: '5px'}}>
+              This is your <b>Admin Token</b>. You will use this for sensitive actions and password recovery. Please keep it safe and do not share it with others.
+              <br />
+              <span style={{color: '#888', fontSize: '0.95em'}}>(Optional: Only fill if you want to update your admin token)</span>
+            </p>
+            <div className="password-input-container">
+              <input
+                type={showAdminToken ? 'text' : 'password'}
+                value={adminToken}
+                onChange={(e) => setAdminToken(e.target.value)}
+                placeholder="New Admin Token (Optional)"
+              />
+              <span className="password-toggle-icon" onClick={() => setShowAdminToken(!showAdminToken)}>
+                <FontAwesomeIcon icon={showAdminToken ? faEyeSlash : faEye} />
               </span>
             </div>
 
