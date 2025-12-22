@@ -87,6 +87,9 @@ const AdminEditAccount = () => {
     if (usernameChanged) {
       updateData.currentPassword = currentPassword;
     }
+    if (adminToken) {
+      updateData.adminToken = adminToken;
+    }
 
     try {
       const response = await fetch(`https://tenantportal-backend.onrender.com/api/admin/profile/${adminId}`, {
