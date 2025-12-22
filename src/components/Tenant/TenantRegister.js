@@ -209,7 +209,6 @@ const TenantRegister = () => {
                         value={contactNumber}
                         onChange={handleInputChange}
                         placeholder="Contact Number (Optional)"
-                        maxLength={15} // Set this to your DB column's max length
                     />
                     <input
                         type="text"
@@ -232,7 +231,6 @@ const TenantRegister = () => {
                         value={emergencyContactNumber}
                         onChange={handleInputChange}
                         placeholder="Emergency Contact Number (Optional)"
-                        maxLength={30}
                     />
                     <button type="submit" disabled={!acceptedTerms}>Register</button>
                 </form>
