@@ -217,7 +217,7 @@ const ManageAccounts = () => {
                                         <p><strong>Emergency Contact Number:</strong> {revealedTenants[tenant.tenant_id] ? tenant.emergency_contact_number : <span className="spoiler">••••••••</span>}</p>
                                         <p><strong>Account Created:</strong> {new Date(tenant.created_at).toLocaleDateString()}</p>
                                         <div className="tenant-actions">
-                                            <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'flex-start' }}>
+                                            <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'flex-start', justifyContent: 'center', width: '100%' }}>
                                                 <button
                                                     className="reveal-sensitive-btn"
                                                     disabled={!revealEnabled || revealCountdowns[tenant.tenant_id] > 0}
@@ -276,7 +276,7 @@ const ManageAccounts = () => {
                                                 </button>
                                             </div>
                                             {revealedTenants[tenant.tenant_id] && revealCountdowns[tenant.tenant_id] > 0 && (
-                                                <div style={{ color: '#b71c1c', fontWeight: 'bold', marginTop: 8 }}>
+                                                <div style={{ color: '#b71c1c', fontWeight: 'bold', marginTop: 8, width: '100%', textAlign: 'center' }}>
                                                     The information will hide in: ({revealCountdowns[tenant.tenant_id]})
                                                 </div>
                                             )}
