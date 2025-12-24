@@ -81,6 +81,7 @@ const AdminVisitorLogs = () => {
                                             <p><strong>Purpose:</strong> {log.purpose ? log.purpose : '—'}</p>
                                             <p><strong>Date of Visit:</strong> {formatDate(log.visit_date)}</p>
                                             <p><strong>Time In:</strong> {log.time_in}</p>
+                                            <p><strong>Time Out:</strong> {log.time_out ? log.time_out : <span style={{color:'#888'}}>--:--</span>}</p>
                                         </div>
                                         {expandedLog === log.log_id && (
                                             <div className="admin-visitor-details">
