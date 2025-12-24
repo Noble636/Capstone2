@@ -257,7 +257,7 @@ const AdminComplaints = () => {
                           const urlObj = window.URL.createObjectURL(blob);
                           const a = document.createElement('a');
                           a.href = urlObj;
-                          a.download = 'complaints_report.xlsx';
+                          a.download = 'Tenant_Complaint_Reports.xlsx';
                           document.body.appendChild(a);
                           a.click();
                           a.remove();
