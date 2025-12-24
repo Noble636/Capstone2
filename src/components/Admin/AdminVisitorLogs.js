@@ -124,6 +124,9 @@ const AdminVisitorLogs = () => {
         }
     };
 
+    // Get adminId from localStorage or context
+    const adminId = localStorage.getItem('adminId'); // or however you store it
+
     if (loading) {
         return <p>Loading visitor logs...</p>;
     }
@@ -187,7 +190,7 @@ const AdminVisitorLogs = () => {
                                             'Content-Type': 'application/json',
                                             'Authorization': `Bearer ${tokenInput}`
                                         },
-                                        body: JSON.stringify({})
+                                        body: JSON.stringify({ adminId }) // <-- send adminId here
                                     });
                                     if (!response.ok) {
                                         setTokenError('Invalid token or error exporting file.');
