@@ -161,19 +161,16 @@ const ManageAccounts = () => {
     const handleExportSubmit = async (e) => {
         e.preventDefault();
         setTokenError('');
-        if (!tokenInput) {
-            setTokenError('Token is required.');
-            return;
-        }
         setExporting(true);
         try {
+            const adminId = localStorage.getItem('adminId'); // or your context value
             const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/export-accounts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${tokenInput}`
                 },
-                body: JSON.stringify({})
+                body: JSON.stringify({ adminId })
             });
             if (!response.ok) {
                 setTokenError('Invalid token or error exporting file.');
@@ -184,7 +181,7 @@ const ManageAccounts = () => {
             const urlObj = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = urlObj;
-            a.download = 'accounts.xlsx';
+            a.download = 'Tenant_Account_Reports.xlsx'; // <-- Correct file name
             document.body.appendChild(a);
             a.click();
             a.remove();
