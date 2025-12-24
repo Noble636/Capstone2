@@ -141,7 +141,7 @@ const ManageAccounts = () => {
             const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/verify-admin-token', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ adminId, adminToken: tokenInput })
+                body: JSON.stringify({ adminId })
             });
             const data = await response.json();
             if (response.ok && data.valid) {
