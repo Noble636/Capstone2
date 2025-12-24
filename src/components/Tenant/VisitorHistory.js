@@ -6,6 +6,7 @@ const VisitorHistory = () => {
     const [visitorLogs, setVisitorLogs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [editingTimeOut, setEditingTimeOut] = useState(null); // log_id being edited
     const [timeOuts, setTimeOuts] = useState({});
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
@@ -47,6 +48,7 @@ const VisitorHistory = () => {
                 setMessage('Time out updated successfully.');
                 setMessageType('success');
                 setVisitorLogs(logs => logs.map(log => log.log_id === logId ? { ...log, time_out: timeOut } : log));
+                setEditingTimeOut(null);
             } else {
                 setMessage(data.message || 'Failed to update time out.');
                 setMessageType('error');
@@ -69,6 +71,12 @@ const VisitorHistory = () => {
             <div className="bubble b7"></div>
             <div className="bubble b8"></div>
             <h1>Visitor History</h1>
+            <div className="visitor-history-note" style={{ marginBottom: 12, background: "#fffbe6", border: "1px solid #ffe58f", borderRadius: 6, padding: 12 }}>
+                <b>Note:</b> This is your visitor history. This information is secured and only visible to your account. Other users cannot see your visitor logs.
+            </div>
+            <div style={{ marginBottom: 12, color: "#333" }}>
+                You can set a time out for your visitors in the Visitor History below.
+            </div>
             <div className="visitor-history-content-wrapper">
                 {loading ? (
                     <p>Loading visitor logs...</p>
@@ -98,17 +106,44 @@ const VisitorHistory = () => {
                                     <td>
                                         {log.time_out ? (
                                             log.time_out
-                                        ) : (
+                                        ) : editingTimeOut === log.log_id ? (
                                             <input
                                                 type="time"
                                                 value={timeOuts[log.log_id] || ''}
                                                 onChange={e => handleTimeOutChange(log.log_id, e.target.value)}
+                                                autoFocus
                                             />
+                                        ) : (
+                                            <span style={{ color: "#888" }}>--:--</span>
                                         )}
                                     </td>
                                     <td>
                                         {!log.time_out && (
-                                            <button onClick={() => handleTimeOutSubmit(log.log_id)} className="visitor-history-timeout-btn">Set Time Out</button>
+                                            editingTimeOut === log.log_id ? (
+                                                <>
+                                                    <button
+                                                        onClick={() => handleTimeOutSubmit(log.log_id)}
+                                                        className="visitor-history-timeout-btn"
+                                                        style={{ marginRight: 8 }}
+                                                    >
+                                                        Save
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setEditingTimeOut(null)}
+                                                        className="visitor-history-timeout-btn"
+                                                        style={{ background: "#ccc", color: "#333" }}
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                </>
+                                            ) : (
+                                                <button
+                                                    onClick={() => setEditingTimeOut(log.log_id)}
+                                                    className="visitor-history-timeout-btn"
+                                                >
+                                                    Set Time Out
+                                                </button>
+                                            )
                                         )}
                                     </td>
                                 </tr>
