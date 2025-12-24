@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../css/Tenant/SubmitVisitors.css';
 import '../../css/Home.css';
 
@@ -170,7 +170,10 @@ const VisitorLogs = () => {
                     <p><span className="submit-visitor-rental-agreement-highlight">"Visitor/Guest" policy outlined in your Rental Agreement</span>.</p>
                 </aside>
             </div>
-            <Link to="/tenant-dashboard" className="submit-visitor-home-button">&#x2B05; Back</Link>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: '18px' }}>
+                <Link to="/tenant-dashboard" className="submit-visitor-home-button">&#x2B05; Back</Link>
+                <Link to="/visitor-history" className="submit-visitor-home-button" style={{ background: '#7a4f13', color: '#fff', fontWeight: 'bold' }}>Visitor History</Link>
+            </div>
             {showMessage && (
                 <div className="submit-visitor-message-box fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
                     <div className={`bg-white p-6 rounded-lg shadow-xl flex flex-col items-center ${messageType === 'success' ? 'text-green-600' : 'text-red-600'}`}>

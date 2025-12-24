@@ -18,6 +18,7 @@ import AdminFPW from './components/Admin/AdminFPW';
 
 import Complaints from './components/Tenant/SubmitComplaints';
 import VisitorLogs from './components/Tenant/SubmitVisitors';
+import VisitorHistory from './components/Tenant/VisitorHistory';
 import TenantLogin from './components/Tenant/TenantLogin';
 import TenantDashboard from './components/Tenant/TenantDashboard';
 import TenantRegister from './components/Tenant/TenantRegister';
@@ -50,6 +51,7 @@ function App() {
         <Route path="/tenant-dashboard" element={<TenantDashboard />} />
         <Route path="/submitcomplaints" element={<Complaints />} />
         <Route path="/submitvisitors" element={<VisitorLogs />} />
+        <Route path="/visitor-history" element={<VisitorHistory />} />
         <Route path="/register" element={<TenantRegister />} />
         <Route path="/rental-info" element={<RentalInformation />} />
         <Route path="/rental-agreement" element={<RentalAgreement />} />
