@@ -213,7 +213,7 @@ const AdminComplaints = () => {
                   style={{ marginBottom: '1rem' }}
                   onClick={() => setShowExportModal(true)}
                 >
-                  Export Complaints to Excel
+                  Generate Data Report
                 </button>
 
                 {showExportModal && (
@@ -232,7 +232,7 @@ const AdminComplaints = () => {
                       onClick={e => e.stopPropagation()}
                     >
                       <h2 style={{ fontWeight: 700, marginBottom: 18 }}>
-                        Export Complaints to Excel
+                        Generate Data Report
                       </h2>
                       <p style={{ color: "#b71c1c", background: "#fff3cd", borderRadius: 8, padding: 12, marginBottom: 18, fontSize: "1.05rem" }}>
                         <strong>Security:</strong> Enter your developer or admin token to download the Excel file.

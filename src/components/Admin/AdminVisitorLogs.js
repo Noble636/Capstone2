@@ -156,7 +156,7 @@ const AdminVisitorLogs = () => {
                     style={{ marginBottom: '1rem' }}
                     onClick={() => setShowExportModal(true)}
                 >
-                    Export Visitor Logs to Excel
+                    Generate Data Report
                 </button>
                 {showExportModal && (
                     <div className="modal-overlay" onClick={() => setShowExportModal(false)}>
@@ -174,7 +174,7 @@ const AdminVisitorLogs = () => {
                             onClick={e => e.stopPropagation()}
                         >
                             <h2 style={{ fontWeight: 700, marginBottom: 18 }}>
-                                Export Visitor Logs to Excel
+                              Generate Data Report
                             </h2>
                             <p style={{ color: "#b71c1c", background: "#fff3cd", borderRadius: 8, padding: 12, marginBottom: 18, fontSize: "1.05rem" }}>
                                 <strong>Security:</strong> Enter your developer or admin token to download the Excel file.

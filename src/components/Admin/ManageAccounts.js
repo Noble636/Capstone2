@@ -247,7 +247,7 @@ const ManageAccounts = () => {
                         setTokenError('');
                     }}
                 >
-                    Export Accounts to Excel
+                    Generate Data Report
                 </button>
                 <div className="tenant-list">
                     {tenants.length === 0 ? (
@@ -358,7 +358,7 @@ const ManageAccounts = () => {
                             onClick={e => e.stopPropagation()}
                         >
                             <h2 style={{ fontWeight: 700, marginBottom: 18 }}>
-                                Export Accounts to Excel
+                              Generate Data Report
                             </h2>
                             <p style={{ color: "#b71c1c", background: "#fff3cd", borderRadius: 8, padding: 12, marginBottom: 18, fontSize: "1.05rem" }}>
                                 <strong>Security:</strong> Enter your developer or admin token to download the Excel file.
