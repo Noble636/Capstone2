@@ -143,6 +143,12 @@ const AdminComplaints = () => {
                             Complaints Log
                         </button>
                 </div>
+                <button
+                  onClick={() => window.open('https://tenantportal-backend.onrender.com/api/admin/export-complaints', '_blank')}
+                  className="export-excel-btn"
+                >
+                  Export Complaints to Excel
+                </button>
                 {!showComplaintsLog && (
                     <div className="complaints-list" style={{zIndex: 2, position: 'relative'}}>
                         <h2>Active Complaints</h2>
