@@ -68,6 +68,41 @@ const AdminVisitorLogs = () => {
                         <button className="back_to_dashboard_visitor_logs_button" onClick={handleBack}>
                             <span style={{ fontSize: '1.5rem' }}>🏠</span> Back to Dashboard
                         </button>
+                        <button
+  className="export-excel-btn"
+  style={{ marginBottom: '1rem' }}
+  onClick={async () => {
+    const token = prompt('Enter your admin/developer token to export visitor logs:');
+    if (!token) return;
+    try {
+      const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/export-visitor-logs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({})
+      });
+      if (!response.ok) {
+        alert('Invalid token or error exporting logs.');
+        return;
+      }
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'visitor_logs.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      alert('Failed to export visitor logs.');
+    }
+  }}
+>
+  Export Visitor Logs to Excel
+</button>
                         <div className="admin-visitor-logs-list">
                             <h2>Visitor Logs</h2>
                             {visitorLogs.length === 0 ? (

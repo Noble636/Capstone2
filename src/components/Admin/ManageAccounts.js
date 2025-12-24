@@ -198,6 +198,41 @@ const ManageAccounts = () => {
                 >
                     Enable Reveal Information
                 </button>
+                <button
+                    className="export-excel-btn"
+                    style={{ marginBottom: '1rem' }}
+                    onClick={async () => {
+                        const token = prompt('Enter your admin or developer token to export accounts:');
+                        if (!token) return;
+                        try {
+                            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/export-accounts', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify({})
+                            });
+                            if (!response.ok) {
+                                alert('Invalid token or error exporting accounts.');
+                                return;
+                            }
+                            const blob = await response.blob();
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'accounts.xlsx';
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                            window.URL.revokeObjectURL(url);
+                        } catch (err) {
+                            alert('Failed to export accounts.');
+                        }
+                    }}
+                >
+                    Export Accounts to Excel
+                </button>
                 <div className="tenant-list">
                     {tenants.length === 0 ? (
                         <p>No tenant accounts found.</p>

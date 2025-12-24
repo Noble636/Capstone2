@@ -111,6 +111,64 @@ const AdminComplaints = () => {
         setExpandedComplaint(null);
     };
 
+    const handleExportComplaints = async () => {
+        const token = prompt('Enter your admin or developer token to export complaints:');
+        if (!token) return;
+        try {
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/export-complaints', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (!response.ok) {
+                alert('Invalid token or error exporting complaints.');
+                return;
+            }
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'complaints_report.xlsx';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        } catch (err) {
+            alert('Failed to export complaints.');
+        }
+    };
+
+    const handleExportVisitorLogs = async () => {
+        const token = prompt('Enter your admin or developer token to export visitor logs:');
+        if (!token) return;
+        try {
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/export-visitor-logs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({})
+            });
+            if (!response.ok) {
+                alert('Invalid token or error exporting visitor logs.');
+                return;
+            }
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'visitor_logs.xlsx';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        } catch (err) {
+            alert('Failed to export visitor logs.');
+        }
+    };
+
     if (loading) {
         return <p>Loading complaints...</p>;
     }
@@ -144,10 +202,18 @@ const AdminComplaints = () => {
                         </button>
                 </div>
                 <button
-                  onClick={() => window.open('https://tenantportal-backend.onrender.com/api/admin/export-complaints', '_blank')}
                   className="export-excel-btn"
+                  style={{ marginBottom: '1rem' }}
+                  onClick={handleExportComplaints}
                 >
                   Export Complaints to Excel
+                </button>
+                <button
+                  className="export-excel-btn"
+                  style={{ marginBottom: '1rem' }}
+                  onClick={handleExportVisitorLogs}
+                >
+                  Export Visitor Logs to Excel
                 </button>
                 {!showComplaintsLog && (
                     <div className="complaints-list" style={{zIndex: 2, position: 'relative'}}>
