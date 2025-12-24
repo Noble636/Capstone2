@@ -13,6 +13,11 @@ const AdminComplaints = () => {
     const [error, setError] = useState(null);
     const [confirmation, setConfirmation] = useState(null);
     const [lightboxSrc, setLightboxSrc] = useState(null);
+    const [showExportModal, setShowExportModal] = useState(false);
+    const [exportType, setExportType] = useState(''); // 'complaints' or 'visitor'
+    const [tokenInput, setTokenInput] = useState('');
+    const [tokenError, setTokenError] = useState('');
+    const [exporting, setExporting] = useState(false);
 
     useEffect(() => {
         fetchActiveComplaints();
@@ -111,61 +116,63 @@ const AdminComplaints = () => {
         setExpandedComplaint(null);
     };
 
-    const handleExportComplaints = async () => {
-        const token = prompt('Enter your admin or developer token to export complaints:');
-        if (!token) return;
-        try {
-            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/export-complaints', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            if (!response.ok) {
-                alert('Invalid token or error exporting complaints.');
-                return;
-            }
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'complaints_report.xlsx';
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            window.URL.revokeObjectURL(url);
-        } catch (err) {
-            alert('Failed to export complaints.');
-        }
+    const openExportModal = (type) => {
+        setExportType(type);
+        setTokenInput('');
+        setTokenError('');
+        setShowExportModal(true);
     };
 
-    const handleExportVisitorLogs = async () => {
-        const token = prompt('Enter your admin or developer token to export visitor logs:');
-        if (!token) return;
-        try {
-            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/export-visitor-logs', {
-                method: 'POST',
+    const handleExportSubmit = async (e) => {
+        e.preventDefault();
+        setTokenError('');
+        setExporting(true);
+        let url = '';
+        let method = 'GET';
+        let options = {};
+        if (exportType === 'complaints') {
+            url = 'https://tenantportal-backend.onrender.com/api/admin/export-complaints';
+            method = 'GET';
+            options = {
+                method,
+                headers: {
+                    'Authorization': `Bearer ${tokenInput}`
+                }
+            };
+        } else if (exportType === 'visitor') {
+            url = 'https://tenantportal-backend.onrender.com/api/admin/export-visitor-logs';
+            method = 'POST';
+            options = {
+                method,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${tokenInput}`
                 },
                 body: JSON.stringify({})
-            });
+            };
+        }
+        try {
+            const response = await fetch(url, options);
             if (!response.ok) {
-                alert('Invalid token or error exporting visitor logs.');
+                setTokenError('Invalid token or error exporting file.');
+                setExporting(false);
                 return;
             }
             const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
+            const fileName = exportType === 'complaints' ? 'complaints_report.xlsx' : 'visitor_logs.xlsx';
+            const urlObj = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url;
-            a.download = 'visitor_logs.xlsx';
+            a.href = urlObj;
+            a.download = fileName;
             document.body.appendChild(a);
             a.click();
             a.remove();
-            window.URL.revokeObjectURL(url);
+            window.URL.revokeObjectURL(urlObj);
+            setShowExportModal(false);
         } catch (err) {
-            alert('Failed to export visitor logs.');
+            setTokenError('Failed to export file.');
+        } finally {
+            setExporting(false);
         }
     };
 
@@ -204,17 +211,95 @@ const AdminComplaints = () => {
                 <button
                   className="export-excel-btn"
                   style={{ marginBottom: '1rem' }}
-                  onClick={handleExportComplaints}
+                  onClick={() => setShowExportModal(true)}
                 >
                   Export Complaints to Excel
                 </button>
-                <button
-                  className="export-excel-btn"
-                  style={{ marginBottom: '1rem' }}
-                  onClick={handleExportVisitorLogs}
-                >
-                  Export Visitor Logs to Excel
-                </button>
+
+                {showExportModal && (
+                  <div className="modal-overlay" onClick={() => setShowExportModal(false)}>
+                    <div
+                      className="modal-content"
+                      style={{
+                        background: "rgba(255,255,255,0.95)",
+                        borderRadius: "12px",
+                        boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+                        padding: "32px 40px",
+                        maxWidth: "400px",
+                        width: "90%",
+                        textAlign: "center"
+                      }}
+                      onClick={e => e.stopPropagation()}
+                    >
+                      <h2 style={{ fontWeight: 700, marginBottom: 18 }}>
+                        Export Complaints to Excel
+                      </h2>
+                      <p style={{ color: "#b71c1c", background: "#fff3cd", borderRadius: 8, padding: 12, marginBottom: 18, fontSize: "1.05rem" }}>
+                        <strong>Security:</strong> Enter your developer or admin token to download the Excel file.
+                      </p>
+                      <form onSubmit={async (e) => {
+                        e.preventDefault();
+                        setTokenError('');
+                        setExporting(true);
+                        try {
+                          const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/export-complaints', {
+                            method: 'GET',
+                            headers: {
+                              'Authorization': `Bearer ${tokenInput}`
+                            }
+                          });
+                          if (!response.ok) {
+                            setTokenError('Invalid token or error exporting file.');
+                            setExporting(false);
+                            return;
+                          }
+                          const blob = await response.blob();
+                          const urlObj = window.URL.createObjectURL(blob);
+                          const a = document.createElement('a');
+                          a.href = urlObj;
+                          a.download = 'complaints_report.xlsx';
+                          document.body.appendChild(a);
+                          a.click();
+                          a.remove();
+                          window.URL.revokeObjectURL(urlObj);
+                          setShowExportModal(false);
+                        } catch (err) {
+                          setTokenError('Failed to export file.');
+                        } finally {
+                          setExporting(false);
+                        }
+                      }} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <input
+                          type="password"
+                          value={tokenInput}
+                          onChange={e => setTokenInput(e.target.value)}
+                          placeholder="Developer or Admin Token"
+                          required
+                          style={{
+                            width: "100%",
+                            maxWidth: "340px",
+                            padding: "14px",
+                            fontSize: "1.1rem",
+                            border: "2px solid #111",
+                            borderRadius: "8px",
+                            marginBottom: "12px",
+                            boxSizing: "border-box",
+                            display: "block",
+                            marginLeft: "auto",
+                            marginRight: "auto"
+                          }}
+                        />
+                        {tokenError && <p style={{ color: 'red', marginBottom: 10 }}>{tokenError}</p>}
+                        <div className="modal-actions" style={{ display: "flex", gap: 12, justifyContent: "center" }}>
+                          <button type="submit" className="modal-button confirm" style={{ background: "#7a4f13", color: "#fff" }} disabled={exporting}>
+                            {exporting ? 'Exporting...' : 'Export'}
+                          </button>
+                          <button type="button" className="modal-button cancel" style={{ background: "#6c757d", color: "#fff" }} onClick={() => setShowExportModal(false)}>Cancel</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                )}
                 {!showComplaintsLog && (
                     <div className="complaints-list" style={{zIndex: 2, position: 'relative'}}>
                         <h2>Active Complaints</h2>
