@@ -25,6 +25,9 @@ const ManageAccounts = () => {
     const [tokenError, setTokenError] = useState('');
     const [verifyingAdminToken, setVerifyingAdminToken] = useState(false);
 
+    const [showExportModal, setShowExportModal] = useState(false);
+    const [exporting, setExporting] = useState(false);
+
     const [revealEnabled, setRevealEnabled] = useState(false);
     const [revealedTenants, setRevealedTenants] = useState({});
     const [revealCountdowns, setRevealCountdowns] = useState({});
@@ -154,6 +157,46 @@ const ManageAccounts = () => {
         }
     };
 
+    // Export Modal Submit
+    const handleExportSubmit = async (e) => {
+        e.preventDefault();
+        setTokenError('');
+        if (!tokenInput) {
+            setTokenError('Token is required.');
+            return;
+        }
+        setExporting(true);
+        try {
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/export-accounts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${tokenInput}`
+                },
+                body: JSON.stringify({})
+            });
+            if (!response.ok) {
+                setTokenError('Invalid token or error exporting file.');
+                setExporting(false);
+                return;
+            }
+            const blob = await response.blob();
+            const urlObj = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = urlObj;
+            a.download = 'accounts.xlsx';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(urlObj);
+            setShowExportModal(false);
+        } catch (err) {
+            setTokenError('Failed to export file.');
+        } finally {
+            setExporting(false);
+        }
+    };
+
     if (loading) {
         return <p>Loading tenant accounts...</p>;
     }
@@ -201,34 +244,10 @@ const ManageAccounts = () => {
                 <button
                     className="export-excel-btn"
                     style={{ marginBottom: '1rem' }}
-                    onClick={async () => {
-                        const token = prompt('Enter your admin or developer token to export accounts:');
-                        if (!token) return;
-                        try {
-                            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/export-accounts', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': `Bearer ${token}`
-                                },
-                                body: JSON.stringify({})
-                            });
-                            if (!response.ok) {
-                                alert('Invalid token or error exporting accounts.');
-                                return;
-                            }
-                            const blob = await response.blob();
-                            const url = window.URL.createObjectURL(blob);
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = 'accounts.xlsx';
-                            document.body.appendChild(a);
-                            a.click();
-                            a.remove();
-                            window.URL.revokeObjectURL(url);
-                        } catch (err) {
-                            alert('Failed to export accounts.');
-                        }
+                    onClick={() => {
+                        setShowExportModal(true);
+                        setTokenInput('');
+                        setTokenError('');
                     }}
                 >
                     Export Accounts to Excel
@@ -320,13 +339,66 @@ const ManageAccounts = () => {
                                                 ) : null}
                                             </div>
                                         </div>
-                                        </div>
-                                    )}
-                                </div>
-                            ))
-                        )}
+                                    </div>
+                                )}
+                            </div>
+                        ))
+                    )}
                     </div>
-                    {showTokenModal && (
+                    {showExportModal && (
+                    <div className="modal-overlay" onClick={() => setShowExportModal(false)}>
+                        <div
+                            className="modal-content"
+                            style={{
+                                background: "rgba(255,255,255,0.95)",
+                                borderRadius: "12px",
+                                boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+                                padding: "32px 40px",
+                                maxWidth: "400px",
+                                width: "90%",
+                                textAlign: "center"
+                            }}
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <h2 style={{ fontWeight: 700, marginBottom: 18 }}>
+                                Export Accounts to Excel
+                            </h2>
+                            <p style={{ color: "#b71c1c", background: "#fff3cd", borderRadius: 8, padding: 12, marginBottom: 18, fontSize: "1.05rem" }}>
+                                <strong>Security:</strong> Enter your developer or admin token to download the Excel file.
+                            </p>
+                            <form onSubmit={handleExportSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <input
+                                    type="password"
+                                    value={tokenInput}
+                                    onChange={e => setTokenInput(e.target.value)}
+                                    placeholder="Developer or Admin Token"
+                                    required
+                                    style={{
+                                        width: "100%",
+                                        maxWidth: "340px",
+                                        padding: "14px",
+                                        fontSize: "1.1rem",
+                                        border: "2px solid #111",
+                                        borderRadius: "8px",
+                                        marginBottom: "12px",
+                                        boxSizing: "border-box",
+                                        display: "block",
+                                        marginLeft: "auto",
+                                        marginRight: "auto"
+                                    }}
+                                />
+                                {tokenError && <p style={{ color: 'red', marginBottom: 10 }}>{tokenError}</p>}
+                                <div className="modal-actions" style={{ display: "flex", gap: 12, justifyContent: "center" }}>
+                                    <button type="submit" className="modal-button confirm" style={{ background: "#7a4f13", color: "#fff" }} disabled={exporting}>
+                                        {exporting ? 'Exporting...' : 'Export'}
+                                    </button>
+                                    <button type="button" className="modal-button cancel" style={{ background: "#6c757d", color: "#fff" }} onClick={() => setShowExportModal(false)}>Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
+                {showTokenModal && (
                     <div className="modal-overlay" onClick={() => setShowTokenModal(false)}>
                         <div
                             className="modal-content"

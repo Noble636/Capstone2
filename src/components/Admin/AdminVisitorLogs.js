@@ -176,7 +176,40 @@ const AdminVisitorLogs = () => {
                             <p style={{ color: "#b71c1c", background: "#fff3cd", borderRadius: 8, padding: 12, marginBottom: 18, fontSize: "1.05rem" }}>
                                 <strong>Security:</strong> Enter your developer or admin token to download the Excel file.
                             </p>
-                            <form onSubmit={handleExportSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <form onSubmit={async (e) => {
+                                e.preventDefault();
+                                setTokenError('');
+                                setExporting(true);
+                                try {
+                                    const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/export-visitor-logs', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Authorization': `Bearer ${tokenInput}`
+                                        },
+                                        body: JSON.stringify({})
+                                    });
+                                    if (!response.ok) {
+                                        setTokenError('Invalid token or error exporting file.');
+                                        setExporting(false);
+                                        return;
+                                    }
+                                    const blob = await response.blob();
+                                    const urlObj = window.URL.createObjectURL(blob);
+                                    const a = document.createElement('a');
+                                    a.href = urlObj;
+                                    a.download = 'visitor_logs.xlsx';
+                                    document.body.appendChild(a);
+                                    a.click();
+                                    a.remove();
+                                    window.URL.revokeObjectURL(urlObj);
+                                    setShowExportModal(false);
+                                } catch (err) {
+                                    setTokenError('Failed to export file.');
+                                } finally {
+                                    setExporting(false);
+                                }
+                            }} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <input
                                     type="password"
                                     value={tokenInput}
