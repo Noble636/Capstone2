@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './AvailableUnit.css';
+import '../../css/Admin/AvailableUnit.css';
 
 const AvailableUnit = ({ adminId }) => {
   const [title, setTitle] = useState('');
