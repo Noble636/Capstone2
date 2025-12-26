@@ -12,7 +12,7 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
   const [selectedInquiryId, setSelectedInquiryId] = useState(null);
 
   useEffect(() => {
-    fetch('/api/available-units')
+    fetch('https://tenantportal-backend.onrender.com/api/available-units')
       .then(res => res.json())
       .then(data => setUnits(data))
       .catch(() => setUnits([]));
@@ -87,7 +87,6 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
             <div className="unit-info">
               <h3>{unit.title}</h3>
               <div className="unit-price">₱{unit.price}</div>
-              <div className="unit-specs">{unit.specifications}</div>
               <div className="unit-desc">{unit.description}</div>
               <button className="inquire-btn" onClick={() => openInquiryModal(unit)}>
                 Inquire
