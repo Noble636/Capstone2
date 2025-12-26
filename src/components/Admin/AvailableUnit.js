@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../../css/Admin/AvailableUnit.css';
 
 const AvailableUnit = () => {
@@ -12,8 +13,6 @@ const AvailableUnit = () => {
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files).slice(0, 5);
     setImages(files);
-
-    // Preview
     const urls = files.map(file => URL.createObjectURL(file));
     setPreviewUrls(urls);
   };
@@ -54,54 +53,84 @@ const AvailableUnit = () => {
   };
 
   return (
-    <div className="admin-available-unit-container">
-      <h2>Post Available Unit</h2>
-      <form className="admin-available-unit-form" onSubmit={handleSubmit}>
-        <label className="admin-label">
-          Unit Name<span style={{ color: 'red' }}>*</span>:
-          <input
-            type="text"
-            value={unitName}
-            onChange={e => setUnitName(e.target.value)}
-            required
-            disabled={submitting}
-            className="admin-unit-name-input"
-            placeholder="Enter unit name"
-            style={{ marginTop: 8 }}
-          />
-        </label>
-        <label className="admin-label">
-          Upload Images (max 5):
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleImageChange}
-            disabled={submitting}
-            style={{ marginTop: 8 }}
-          />
-        </label>
-        <div className="admin-image-preview-list">
-          {previewUrls.map((url, idx) => (
-            <img key={idx} src={url} alt={`Preview ${idx + 1}`} className="admin-image-preview" />
-          ))}
+    <div className="admin-available-unit-container gradient-bg">
+      <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="admin-bg-image" />
+      <div className="bubble b1"></div>
+      <div className="bubble b2"></div>
+      <div className="bubble b3"></div>
+      <div className="bubble b4"></div>
+      <div className="bubble b5"></div>
+      <div className="bubble b6"></div>
+      <div className="bubble b7"></div>
+      <div className="bubble b8"></div>
+      <h1 className="admin-available-unit-title">Post Available Unit</h1>
+      <div className="admin-available-unit-content">
+        <form className="admin-available-unit-form" onSubmit={handleSubmit}>
+          <label className="admin-label">
+            Unit Name<span style={{ color: 'red' }}>*</span>:
+            <input
+              type="text"
+              value={unitName}
+              onChange={e => setUnitName(e.target.value)}
+              required
+              disabled={submitting}
+              className="admin-unit-name-input"
+              placeholder="Enter unit name"
+              style={{ marginTop: 8 }}
+            />
+          </label>
+          <label className="admin-label">
+            Upload Images (max 5):
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleImageChange}
+              disabled={submitting}
+              style={{ marginTop: 8 }}
+            />
+          </label>
+          <div className="admin-image-preview-list">
+            {previewUrls.map((url, idx) => (
+              <div key={idx} className="admin-preview-item">
+                <img src={url} alt={`Preview ${idx + 1}`} className="admin-image-preview" />
+                <button
+                  type="button"
+                  className="admin-remove-btn"
+                  onClick={() => {
+                    setImages(prev => prev.filter((_, i) => i !== idx));
+                    setPreviewUrls(prev => prev.filter((_, i) => i !== idx));
+                  }}
+                  tabIndex={-1}
+                >×</button>
+              </div>
+            ))}
+          </div>
+          <label className="admin-label">
+            Description (optional):
+            <textarea
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              rows={4}
+              placeholder="Enter unit description..."
+              className="admin-desc-textarea"
+              disabled={submitting}
+            />
+          </label>
+          <button type="submit" className="admin-submit-btn" disabled={submitting}>
+            {submitting ? 'Posting...' : 'Post Unit'}
+          </button>
+          {feedback && <div className="admin-feedback">{feedback}</div>}
+        </form>
+        <div className="admin-available-unit-actions">
+          <Link to="/admin-dashboard" className="admin-available-unit-btn back-btn">
+            <span>&#x2B05;</span> Back
+          </Link>
+          <Link to="/admin/unit-chat" className="admin-available-unit-btn messages-btn">
+            <span>💬</span> See Messages
+          </Link>
         </div>
-        <label className="admin-label">
-          Description (optional):
-          <textarea
-            value={description}
-            onChange={e => setDescription(e.target.value)}
-            rows={4}
-            placeholder="Enter unit description..."
-            className="admin-desc-textarea"
-            disabled={submitting}
-          />
-        </label>
-        <button type="submit" className="admin-submit-btn" disabled={submitting}>
-          {submitting ? 'Posting...' : 'Post Unit'}
-        </button>
-        {feedback && <div className="admin-feedback">{feedback}</div>}
-      </form>
+      </div>
     </div>
   );
 };
