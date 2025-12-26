@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import '../../css/Tenant/BrowseUnit.css';
 
-const BrowseUnit = ({ tenantId, tenantName }) => {
+const BrowseUnit = () => {
   const [units, setUnits] = useState([]);
   const [selectedUnit, setSelectedUnit] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [sending, setSending] = useState(false);
   const [feedback, setFeedback] = useState('');
-  const [showChatModal, setShowChatModal] = useState(false);
-  const [selectedInquiryId, setSelectedInquiryId] = useState(null);
   const [selectedImageIdx, setSelectedImageIdx] = useState({});
   const [enlargeImg, setEnlargeImg] = useState(null);
-  const [showInquiryModal, setShowInquiryModal] = useState(false);
   const [tenantNameState, setTenantName] = useState(localStorage.getItem('tenantName') || '');
   const [inquiryMessage, setInquiryMessage] = useState('');
-  const [selectedUnitId, setSelectedUnitId] = useState(null);
 
   useEffect(() => {
     fetch('https://tenantportal-backend.onrender.com/api/available-units')
@@ -39,6 +35,10 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
 
   const handleInquirySubmit = async (e) => {
     e.preventDefault();
+    if (!tenantNameState.trim()) {
+      setFeedback('Please enter your name.');
+      return;
+    }
     if (!inquiryMessage.trim()) {
       setFeedback('Please enter your message.');
       return;
@@ -46,22 +46,24 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
     setSending(true);
     setFeedback('');
     try {
-      const res = await fetch('/api/unit-inquiries', {
+      // Save name to localStorage for future use
+      localStorage.setItem('tenantName', tenantNameState);
+
+      // Send inquiry to backend
+      const res = await fetch('http://localhost:5000/api/unit-inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          tenantId,
-          unitId: selectedUnit.unit_id,
-          message: inquiryMessage
-        })
+          unit_id: selectedUnit.unit_id,
+          sender_name: tenantNameState,
+          message: inquiryMessage,
+        }),
       });
-      const data = await res.json();
       if (res.ok) {
         setFeedback('Inquiry sent! You can now chat with the admin.');
-        setSelectedInquiryId(data.inquiryId); // Assuming the response contains the inquiry ID
-        setShowChatModal(true);
         setTimeout(closeModal, 1500);
       } else {
+        const data = await res.json();
         setFeedback(data.message || 'Failed to send inquiry.');
       }
     } catch {
@@ -71,36 +73,7 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
   };
 
   const handleReserve = (unit) => {
-    // You can open a modal, send a reservation request, or redirect as needed
     alert(`Reservation requested for unit: ${unit.title || unit.unitName}`);
-  };
-
-  const handleInquireClick = (unitId) => {
-    setSelectedUnitId(unitId);
-    setShowInquiryModal(true);
-  };
-
-  const handleSendInquiry = async (e) => {
-    e.preventDefault();
-    if (!tenantNameState.trim()) {
-      alert('Please enter your name.');
-      return;
-    }
-    // Save name to localStorage for future use
-    localStorage.setItem('tenantName', tenantNameState);
-
-    // Send inquiry to backend
-    await fetch('http://localhost:5000/api/unit-inquiries', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        unit_id: selectedUnitId,
-        sender_name: tenantNameState,
-        message: inquiryMessage,
-      }),
-    });
-    setShowInquiryModal(false);
-    setInquiryMessage('');
   };
 
   return (
@@ -150,7 +123,6 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
                 <button className="reserve-btn" onClick={() => handleReserve(unit)}>
                   Reserve
                 </button>
-                <button onClick={() => handleInquireClick(unit.unit_id)}>Inquire</button>
               </div>
             </div>
           );
@@ -161,6 +133,25 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
           <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
             <h3>Inquire about: {selectedUnit.title}</h3>
             <form onSubmit={handleInquirySubmit}>
+              {!tenantNameState && (
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  value={tenantNameState}
+                  onChange={e => setTenantName(e.target.value)}
+                  className="inquiry-name-input"
+                  required
+                  style={{
+                    width: '100%',
+                    borderRadius: '6px',
+                    border: '1.5px solid #d1d5db',
+                    padding: '9px 12px',
+                    fontSize: '1rem',
+                    marginBottom: '12px',
+                    background: '#f9fafb'
+                  }}
+                />
+              )}
               <textarea
                 value={inquiryMessage}
                 onChange={e => setInquiryMessage(e.target.value)}
@@ -182,45 +173,6 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
           <div className="enlarge-modal" onClick={e => e.stopPropagation()}>
             <img src={enlargeImg} alt="Enlarged" className="enlarge-img" />
             <button className="close-modal-btn" onClick={() => setEnlargeImg(null)}>Close</button>
-          </div>
-        </div>
-      )}
-      {showInquiryModal && (
-        <div className="inquiry-modal-backdrop">
-          <div className="inquiry-modal">
-            <button className="close-modal-btn" onClick={() => setShowInquiryModal(false)}>×</button>
-            <h3>Send Inquiry</h3>
-            <form onSubmit={handleSendInquiry}>
-              {!tenantNameState && (
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  value={tenantNameState}
-                  onChange={e => setTenantName(e.target.value)}
-                  className="inquiry-name-input"
-                  required
-                  style={{
-                    width: '100%',
-                    borderRadius: '6px',
-                    border: '1.5px solid #d1d5db',
-                    padding: '9px 12px',
-                    fontSize: '1rem',
-                    marginBottom: '12px',
-                    background: '#f9fafb'
-                  }}
-                />
-              )}
-              <textarea
-                placeholder="Type your inquiry..."
-                value={inquiryMessage}
-                onChange={e => setInquiryMessage(e.target.value)}
-                required
-              />
-              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <button type="submit">Send</button>
-                <button type="button" className="close-modal-btn" onClick={() => setShowInquiryModal(false)} style={{marginLeft: '8px'}}>Cancel</button>
-              </div>
-            </form>
           </div>
         </div>
       )}
