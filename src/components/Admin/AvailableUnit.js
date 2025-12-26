@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../../css/Admin/AvailableUnit.css';
 
 const AvailableUnit = () => {
+  const [unitName, setUnitName] = useState('');
   const [images, setImages] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
   const [description, setDescription] = useState('');
@@ -19,11 +20,16 @@ const AvailableUnit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!unitName.trim()) {
+      setFeedback('Unit name is required.');
+      return;
+    }
     setSubmitting(true);
     setFeedback('');
 
     const formData = new FormData();
-    images.forEach((img, idx) => formData.append('images', img));
+    formData.append('unitName', unitName);
+    images.forEach((img) => formData.append('images', img));
     formData.append('description', description);
 
     try {
@@ -34,6 +40,7 @@ const AvailableUnit = () => {
       const data = await res.json();
       if (res.ok) {
         setFeedback('Unit posted successfully!');
+        setUnitName('');
         setImages([]);
         setPreviewUrls([]);
         setDescription('');
@@ -50,6 +57,19 @@ const AvailableUnit = () => {
     <div className="admin-available-unit-container">
       <h2>Post Available Unit</h2>
       <form className="admin-available-unit-form" onSubmit={handleSubmit}>
+        <label className="admin-label">
+          Unit Name<span style={{ color: 'red' }}>*</span>:
+          <input
+            type="text"
+            value={unitName}
+            onChange={e => setUnitName(e.target.value)}
+            required
+            disabled={submitting}
+            className="admin-unit-name-input"
+            placeholder="Enter unit name"
+            style={{ marginTop: 8 }}
+          />
+        </label>
         <label className="admin-label">
           Upload Images (max 5):
           <input
