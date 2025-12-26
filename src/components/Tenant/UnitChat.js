@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import './UnitChat.css';
+import '../../css/Tenant/UnitChat.css';
 
 const formatTimeLeft = (ms) => {
   if (ms <= 0) return 'Expired';
