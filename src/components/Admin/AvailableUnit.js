@@ -36,7 +36,7 @@ const AvailableUnit = () => {
     try {
       const res = await fetch('/api/admin/available-units', {
         method: 'POST',
-        body: formData,
+        body: formData
       });
       const data = await res.json();
       if (res.ok) {
