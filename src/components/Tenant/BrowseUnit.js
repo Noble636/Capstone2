@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './BrowseUnit.css';
+import '../../css/Tenant/BrowseUnit.css';
 
 const BrowseUnit = ({ tenantId }) => {
   const [units, setUnits] = useState([]);
