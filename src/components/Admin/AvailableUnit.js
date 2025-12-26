@@ -65,6 +65,11 @@ const AvailableUnit = () => {
       <div className="bubble b7"></div>
       <div className="bubble b8"></div>
       <h1 className="admin-available-unit-title">Post Available Unit</h1>
+      <p className="admin-available-unit-note">
+        <em>
+          You can post available apartment rooms, units, or spaces here. Tenants will see these listings and can send inquiries or reservation requests.
+        </em>
+      </p>
       <div className="admin-available-unit-content">
         <form className="admin-available-unit-form" onSubmit={handleSubmit}>
           <label className="admin-label" style={{ position: 'relative' }}>

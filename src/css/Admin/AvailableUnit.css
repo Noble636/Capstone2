@@ -98,7 +98,7 @@ body {
   padding: 12px;
   font-size: 1.1rem;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 2px solid #111; /* Black border */
   box-sizing: border-box;
   background: #fff !important;
   color: #222 !important;
@@ -235,6 +235,14 @@ body {
   color: #cee056;
   transform: scale(1.05);
   box-shadow: 0 0 18px 4px #cee056, 0 2px 16px rgba(0,0,0,0.12);
+}
+
+.admin-available-unit-note {
+  color: #444;
+  font-size: 1.08rem;
+  margin-bottom: 18px;
+  text-align: center;
+  max-width: 500px;
 }
 
 /* Bubbles for background decoration */
