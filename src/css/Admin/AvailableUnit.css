@@ -9,12 +9,19 @@ body {
   max-width: 600px;
   margin: 48px auto;
   padding: 32px 24px;
-  background: #fff;
+  background: #fff; /* Solid white for paper effect */
   border-radius: 18px;
   box-shadow: 0 8px 32px 0 rgba(76,0,130,0.18), 0 2px 8px rgba(0,0,0,0.10);
   font-family: 'Segoe UI', Arial, sans-serif;
   position: relative;
   z-index: 2;
+  /* Remove overflow-y: auto and scrollbar hiding for a true paper effect */
+  /* overflow-y: auto; */
+  /* scrollbar-width: none; */
+  /* -ms-overflow-style: none; */
+}
+.admin-available-unit-container::-webkit-scrollbar {
+  /* display: none; */
 }
 
 .admin-available-unit-container.gradient-bg {
