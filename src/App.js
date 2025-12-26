@@ -15,6 +15,7 @@ import AdminEditAccount from './components/Admin/AdminEditAccount';
 import AdminEditRentalInfo from './components/Admin/AdminEditRentalInfo';
 import AdminRegister from './components/Admin/AdminRegister';
 import AdminFPW from './components/Admin/AdminFPW';
+import AvailableUnit from './components/Admin/AvailableUnit';
 
 import Complaints from './components/Tenant/SubmitComplaints';
 import VisitorLogs from './components/Tenant/SubmitVisitors';
@@ -29,6 +30,9 @@ import EditAccount from './components/Tenant/EditAccount';
 import EditComplaints from './components/Tenant/EditComplaints';
 import ComplaintStatus from './components/Tenant/ComplaintStatus';
 import TenantFPW from './components/Tenant/TenantFPW';
+import BrowseUnit from './components/Tenant/BrowseUnit';
+import UnitChat from './components/Tenant/UnitChat';
+import AdminUnitChat from './components/Admin/AdminUnitChat';
 
 import ContactUs from './components/ContactUs';
 
@@ -43,8 +47,8 @@ function App() {
         <Route path="/admin-complaints" element={<AdminComplaints />} />
         <Route path="/admin-visitors" element={<AdminVisitorLogs />} />
         <Route path="/admin-manage-accounts" element={<ManageAccounts />} />
-  <Route path="/admin-edit-account" element={<AdminEditAccount />} />
-  <Route path="/admin-edit-rental" element={<AdminEditRentalInfo />} />
+        <Route path="/admin-edit-account" element={<AdminEditAccount />} />
+        <Route path="/admin-edit-rental" element={<AdminEditRentalInfo />} />
         <Route path="/admin-register" element={<AdminRegister />} />
         <Route path="/admin-forgot-password" element={<AdminFPW />} />
         <Route path="/tenant-login" element={<TenantLogin />} />
@@ -62,6 +66,10 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/forgot-password" element={<TenantFPW />} />
+        <Route path="/admin/available-units" element={<AvailableUnit />} />
+        <Route path="/tenant/browse-units" element={<BrowseUnit />} />
+        <Route path="/tenant/unit-chat" element={<UnitChat />} />
+        <Route path="/admin/unit-chat" element={<AdminUnitChat />} />
       </Routes>
     </Router>
   );
