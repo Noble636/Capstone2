@@ -29,7 +29,7 @@ const AvailableUnit = () => {
 
     const formData = new FormData();
     formData.append('unitName', unitName);
-    images.forEach((img) => formData.append('images', img));
+    images.forEach((img) => formData.append('images', img)); // 'images' matches backend field
     formData.append('description', description);
     formData.append('price', price); // <-- Add this line
 
