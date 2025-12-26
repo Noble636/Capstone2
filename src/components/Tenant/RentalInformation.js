@@ -29,12 +29,12 @@ const RentalInformation = () => {
             </Link>
             <span className="rental-info-btn-tooltip-below">View your rental confirmation statement</span>
           </div>
-          <div className="rental-info-btn-tooltip-wrapper">
-            <Link to="/tenant/browse-units" className="home-animated-btn">
-              Browse Available Units
-            </Link>
-            <span className="rental-info-btn-tooltip-below">See units you can reserve or inquire about</span>
-          </div>
+        </div>
+        <div className="rental-info-btn-tooltip-wrapper">
+          <Link to="/tenant/browse-units" className="home-animated-btn">
+            Browse Available Units
+          </Link>
+          <span className="rental-info-btn-tooltip-below">See units you can reserve or inquire about</span>
         </div>
       </div>
       <div className="rental-info-home-btn-wrapper">
