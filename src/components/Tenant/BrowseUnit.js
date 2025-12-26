@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import '../../css/Tenant/BrowseUnit.css';
-import ChatModal from '../ChatModal';
 
 const BrowseUnit = ({ tenantId, tenantName }) => {
   const [units, setUnits] = useState([]);
