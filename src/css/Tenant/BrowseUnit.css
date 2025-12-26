@@ -209,3 +209,17 @@
 .check-inquiries-btn:hover {
   background: #1e40af;
 }
+
+.reserve-btn {
+  margin-left: 8px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reserve-btn:hover {
+  background-color: #388e3c;
+}

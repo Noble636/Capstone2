@@ -65,6 +65,11 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
     setSending(false);
   };
 
+  const handleReserve = (unit) => {
+    // You can open a modal, send a reservation request, or redirect as needed
+    alert(`Reservation requested for unit: ${unit.title || unit.unitName}`);
+  };
+
   return (
     <div className="browse-unit-container">
       <h2>Available Units</h2>
@@ -85,7 +90,10 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
               <div className="unit-specs">{unit.specifications}</div>
               <div className="unit-desc">{unit.description}</div>
               <button className="inquire-btn" onClick={() => openInquiryModal(unit)}>
-                Inquire / Reserve
+                Inquire
+              </button>
+              <button className="reserve-btn" onClick={() => handleReserve(unit)}>
+                Reserve
               </button>
             </div>
           </div>
