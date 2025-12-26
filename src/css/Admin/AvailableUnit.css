@@ -15,10 +15,11 @@ body {
   font-family: 'Segoe UI', Arial, sans-serif;
   position: relative;
   z-index: 2;
-}
-
-.admin-available-unit-container::-webkit-scrollbar {
-  /* display: none; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .admin-available-unit-container.gradient-bg {

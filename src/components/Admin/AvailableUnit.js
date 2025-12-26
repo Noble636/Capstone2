@@ -54,6 +54,7 @@ const AvailableUnit = () => {
 
   return (
     <div className="admin-available-unit-container">
+      <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="admin-bg-image" />
       {/* Bubbles for background decoration */}
       <div className="bubble b1"></div>
       <div className="bubble b2"></div>
@@ -66,8 +67,8 @@ const AvailableUnit = () => {
       <h1 className="admin-available-unit-title">Post Available Unit</h1>
       <div className="admin-available-unit-content">
         <form className="admin-available-unit-form" onSubmit={handleSubmit}>
-          <label className="admin-label">
-            Unit Name<span style={{ color: 'red' }}>*</span>:
+          <label className="admin-label" style={{ position: 'relative' }}>
+            Unit Name <span style={{ color: 'red', marginLeft: 2 }}>*</span>
             <input
               type="text"
               value={unitName}
