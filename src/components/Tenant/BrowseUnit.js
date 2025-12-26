@@ -87,9 +87,6 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
               <button className="inquire-btn" onClick={() => openInquiryModal(unit)}>
                 Inquire / Reserve
               </button>
-              <button className="check-inquiries-btn" onClick={() => openCheckInquiriesModal(unit)}>
-                Check Inquiries
-              </button>
             </div>
           </div>
         ))}
@@ -114,14 +111,6 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
             <button className="close-modal-btn" onClick={closeModal}>Close</button>
           </div>
         </div>
-      )}
-      {showChatModal && (
-        <ChatModal
-          inquiryId={selectedInquiryId}
-          onClose={() => setShowChatModal(false)}
-          userType="tenant"
-          userName={tenantName}
-        />
       )}
     </div>
   );
