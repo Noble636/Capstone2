@@ -53,8 +53,8 @@ const AvailableUnit = () => {
   };
 
   return (
-    <div className="admin-available-unit-container gradient-bg">
-      <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="admin-bg-image" />
+    <div className="admin-available-unit-container">
+      {/* Bubbles for background decoration */}
       <div className="bubble b1"></div>
       <div className="bubble b2"></div>
       <div className="bubble b3"></div>
