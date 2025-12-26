@@ -10,6 +10,8 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
   const [feedback, setFeedback] = useState('');
   const [showChatModal, setShowChatModal] = useState(false);
   const [selectedInquiryId, setSelectedInquiryId] = useState(null);
+  const [selectedImageIdx, setSelectedImageIdx] = useState({});
+  const [enlargeImg, setEnlargeImg] = useState(null);
 
   useEffect(() => {
     fetch('https://tenantportal-backend.onrender.com/api/available-units')
@@ -75,28 +77,54 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
       <h2>Available Units</h2>
       <div className="unit-list">
         {units.length === 0 && <div className="no-units">No available units at the moment.</div>}
-        {units.map(unit => (
-          <div className="unit-card" key={unit.unit_id}>
-            <div className="unit-images">
-              {unit.images && unit.images.length > 0 ? (
-                <img src={unit.images[0].dataUri} alt="Unit" className="unit-main-image" />
-              ) : (
-                <div className="unit-placeholder">No Image</div>
-              )}
+        {units.map(unit => {
+          const mainIdx = selectedImageIdx[unit.unit_id] || 0;
+          return (
+            <div className="unit-card" key={unit.unit_id}>
+              <div className="unit-images">
+                {unit.images && unit.images.length > 0 ? (
+                  <>
+                    <img
+                      src={unit.images[mainIdx].dataUri}
+                      alt="Unit"
+                      className="unit-main-image"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => setEnlargeImg(unit.images[mainIdx].dataUri)}
+                    />
+                    {unit.images.length > 1 && (
+                      <div className="unit-thumbnails">
+                        {unit.images.map((img, idx) => (
+                          <img
+                            key={idx}
+                            src={img.dataUri}
+                            alt={`thumb-${idx}`}
+                            className={`unit-thumb${mainIdx === idx ? ' selected' : ''}`}
+                            onClick={() =>
+                              setSelectedImageIdx(prev => ({ ...prev, [unit.unit_id]: idx }))
+                            }
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="unit-placeholder">No Image</div>
+                )}
+              </div>
+              <div className="unit-info">
+                <h3>{unit.title}</h3>
+                <div className="unit-price">₱{unit.price}</div>
+                <div className="unit-desc">{unit.description}</div>
+                <button className="inquire-btn" onClick={() => openInquiryModal(unit)}>
+                  Inquire
+                </button>
+                <button className="reserve-btn" onClick={() => handleReserve(unit)}>
+                  Reserve
+                </button>
+              </div>
             </div>
-            <div className="unit-info">
-              <h3>{unit.title}</h3>
-              <div className="unit-price">₱{unit.price}</div>
-              <div className="unit-desc">{unit.description}</div>
-              <button className="inquire-btn" onClick={() => openInquiryModal(unit)}>
-                Inquire
-              </button>
-              <button className="reserve-btn" onClick={() => handleReserve(unit)}>
-                Reserve
-              </button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       {showModal && selectedUnit && (
         <div className="inquiry-modal-backdrop" onClick={closeModal}>
@@ -116,6 +144,14 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
               {feedback && <div className="inquiry-feedback">{feedback}</div>}
             </form>
             <button className="close-modal-btn" onClick={closeModal}>Close</button>
+          </div>
+        </div>
+      )}
+      {enlargeImg && (
+        <div className="enlarge-modal-backdrop" onClick={() => setEnlargeImg(null)}>
+          <div className="enlarge-modal" onClick={e => e.stopPropagation()}>
+            <img src={enlargeImg} alt="Enlarged" className="enlarge-img" />
+            <button className="close-modal-btn" onClick={() => setEnlargeImg(null)}>Close</button>
           </div>
         </div>
       )}
