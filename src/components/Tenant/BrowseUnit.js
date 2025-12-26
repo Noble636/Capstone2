@@ -5,13 +5,16 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
   const [units, setUnits] = useState([]);
   const [selectedUnit, setSelectedUnit] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [inquiryMessage, setInquiryMessage] = useState('');
   const [sending, setSending] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [showChatModal, setShowChatModal] = useState(false);
   const [selectedInquiryId, setSelectedInquiryId] = useState(null);
   const [selectedImageIdx, setSelectedImageIdx] = useState({});
   const [enlargeImg, setEnlargeImg] = useState(null);
+  const [showInquiryModal, setShowInquiryModal] = useState(false);
+  const [tenantNameState, setTenantName] = useState(localStorage.getItem('tenantName') || '');
+  const [inquiryMessage, setInquiryMessage] = useState('');
+  const [selectedUnitId, setSelectedUnitId] = useState(null);
 
   useEffect(() => {
     fetch('https://tenantportal-backend.onrender.com/api/available-units')
@@ -72,6 +75,33 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
     alert(`Reservation requested for unit: ${unit.title || unit.unitName}`);
   };
 
+  const handleInquireClick = (unitId) => {
+    setSelectedUnitId(unitId);
+    setShowInquiryModal(true);
+  };
+
+  const handleSendInquiry = async () => {
+    if (!tenantNameState.trim()) {
+      alert('Please enter your name.');
+      return;
+    }
+    // Save name to localStorage for future use
+    localStorage.setItem('tenantName', tenantNameState);
+
+    // Send inquiry to backend
+    await fetch('http://localhost:5000/api/unit-inquiries', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        unit_id: selectedUnitId,
+        sender_name: tenantNameState,
+        message: inquiryMessage,
+      }),
+    });
+    setShowInquiryModal(false);
+    setInquiryMessage('');
+  };
+
   return (
     <div className="browse-unit-container">
       <h2>Available Units</h2>
@@ -119,6 +149,7 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
                 <button className="reserve-btn" onClick={() => handleReserve(unit)}>
                   Reserve
                 </button>
+                <button onClick={() => handleInquireClick(unit.unit_id)}>Inquire</button>
               </div>
             </div>
           );
@@ -150,6 +181,30 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
           <div className="enlarge-modal" onClick={e => e.stopPropagation()}>
             <img src={enlargeImg} alt="Enlarged" className="enlarge-img" />
             <button className="close-modal-btn" onClick={() => setEnlargeImg(null)}>Close</button>
+          </div>
+        </div>
+      )}
+      {showInquiryModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Send Inquiry</h3>
+            {!tenantNameState && (
+              <input
+                type="text"
+                placeholder="Enter your name"
+                value={tenantNameState}
+                onChange={e => setTenantName(e.target.value)}
+                required
+              />
+            )}
+            <textarea
+              placeholder="Type your inquiry..."
+              value={inquiryMessage}
+              onChange={e => setInquiryMessage(e.target.value)}
+              required
+            />
+            <button onClick={handleSendInquiry}>Send</button>
+            <button onClick={() => setShowInquiryModal(false)}>Cancel</button>
           </div>
         </div>
       )}
