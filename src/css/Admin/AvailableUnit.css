@@ -14,12 +14,13 @@ body {
   box-shadow: 0 8px 32px 0 rgba(76,0,130,0.18), 0 2px 8px rgba(0,0,0,0.10);
   font-family: 'Segoe UI', Arial, sans-serif;
   position: relative;
-  z-index: 2;
+  z-index: 10; /* Make sure it's above the background and bubbles */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  border: 1.5px solid #e5e7eb;
 }
 
 .admin-available-unit-container.gradient-bg {
@@ -245,7 +246,6 @@ body {
   max-width: 500px;
 }
 
-/* Bubbles for background decoration */
 .bubble {
   position: fixed;
   border-radius: 50%;
