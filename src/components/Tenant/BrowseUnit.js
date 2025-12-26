@@ -80,7 +80,8 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
     setShowInquiryModal(true);
   };
 
-  const handleSendInquiry = async () => {
+  const handleSendInquiry = async (e) => {
+    e.preventDefault();
     if (!tenantNameState.trim()) {
       alert('Please enter your name.');
       return;
@@ -185,26 +186,41 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
         </div>
       )}
       {showInquiryModal && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="inquiry-modal-backdrop">
+          <div className="inquiry-modal">
+            <button className="close-modal-btn" onClick={() => setShowInquiryModal(false)}>×</button>
             <h3>Send Inquiry</h3>
-            {!tenantNameState && (
-              <input
-                type="text"
-                placeholder="Enter your name"
-                value={tenantNameState}
-                onChange={e => setTenantName(e.target.value)}
+            <form onSubmit={handleSendInquiry}>
+              {!tenantNameState && (
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  value={tenantNameState}
+                  onChange={e => setTenantName(e.target.value)}
+                  className="inquiry-name-input"
+                  required
+                  style={{
+                    width: '100%',
+                    borderRadius: '6px',
+                    border: '1.5px solid #d1d5db',
+                    padding: '9px 12px',
+                    fontSize: '1rem',
+                    marginBottom: '12px',
+                    background: '#f9fafb'
+                  }}
+                />
+              )}
+              <textarea
+                placeholder="Type your inquiry..."
+                value={inquiryMessage}
+                onChange={e => setInquiryMessage(e.target.value)}
                 required
               />
-            )}
-            <textarea
-              placeholder="Type your inquiry..."
-              value={inquiryMessage}
-              onChange={e => setInquiryMessage(e.target.value)}
-              required
-            />
-            <button onClick={handleSendInquiry}>Send</button>
-            <button onClick={() => setShowInquiryModal(false)}>Cancel</button>
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <button type="submit">Send</button>
+                <button type="button" className="close-modal-btn" onClick={() => setShowInquiryModal(false)} style={{marginLeft: '8px'}}>Cancel</button>
+              </div>
+            </form>
           </div>
         </div>
       )}
