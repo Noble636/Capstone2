@@ -83,34 +83,32 @@ const BrowseUnit = ({ tenantId, tenantName }) => {
             <div className="unit-card" key={unit.unit_id}>
               <div className="unit-images">
                 {unit.images && unit.images.length > 0 ? (
-                  <>
-                    <img
-                      src={unit.images[mainIdx].dataUri}
-                      alt="Unit"
-                      className="unit-main-image"
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => setEnlargeImg(unit.images[mainIdx].dataUri)}
-                    />
-                    {unit.images.length > 1 && (
-                      <div className="unit-thumbnails">
-                        {unit.images.map((img, idx) => (
-                          <img
-                            key={idx}
-                            src={img.dataUri}
-                            alt={`thumb-${idx}`}
-                            className={`unit-thumb${mainIdx === idx ? ' selected' : ''}`}
-                            onClick={() =>
-                              setSelectedImageIdx(prev => ({ ...prev, [unit.unit_id]: idx }))
-                            }
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </>
+                  <img
+                    src={unit.images[mainIdx].dataUri}
+                    alt="Unit"
+                    className="unit-main-image"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => setEnlargeImg(unit.images[mainIdx].dataUri)}
+                  />
                 ) : (
                   <div className="unit-placeholder">No Image</div>
                 )}
               </div>
+              {unit.images && unit.images.length > 1 && (
+                <div className="unit-thumbnails">
+                  {unit.images.map((img, idx) => (
+                    <img
+                      key={idx}
+                      src={img.dataUri}
+                      alt={`thumb-${idx}`}
+                      className={`unit-thumb${mainIdx === idx ? ' selected' : ''}`}
+                      onClick={() =>
+                        setSelectedImageIdx(prev => ({ ...prev, [unit.unit_id]: idx }))
+                      }
+                    />
+                  ))}
+                </div>
+              )}
               <div className="unit-info">
                 <h3>{unit.title}</h3>
                 <div className="unit-price">₱{unit.price}</div>
