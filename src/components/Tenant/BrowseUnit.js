@@ -11,6 +11,13 @@ const BrowseUnit = () => {
   const [enlargeImg, setEnlargeImg] = useState(null);
   const [tenantNameState, setTenantName] = useState(localStorage.getItem('tenantName') || '');
   const [inquiryMessage, setInquiryMessage] = useState('');
+  const [showInquiryHistory, setShowInquiryHistory] = useState(false);
+  const [inquiryHistory, setInquiryHistory] = useState([]);
+  const [historyUnit, setHistoryUnit] = useState(null);
+  const [historyName, setHistoryName] = useState('');
+  const [historyNameInput, setHistoryNameInput] = useState('');
+  const [loadingHistory, setLoadingHistory] = useState(false);
+  const [historyError, setHistoryError] = useState('');
 
   useEffect(() => {
     fetch('https://tenantportal-backend.onrender.com/api/available-units')
@@ -76,6 +83,36 @@ const BrowseUnit = () => {
     alert(`Reservation requested for unit: ${unit.title || unit.unitName}`);
   };
 
+  const handleCheckInquiry = (unit) => {
+    setHistoryUnit(unit);
+    setShowInquiryHistory(true);
+    setInquiryHistory([]);
+    setHistoryError('');
+    setHistoryNameInput(tenantNameState || '');
+    setHistoryName(tenantNameState || '');
+  };
+
+  const fetchInquiryHistory = async (unitId, name) => {
+    setLoadingHistory(true);
+    setHistoryError('');
+    try {
+      const res = await fetch(`http://localhost:5000/api/unit-inquiries/history?unit_id=${unitId}&sender_name=${encodeURIComponent(name)}`);
+      if (res.ok) {
+        const data = await res.json();
+        setInquiryHistory(data);
+        setHistoryName(name);
+        localStorage.setItem('tenantName', name);
+      } else {
+        setHistoryError('No conversation found.');
+        setInquiryHistory([]);
+      }
+    } catch {
+      setHistoryError('Server error.');
+      setInquiryHistory([]);
+    }
+    setLoadingHistory(false);
+  };
+
   return (
     <div className="browse-unit-container">
       <h2>Available Units</h2>
@@ -122,6 +159,12 @@ const BrowseUnit = () => {
                 </button>
                 <button className="reserve-btn" onClick={() => handleReserve(unit)}>
                   Reserve
+                </button>
+                <button
+                  className="check-inquiries-btn"
+                  onClick={() => handleCheckInquiry(unit)}
+                >
+                  Check my inquiry
                 </button>
               </div>
             </div>
@@ -173,6 +216,60 @@ const BrowseUnit = () => {
           <div className="enlarge-modal" onClick={e => e.stopPropagation()}>
             <img src={enlargeImg} alt="Enlarged" className="enlarge-img" />
             <button className="close-modal-btn" onClick={() => setEnlargeImg(null)}>Close</button>
+          </div>
+        </div>
+      )}
+      {showInquiryHistory && historyUnit && (
+        <div className="inquiry-modal-backdrop" onClick={() => setShowInquiryHistory(false)}>
+          <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
+            <h3>Conversation for: {historyUnit.title}</h3>
+            {!historyName ? (
+              <form onSubmit={e => {
+                e.preventDefault();
+                if (historyNameInput.trim()) {
+                  fetchInquiryHistory(historyUnit.unit_id, historyNameInput.trim());
+                }
+              }}>
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  value={historyNameInput}
+                  onChange={e => setHistoryNameInput(e.target.value)}
+                  required
+                  style={{
+                    width: '100%',
+                    borderRadius: '6px',
+                    border: '1.5px solid #d1d5db',
+                    padding: '9px 12px',
+                    fontSize: '1rem',
+                    marginBottom: '12px',
+                    background: '#f9fafb'
+                  }}
+                />
+                <button type="submit" disabled={loadingHistory}>Check</button>
+              </form>
+            ) : (
+              <>
+                {loadingHistory && <div>Loading...</div>}
+                {historyError && <div className="inquiry-feedback">{historyError}</div>}
+                <div style={{ maxHeight: 200, overflowY: 'auto', marginBottom: 10 }}>
+                  {inquiryHistory.map((msg, idx) => (
+                    <div key={idx} style={{ marginBottom: 8 }}>
+                      <b>{msg.sender_name === historyName ? 'You' : 'Admin'}:</b> {msg.message}
+                      {msg.reply && (
+                        <div style={{ marginLeft: 16, color: '#2563eb' }}>
+                          <b>Admin:</b> {msg.reply}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  {inquiryHistory.length === 0 && !loadingHistory && !historyError && (
+                    <div>No conversation found.</div>
+                  )}
+                </div>
+                <button onClick={() => setShowInquiryHistory(false)}>Close</button>
+              </>
+            )}
           </div>
         </div>
       )}
