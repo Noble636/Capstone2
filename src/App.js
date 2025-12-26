@@ -50,7 +50,6 @@ function App() {
         <Route path="/admin-register" element={<AdminRegister />} />
         <Route path="/admin-forgot-password" element={<AdminFPW />} />
         <Route path="/admin/available-units" element={<AvailableUnit />} />
-        <Route path="/admin/unit-chat" element={<AdminUnitChat />} />
         <Route path="/tenant-login" element={<TenantLogin />} />
         <Route path="/tenant-dashboard" element={<TenantDashboard />} />
         <Route path="/submitcomplaints" element={<Complaints />} />
