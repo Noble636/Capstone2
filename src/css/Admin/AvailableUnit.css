@@ -76,9 +76,8 @@ body {
 .admin-available-unit-content {
   display: flex;
   flex-direction: column;
-  /* Remove align-items: center; */
-  width: 90%;
-  max-width: 600px;
+  align-items: center; /* Center children horizontally */
+  width: 100%;
   margin-bottom: 20px;
   position: relative;
   z-index: 2;
@@ -88,7 +87,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 18px;
-  text-align: left; /* Left-align form fields */
+  text-align: left;
+  width: 100%;
+  max-width: 500px; /* Set a max width for the form */
+  margin: 0 auto;    /* Center the form horizontally */
 }
 
 .admin-label {
