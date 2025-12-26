@@ -190,6 +190,13 @@
   box-shadow: 0 0 18px 4px #8f94fb80, 0 2px 16px rgba(0,0,0,0.12);
 }
 
+.rental-info-btn-tooltip-wrapper + .rental-info-btn-tooltip-wrapper {
+  margin-top: 18px;
+}
+.rental-info-btn-tooltip-wrapper.browse-available-units {
+  margin-top: 32px;
+}
+
 @media (max-width: 700px) {
   .rental-info-container {
     padding: 8px 2px;

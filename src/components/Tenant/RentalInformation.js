@@ -30,7 +30,7 @@ const RentalInformation = () => {
             <span className="rental-info-btn-tooltip-below">View your rental confirmation statement</span>
           </div>
         </div>
-        <div className="rental-info-btn-tooltip-wrapper">
+        <div className="rental-info-btn-tooltip-wrapper browse-available-units">
           <Link to="/tenant/browse-units" className="home-animated-btn">
             Browse Available Units
           </Link>
