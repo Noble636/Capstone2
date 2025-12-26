@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import '../../css/Tenant/BrowseUnit.css';
+import ChatModal from '../ChatModal';
 
-const BrowseUnit = ({ tenantId }) => {
+const BrowseUnit = ({ tenantId, tenantName }) => {
   const [units, setUnits] = useState([]);
   const [selectedUnit, setSelectedUnit] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [inquiryMessage, setInquiryMessage] = useState('');
   const [sending, setSending] = useState(false);
   const [feedback, setFeedback] = useState('');
+  const [showChatModal, setShowChatModal] = useState(false);
+  const [selectedInquiryId, setSelectedInquiryId] = useState(null);
 
   useEffect(() => {
     fetch('/api/available-units')
@@ -51,6 +54,8 @@ const BrowseUnit = ({ tenantId }) => {
       const data = await res.json();
       if (res.ok) {
         setFeedback('Inquiry sent! You can now chat with the admin.');
+        setSelectedInquiryId(data.inquiryId); // Assuming the response contains the inquiry ID
+        setShowChatModal(true);
         setTimeout(closeModal, 1500);
       } else {
         setFeedback(data.message || 'Failed to send inquiry.');
@@ -83,6 +88,9 @@ const BrowseUnit = ({ tenantId }) => {
               <button className="inquire-btn" onClick={() => openInquiryModal(unit)}>
                 Inquire / Reserve
               </button>
+              <button className="check-inquiries-btn" onClick={() => openCheckInquiriesModal(unit)}>
+                Check Inquiries
+              </button>
             </div>
           </div>
         ))}
@@ -107,6 +115,14 @@ const BrowseUnit = ({ tenantId }) => {
             <button className="close-modal-btn" onClick={closeModal}>Close</button>
           </div>
         </div>
+      )}
+      {showChatModal && (
+        <ChatModal
+          inquiryId={selectedInquiryId}
+          onClose={() => setShowChatModal(false)}
+          userType="tenant"
+          userName={tenantName}
+        />
       )}
     </div>
   );

@@ -16,6 +16,7 @@ import AdminEditRentalInfo from './components/Admin/AdminEditRentalInfo';
 import AdminRegister from './components/Admin/AdminRegister';
 import AdminFPW from './components/Admin/AdminFPW';
 import AvailableUnit from './components/Admin/AvailableUnit';
+import AdminReservations from './components/Admin/AdminReservations';
 
 import Complaints from './components/Tenant/SubmitComplaints';
 import VisitorLogs from './components/Tenant/SubmitVisitors';
@@ -66,6 +67,7 @@ function App() {
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/forgot-password" element={<TenantFPW />} />
         <Route path="/tenant/browse-units" element={<BrowseUnit />} />
+        <Route path="/admin-reservations" element={<AdminReservations />} />
       </Routes>
     </Router>
   );

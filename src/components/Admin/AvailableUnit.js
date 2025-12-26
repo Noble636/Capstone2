@@ -7,6 +7,7 @@ const AvailableUnit = () => {
   const [images, setImages] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
   const [description, setDescription] = useState('');
+  const [price, setPrice] = useState(''); // <-- Add this line
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState('');
 
@@ -30,6 +31,7 @@ const AvailableUnit = () => {
     formData.append('unitName', unitName);
     images.forEach((img) => formData.append('images', img));
     formData.append('description', description);
+    formData.append('price', price); // <-- Add this line
 
     try {
       const res = await fetch('/api/admin/available-units', {
@@ -43,6 +45,7 @@ const AvailableUnit = () => {
         setImages([]);
         setPreviewUrls([]);
         setDescription('');
+        setPrice(''); // <-- Add this line
       } else {
         setFeedback(data.message || 'Failed to post unit.');
       }
@@ -124,6 +127,21 @@ const AvailableUnit = () => {
                   disabled={submitting}
                 />
               </label>
+              {/* Price input below description */}
+              <label className="admin-label">
+                Price (₱)
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={price}
+                  onChange={e => setPrice(e.target.value)}
+                  disabled={submitting}
+                  className="admin-unit-name-input"
+                  placeholder="Enter price"
+                  style={{ marginTop: 8 }}
+                />
+              </label>
               <button type="submit" className="admin-submit-btn" disabled={submitting}>
                 {submitting ? 'Posting...' : 'Post Unit'}
               </button>
@@ -135,6 +153,9 @@ const AvailableUnit = () => {
               </Link>
               <Link to="/admin/unit-chat" className="admin-available-unit-btn messages-btn">
                 <span>💬</span> See Messages
+              </Link>
+              <Link to="/admin-reservations" className="admin-available-unit-btn reservations-btn">
+                <span>📋</span> Reservations
               </Link>
             </div>
           </div>

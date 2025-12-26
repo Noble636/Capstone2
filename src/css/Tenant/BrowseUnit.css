@@ -191,3 +191,21 @@
   font-size: 0.98rem;
   text-align: center;
 }
+
+.check-inquiries-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 6px;
+  margin-left: 8px;
+  transition: background 0.2s;
+}
+
+.check-inquiries-btn:hover {
+  background: #1e40af;
+}
