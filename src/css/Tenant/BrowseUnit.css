@@ -226,8 +226,9 @@
 
 .unit-thumbnails {
   display: flex;
+  flex-direction: row;
   gap: 6px;
-  margin-top: 6px;
+  margin-top: 8px;
   justify-content: center;
 }
 .unit-thumb {
@@ -238,6 +239,7 @@
   border: 2px solid #e5e7eb;
   cursor: pointer;
   transition: border 0.2s;
+  background: #fff;
 }
 .unit-thumb.selected,
 .unit-thumb:hover {
