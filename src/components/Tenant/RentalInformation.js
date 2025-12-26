@@ -16,7 +16,7 @@ const RentalInformation = () => {
       <div className="bubble b8"></div>
       <div className="rental-info-main-box">
         <h1 className="rental-info-title">Rental Information</h1>
-        <div className="rental-info-buttons">
+        <div className="rental-info-buttons-row">
           <div className="rental-info-btn-tooltip-wrapper">
             <Link to="/rental-agreement" className="home-animated-btn">
               Rental Agreement
