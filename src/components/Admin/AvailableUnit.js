@@ -1,46 +1,30 @@
 import React, { useState } from 'react';
 import '../../css/Admin/AvailableUnit.css';
 
-const AvailableUnit = ({ adminId }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [specifications, setSpecifications] = useState('');
-  const [price, setPrice] = useState('');
+const AvailableUnit = () => {
   const [images, setImages] = useState([]);
-  const [imagePreviews, setImagePreviews] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [previewUrls, setPreviewUrls] = useState([]);
+  const [description, setDescription] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState('');
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files).slice(0, 5);
     setImages(files);
 
-    // Preview images
-    const previews = files.map(file => URL.createObjectURL(file));
-    setImagePreviews(previews);
+    // Preview
+    const urls = files.map(file => URL.createObjectURL(file));
+    setPreviewUrls(urls);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setMessage('');
-
-    if (!title || !price) {
-      setMessage('Title and price are required.');
-      setLoading(false);
-      return;
-    }
+    setSubmitting(true);
+    setFeedback('');
 
     const formData = new FormData();
-    formData.append('adminId', adminId);
-    formData.append('title', title);
+    images.forEach((img, idx) => formData.append('images', img));
     formData.append('description', description);
-    formData.append('specifications', specifications);
-    formData.append('price', price);
-
-    images.forEach((img, idx) => {
-      formData.append('images', img);
-    });
 
     try {
       const res = await fetch('/api/admin/available-units', {
@@ -49,55 +33,54 @@ const AvailableUnit = ({ adminId }) => {
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage('Unit posted successfully!');
-        setTitle('');
-        setDescription('');
-        setSpecifications('');
-        setPrice('');
+        setFeedback('Unit posted successfully!');
         setImages([]);
-        setImagePreviews([]);
+        setPreviewUrls([]);
+        setDescription('');
       } else {
-        setMessage(data.message || 'Failed to post unit.');
+        setFeedback(data.message || 'Failed to post unit.');
       }
-    } catch (err) {
-      setMessage('Server error. Please try again.');
+    } catch {
+      setFeedback('Server error. Please try again.');
     }
-    setLoading(false);
+    setSubmitting(false);
   };
 
   return (
-    <div className="available-unit-container">
+    <div className="admin-available-unit-container">
       <h2>Post Available Unit</h2>
-      <form className="available-unit-form" onSubmit={handleSubmit}>
-        <label>
-          Title<span className="required">*</span>
-          <input type="text" value={title} onChange={e => setTitle(e.target.value)} required />
+      <form className="admin-available-unit-form" onSubmit={handleSubmit}>
+        <label className="admin-label">
+          Upload Images (max 5):
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageChange}
+            disabled={submitting}
+            style={{ marginTop: 8 }}
+          />
         </label>
-        <label>
-          Description
-          <textarea value={description} onChange={e => setDescription(e.target.value)} />
-        </label>
-        <label>
-          Specifications
-          <textarea value={specifications} onChange={e => setSpecifications(e.target.value)} />
-        </label>
-        <label>
-          Price<span className="required">*</span>
-          <input type="number" value={price} onChange={e => setPrice(e.target.value)} required min="0" />
-        </label>
-        <label>
-          Images (up to 5)
-          <input type="file" accept="image/*" multiple onChange={handleImageChange} />
-        </label>
-        <div className="image-preview-row">
-          {imagePreviews.map((src, idx) => (
-            <img key={idx} src={src} alt={`Preview ${idx + 1}`} className="image-preview" />
+        <div className="admin-image-preview-list">
+          {previewUrls.map((url, idx) => (
+            <img key={idx} src={url} alt={`Preview ${idx + 1}`} className="admin-image-preview" />
           ))}
         </div>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Posting...' : 'Post Unit'}
+        <label className="admin-label">
+          Description (optional):
+          <textarea
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+            rows={4}
+            placeholder="Enter unit description..."
+            className="admin-desc-textarea"
+            disabled={submitting}
+          />
+        </label>
+        <button type="submit" className="admin-submit-btn" disabled={submitting}>
+          {submitting ? 'Posting...' : 'Post Unit'}
         </button>
-        {message && <div className="form-message">{message}</div>}
+        {feedback && <div className="admin-feedback">{feedback}</div>}
       </form>
     </div>
   );
