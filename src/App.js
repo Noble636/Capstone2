@@ -31,8 +31,6 @@ import EditComplaints from './components/Tenant/EditComplaints';
 import ComplaintStatus from './components/Tenant/ComplaintStatus';
 import TenantFPW from './components/Tenant/TenantFPW';
 import BrowseUnit from './components/Tenant/BrowseUnit';
-import UnitChat from './components/Tenant/UnitChat';
-import AdminUnitChat from './components/Admin/AdminUnitChat';
 
 import ContactUs from './components/ContactUs';
 
@@ -51,6 +49,8 @@ function App() {
         <Route path="/admin-edit-rental" element={<AdminEditRentalInfo />} />
         <Route path="/admin-register" element={<AdminRegister />} />
         <Route path="/admin-forgot-password" element={<AdminFPW />} />
+        <Route path="/admin/available-units" element={<AvailableUnit />} />
+        <Route path="/admin/unit-chat" element={<AdminUnitChat />} />
         <Route path="/tenant-login" element={<TenantLogin />} />
         <Route path="/tenant-dashboard" element={<TenantDashboard />} />
         <Route path="/submitcomplaints" element={<Complaints />} />
@@ -66,10 +66,7 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/forgot-password" element={<TenantFPW />} />
-        <Route path="/admin/available-units" element={<AvailableUnit />} />
         <Route path="/tenant/browse-units" element={<BrowseUnit />} />
-        <Route path="/tenant/unit-chat" element={<UnitChat />} />
-        <Route path="/admin/unit-chat" element={<AdminUnitChat />} />
       </Routes>
     </Router>
   );
