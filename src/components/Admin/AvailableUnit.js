@@ -34,7 +34,7 @@ const AvailableUnit = () => {
     formData.append('price', price); // <-- Add this line
 
     try {
-      const res = await fetch('/api/admin/available-units', {
+      const res = await fetch('https://tenantportal-backend.onrender.com/api/admin/available-units', {
         method: 'POST',
         body: formData
       });
