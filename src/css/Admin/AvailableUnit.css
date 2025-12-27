@@ -13,20 +13,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 2;
 }
 
 .admin-available-unit-container {
-  max-width: 600px;
-  margin: 48px auto;
-  padding: 32px 24px;
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 8px 32px 0 rgba(76,0,130,0.18), 0 2px 8px rgba(0,0,0,0.10);
-  font-family: 'Segoe UI', Arial, sans-serif;
+  padding: 32px 24px;
+  max-width: 600px;
+  width: 100%;
+  z-index: 3;
   position: relative;
-  z-index: 10;
-  border: 1.5px solid #e5e7eb;
-  text-align: center; /* Center all content inside the card */
 }
 
 .admin-available-unit-container.gradient-bg {
@@ -47,6 +46,22 @@
 @keyframes home-bg-move {
   0% {background-position: 0% 50%;}
   100% {background-position: 100% 50%;}
+}
+
+.availableunit-bg {
+  min-height: 100vh;
+  width: 100vw;
+  position: relative;
+  background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
+  animation: availableunit-bg-move 12s ease-in-out infinite alternate;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.availableunit-bg::-webkit-scrollbar {
+  width: 0 !important;
+  background: transparent;
 }
 
 .admin-bg-image {
@@ -254,27 +269,6 @@
   margin-bottom: 18px;
   text-align: center;
   max-width: 500px;
-}
-
-.availableunit-bg {
-  min-height: 100vh;
-  width: 100vw;
-  position: relative;
-  background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
-  animation: availableunit-bg-move 12s ease-in-out infinite alternate;
-  overflow-x: hidden;
-  overflow-y: auto;
-  scrollbar-width: none;           /* Firefox */
-  -ms-overflow-style: none;        /* IE and Edge */
-}
-.availableunit-bg::-webkit-scrollbar { /* Chrome, Safari, Opera */
-  width: 0 !important;
-  background: transparent;
-}
-
-@keyframes availableunit-bg-move {
-  0% {background-position: 0% 50%;}
-  100% {background-position: 100% 50%;}
 }
 
 .availableunit-bubble {

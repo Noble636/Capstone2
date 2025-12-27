@@ -67,7 +67,7 @@ const AvailableUnit = () => {
       <div className="availableunit-bubble b7"></div>
       <div className="availableunit-bubble b8"></div>
       <div className="main-center-wrapper">
-        <div className="admin-available-unit-container-root">
+        <div className="admin-available-unit-container">
           <div className="admin-available-unit-container">
             <h1 className="admin-available-unit-title">Post Available Unit</h1>
             <p className="admin-available-unit-note">
