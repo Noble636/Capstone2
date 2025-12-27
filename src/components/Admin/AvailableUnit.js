@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../css/Admin/AvailableUnit.css';
 
@@ -7,7 +7,7 @@ const AvailableUnit = () => {
   const [images, setImages] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState(''); // <-- Add this line
+  const [price, setPrice] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState('');
 
@@ -29,9 +29,9 @@ const AvailableUnit = () => {
 
     const formData = new FormData();
     formData.append('unitName', unitName);
-    images.forEach((img) => formData.append('images', img)); // 'images' matches backend field
+    images.forEach((img) => formData.append('images', img));
     formData.append('description', description);
-    formData.append('price', price); // <-- Add this line
+    formData.append('price', price);
 
     try {
       const res = await fetch('https://tenantportal-backend.onrender.com/api/admin/available-units', {
@@ -45,7 +45,7 @@ const AvailableUnit = () => {
         setImages([]);
         setPreviewUrls([]);
         setDescription('');
-        setPrice(''); // <-- Add this line
+        setPrice('');
       } else {
         setFeedback(data.message || 'Failed to post unit.');
       }
@@ -128,7 +128,6 @@ const AvailableUnit = () => {
                     disabled={submitting}
                   />
                 </label>
-                {/* Price input below description */}
                 <label className="admin-label">
                   Price (₱)
                   <input
