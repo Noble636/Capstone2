@@ -195,7 +195,6 @@ const BrowseUnit = () => {
                     marginBottom: '12px',
                     background: '#f9fafb'
                   }}
-                  disabled={!!localStorage.getItem('tenantName')}
                 />
               )}
               <textarea
