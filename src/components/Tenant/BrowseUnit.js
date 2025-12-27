@@ -103,12 +103,12 @@ const BrowseUnit = () => {
       setFeedback('Please enter your name.');
       return;
     }
-    setTenantName(nameInput.trim());
     setNameConfirmed(true);
     setFeedback('');
     if (selectedUnit) {
       fetchMessages(selectedUnit.unit_id, nameInput.trim());
     }
+    setTenantName(nameInput.trim()); // Use this for the session, but do not save to localStorage
   };
 
   const fetchMessages = async (unitId, name) => {
@@ -298,15 +298,6 @@ const BrowseUnit = () => {
                   onChange={e => setNameInput(e.target.value)}
                   className="inquiry-name-input"
                   required
-                  style={{
-                    width: '100%',
-                    borderRadius: '6px',
-                    border: '1.5px solid #d1d5db',
-                    padding: '9px 12px',
-                    fontSize: '1rem',
-                    marginBottom: '12px',
-                    background: '#f9fafb'
-                  }}
                 />
                 <button type="submit">Load Chat</button>
                 {feedback && <div className="inquiry-feedback">{feedback}</div>}
@@ -332,6 +323,18 @@ const BrowseUnit = () => {
                     <div style={{ color: '#64748b', textAlign: 'center' }}>No messages yet.</div>
                   )}
                 </div>
+                <form onSubmit={handleSendMessage} style={{ display: 'flex', gap: 8 }}>
+                  <input
+                    type="text"
+                    value={chatInput}
+                    onChange={e => setChatInput(e.target.value)}
+                    placeholder="Type your message..."
+                    style={{ flex: 1 }}
+                    required
+                  />
+                  <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
+                </form>
+                {feedback && <div className="inquiry-feedback">{feedback}</div>}
                 <button className="close-modal-btn" onClick={closeModal}>Close</button>
               </>
             )}
