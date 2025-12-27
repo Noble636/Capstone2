@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import BrowseUnit from '../components/Tenant/BrowseUnit';
-import '../../css/BrowseUnit.css'; // See CSS below
+import '../../css/BrowseUnit.css';
 
 export default function BrowseUnitPage() {
   const [units, setUnits] = useState([]);
@@ -164,15 +164,19 @@ export default function BrowseUnitPage() {
 
   return (
     <div className="browseunit-bg">
-      <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="browseunit-bg-image" />
-      <div className="browseunit-bubble b1"></div>
-      <div className="browseunit-bubble b2"></div>
-      <div className="browseunit-bubble b3"></div>
-      <div className="browseunit-bubble b4"></div>
-      <div className="browseunit-bubble b5"></div>
-      <div className="browseunit-bubble b6"></div>
-      <div className="browseunit-bubble b7"></div>
-      <div className="browseunit-bubble b8"></div>
+      <img
+        src={process.env.PUBLIC_URL + '/Background/GB.png'}
+        alt="Background"
+        className="browseunit-bg-image"
+      />
+      <div className="bubble b1"></div>
+      <div className="bubble b2"></div>
+      <div className="bubble b3"></div>
+      <div className="bubble b4"></div>
+      <div className="bubble b5"></div>
+      <div className="bubble b6"></div>
+      <div className="bubble b7"></div>
+      <div className="bubble b8"></div>
       <BrowseUnit />
     </div>
   );
