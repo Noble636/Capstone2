@@ -1,3 +1,10 @@
+/* Prevent page from scrolling */
+body, .browseunit-bg {
+  overflow: hidden !important;
+  height: 100vh;
+}
+
+/* Only the container scrolls */
 .browse-unit-container {
   max-width: 1200px;
   margin: 32px auto;
@@ -7,9 +14,9 @@
   box-shadow: 0 4px 32px rgba(0,0,0,0.08);
   font-family: 'Segoe UI', Arial, sans-serif;
   position: relative;
-  overflow: auto; /* Enable scrolling inside container */
+  overflow: auto;
   min-height: 70vh;
-  max-height: 80vh; /* Set a max height so it scrolls internally */
+  max-height: 80vh;
 }
 
 /* Hide scrollbar for Chrome, Edge, Safari */
@@ -28,12 +35,9 @@
   -ms-overflow-style: none;
 }
 
-/* Remove these if you don't want to hide the page scrollbar */
-body, .browseunit-bg {
-  scrollbar-width: auto;
-  -ms-overflow-style: auto;
-}
-body::-webkit-scrollbar, .browseunit-bg::-webkit-scrollbar {
+/* Remove these rules if present (they are not needed anymore) */
+body::-webkit-scrollbar,
+.browseunit-bg::-webkit-scrollbar {
   width: auto !important;
   background: auto;
 }
