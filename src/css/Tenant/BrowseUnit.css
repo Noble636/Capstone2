@@ -392,3 +392,27 @@ body::-webkit-scrollbar,
 .browseunit-bubble.b6 { width: 80px; height: 80px; background: #fad0c4; top: 60%; right: 4%; }
 .browseunit-bubble.b7 { width: 50px; height: 50px; background: #ffb347; bottom: 8%; left: 40%; }
 .browseunit-bubble.b8 { width: 60px; height: 60px; background: #ff9a9e; top: 80%; right: 30%; }
+
+.browseunit-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.browseunit-back-btn {
+  background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(30,41,59,0.08);
+}
+.browseunit-back-btn:hover,
+.browseunit-back-btn:focus {
+  background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+}

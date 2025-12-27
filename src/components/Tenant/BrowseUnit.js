@@ -216,7 +216,16 @@ export default function BrowseUnit() {
       <div className="bubble b8"></div>
       {/* --- MAIN CONTENT BELOW --- */}
       <div className="browse-unit-container">
-        <h2>Available Units</h2>
+        <div className="browseunit-header-row">
+          <h2>Available Units</h2>
+          <button
+            className="browseunit-back-btn"
+            onClick={() => window.history.back()}
+            type="button"
+          >
+            &#8592; Back
+          </button>
+        </div>
         <div className="unit-list">
           {units.length === 0 && <div className="no-units">No available units at the moment.</div>}
           {units.map(unit => {
