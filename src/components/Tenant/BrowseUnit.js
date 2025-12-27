@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../../css/Tenant/BrowseUnit.css';
 
-export default function BrowseUnitPage() {
+export default function BrowseUnit() {
   const [units, setUnits] = useState([]);
   const [selectedUnit, setSelectedUnit] = useState(null);
   const [showChat, setShowChat] = useState(false);
