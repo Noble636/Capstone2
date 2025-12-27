@@ -176,7 +176,9 @@ const BrowseUnit = () => {
           <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
             <h3>Inquire about: {selectedUnit.title}</h3>
             <form onSubmit={handleInquirySubmit}>
-              {!tenantNameState && (
+              {tenantNameState ? (
+                <div style={{marginBottom: '12px'}}>Name: <b>{tenantNameState}</b></div>
+              ) : (
                 <input
                   type="text"
                   placeholder="Enter your name"
@@ -193,6 +195,7 @@ const BrowseUnit = () => {
                     marginBottom: '12px',
                     background: '#f9fafb'
                   }}
+                  disabled={!!localStorage.getItem('tenantName')}
                 />
               )}
               <textarea
