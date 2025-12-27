@@ -11,6 +11,7 @@ const AdminInbox = () => {
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [feedback, setFeedback] = useState('');
+  const [selectedUnit, setSelectedUnit] = useState(null);
   const chatEndRef = useRef(null);
 
   // Fetch posted units
