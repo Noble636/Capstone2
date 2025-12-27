@@ -5,6 +5,7 @@ const BrowseUnit = () => {
   const [units, setUnits] = useState([]);
   const [selectedUnit, setSelectedUnit] = useState(null);
   const [showChat, setShowChat] = useState(false);
+  const [showCheckInquiry, setShowCheckInquiry] = useState(false);
   const [tenantNameState, setTenantName] = useState(localStorage.getItem('tenantName') || '');
   const [nameInput, setNameInput] = useState('');
   const [nameConfirmed, setNameConfirmed] = useState(!!tenantNameState);
@@ -13,6 +14,7 @@ const BrowseUnit = () => {
   const [sending, setSending] = useState(false);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [feedback, setFeedback] = useState('');
+  const [selectedImageIdx, setSelectedImageIdx] = useState({});
   const chatEndRef = useRef(null);
 
   useEffect(() => {
@@ -27,12 +29,12 @@ const BrowseUnit = () => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages, showChat]);
+  }, [messages, showChat, showCheckInquiry]);
 
   // Polling for new messages every 3 seconds when chat is open
   useEffect(() => {
     let interval;
-    if (showChat && selectedUnit && nameConfirmed) {
+    if ((showChat || showCheckInquiry) && selectedUnit && nameConfirmed) {
       fetchMessages(selectedUnit.unit_id, tenantNameState);
       interval = setInterval(() => {
         fetchMessages(selectedUnit.unit_id, tenantNameState);
@@ -40,11 +42,12 @@ const BrowseUnit = () => {
     }
     return () => clearInterval(interval);
     // eslint-disable-next-line
-  }, [showChat, selectedUnit, nameConfirmed]);
+  }, [showChat, showCheckInquiry, selectedUnit, nameConfirmed]);
 
   const openChatModal = (unit) => {
     setSelectedUnit(unit);
     setShowChat(true);
+    setShowCheckInquiry(false);
     setFeedback('');
     setChatInput('');
     if (tenantNameState) {
@@ -57,12 +60,26 @@ const BrowseUnit = () => {
     }
   };
 
-  const closeChatModal = () => {
+  const openCheckInquiryModal = (unit) => {
+    setSelectedUnit(unit);
+    setShowCheckInquiry(true);
     setShowChat(false);
+    setFeedback('');
+    setChatInput('');
+    setNameInput('');
+    setNameConfirmed(false);
+    setMessages([]);
+  };
+
+  const closeModal = () => {
+    setShowChat(false);
+    setShowCheckInquiry(false);
     setSelectedUnit(null);
     setMessages([]);
     setChatInput('');
     setFeedback('');
+    setNameInput('');
+    setNameConfirmed(!!tenantNameState);
   };
 
   const handleNameSubmit = (e) => {
@@ -73,6 +90,20 @@ const BrowseUnit = () => {
     }
     setTenantName(nameInput.trim());
     localStorage.setItem('tenantName', nameInput.trim());
+    setNameConfirmed(true);
+    setFeedback('');
+    if (selectedUnit) {
+      fetchMessages(selectedUnit.unit_id, nameInput.trim());
+    }
+  };
+
+  const handleCheckInquiryNameSubmit = (e) => {
+    e.preventDefault();
+    if (!nameInput.trim()) {
+      setFeedback('Please enter your name.');
+      return;
+    }
+    setTenantName(nameInput.trim());
     setNameConfirmed(true);
     setFeedback('');
     if (selectedUnit) {
@@ -126,38 +157,70 @@ const BrowseUnit = () => {
     setSending(false);
   };
 
+  const handleReserve = (unit) => {
+    alert(`Reservation requested for unit: ${unit.title || unit.unitName}`);
+  };
+
   return (
     <div className="browse-unit-container">
       <h2>Available Units</h2>
       <div className="unit-list">
         {units.length === 0 && <div className="no-units">No available units at the moment.</div>}
-        {units.map(unit => (
-          <div className="unit-card" key={unit.unit_id}>
-            <div className="unit-images">
-              {unit.images && unit.images.length > 0 ? (
-                <img
-                  src={unit.images[0].dataUri}
-                  alt="Unit"
-                  className="unit-main-image"
-                  style={{ cursor: 'pointer' }}
-                />
-              ) : (
-                <div className="unit-placeholder">No Image</div>
+        {units.map(unit => {
+          const mainIdx = selectedImageIdx[unit.unit_id] || 0;
+          return (
+            <div className="unit-card" key={unit.unit_id}>
+              <div className="unit-images">
+                {unit.images && unit.images.length > 0 ? (
+                  <img
+                    src={unit.images[mainIdx].dataUri}
+                    alt="Unit"
+                    className="unit-main-image"
+                    style={{ cursor: 'pointer' }}
+                  />
+                ) : (
+                  <div className="unit-placeholder">No Image</div>
+                )}
+              </div>
+              {unit.images && unit.images.length > 1 && (
+                <div className="unit-thumbnails">
+                  {unit.images.slice(0, 5).map((img, idx) => (
+                    <img
+                      key={idx}
+                      src={img.dataUri}
+                      alt={`thumb-${idx}`}
+                      className={`unit-thumb${mainIdx === idx ? ' selected' : ''}`}
+                      onClick={() =>
+                        setSelectedImageIdx(prev => ({ ...prev, [unit.unit_id]: idx }))
+                      }
+                    />
+                  ))}
+                </div>
               )}
+              <div className="unit-info">
+                <h3>{unit.title}</h3>
+                <div className="unit-price">₱{unit.price}</div>
+                <div className="unit-desc">{unit.description}</div>
+                <button className="inquire-btn" onClick={() => openChatModal(unit)}>
+                  Inquire
+                </button>
+                <button className="reserve-btn" onClick={() => handleReserve(unit)}>
+                  Reserve
+                </button>
+                <button
+                  className="check-inquiries-btn"
+                  onClick={() => openCheckInquiryModal(unit)}
+                >
+                  Check my inquiry
+                </button>
+              </div>
             </div>
-            <div className="unit-info">
-              <h3>{unit.title}</h3>
-              <div className="unit-price">₱{unit.price}</div>
-              <div className="unit-desc">{unit.description}</div>
-              <button className="inquire-btn" onClick={() => openChatModal(unit)}>
-                Chat / Inquire
-              </button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
+      {/* Inquire Modal */}
       {showChat && selectedUnit && (
-        <div className="inquiry-modal-backdrop" onClick={closeChatModal}>
+        <div className="inquiry-modal-backdrop" onClick={closeModal}>
           <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
             <h3>Chat about: {selectedUnit.title}</h3>
             {!nameConfirmed ? (
@@ -184,7 +247,7 @@ const BrowseUnit = () => {
               </form>
             ) : (
               <>
-                <div className="chat-messages" style={{ maxHeight: 300, overflowY: 'auto', marginBottom: 10, background: '#f3f4f6', borderRadius: 8, padding: 8 }}>
+                <div className="chat-messages">
                   {loadingMessages && <div>Loading...</div>}
                   {messages.map((msg, idx) => (
                     <div
@@ -215,7 +278,61 @@ const BrowseUnit = () => {
                   <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
                 </form>
                 {feedback && <div className="inquiry-feedback">{feedback}</div>}
-                <button className="close-modal-btn" onClick={closeChatModal}>Close</button>
+                <button className="close-modal-btn" onClick={closeModal}>Close</button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+      {/* Check My Inquiry Modal */}
+      {showCheckInquiry && selectedUnit && (
+        <div className="inquiry-modal-backdrop" onClick={closeModal}>
+          <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
+            <h3>Check My Inquiry: {selectedUnit.title}</h3>
+            {!nameConfirmed ? (
+              <form onSubmit={handleCheckInquiryNameSubmit}>
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  value={nameInput}
+                  onChange={e => setNameInput(e.target.value)}
+                  className="inquiry-name-input"
+                  required
+                  style={{
+                    width: '100%',
+                    borderRadius: '6px',
+                    border: '1.5px solid #d1d5db',
+                    padding: '9px 12px',
+                    fontSize: '1rem',
+                    marginBottom: '12px',
+                    background: '#f9fafb'
+                  }}
+                />
+                <button type="submit">Load Chat</button>
+                {feedback && <div className="inquiry-feedback">{feedback}</div>}
+              </form>
+            ) : (
+              <>
+                <div className="chat-messages">
+                  {loadingMessages && <div>Loading...</div>}
+                  {messages.map((msg, idx) => (
+                    <div
+                      key={idx}
+                      className={`chat-bubble ${msg.sender_type === 'tenant' ? 'tenant' : 'admin'}`}
+                    >
+                      <div className="chat-message">{msg.message}</div>
+                      <div className="chat-meta">
+                        <span>{msg.sender_type === 'tenant' ? 'You' : 'Admin'}</span>
+                        <span className="chat-time">{new Date(msg.created_at).toLocaleString()}</span>
+                      </div>
+                    </div>
+                  ))}
+                  <div ref={chatEndRef} />
+                  {messages.length === 0 && !loadingMessages && (
+                    <div style={{ color: '#64748b', textAlign: 'center' }}>No messages yet.</div>
+                  )}
+                </div>
+                <button className="close-modal-btn" onClick={closeModal}>Close</button>
               </>
             )}
           </div>
