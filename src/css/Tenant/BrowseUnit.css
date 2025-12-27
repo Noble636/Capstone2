@@ -347,6 +347,16 @@
   overflow-y: auto;
 }
 
+/* Hide scrollbar for the main background wrapper */
+.browseunit-bg {
+  scrollbar-width: none;           /* Firefox */
+  -ms-overflow-style: none;        /* IE and Edge */
+}
+.browseunit-bg::-webkit-scrollbar { /* Chrome, Safari, Opera */
+  width: 0 !important;
+  background: transparent;
+}
+
 @keyframes browseunit-bg-move {
   0% {background-position: 0% 50%;}
   100% {background-position: 100% 50%;}
@@ -378,3 +388,13 @@
 .browseunit-bubble.b6 { width: 80px; height: 80px; background: #fad0c4; top: 60%; right: 4%; }
 .browseunit-bubble.b7 { width: 50px; height: 50px; background: #ffb347; bottom: 8%; left: 40%; }
 .browseunit-bubble.b8 { width: 60px; height: 60px; background: #ff9a9e; top: 80%; right: 30%; }
+
+/* Hide scrollbar for the whole page */
+body {
+  scrollbar-width: none;           /* Firefox */
+  -ms-overflow-style: none;        /* IE and Edge */
+}
+body::-webkit-scrollbar {           /* Chrome, Safari, Opera */
+  width: 0 !important;
+  background: transparent;
+}
