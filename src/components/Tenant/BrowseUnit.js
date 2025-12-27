@@ -176,6 +176,188 @@ export default function BrowseUnit() {
       <div className="bubble b6"></div>
       <div className="bubble b7"></div>
       <div className="bubble b8"></div>
+      {/* --- MAIN CONTENT BELOW --- */}
+      <div className="browse-unit-container">
+        <h2>Available Units</h2>
+        <div className="unit-list">
+          {units.length === 0 && <div className="no-units">No available units at the moment.</div>}
+          {units.map(unit => {
+            const mainIdx = selectedImageIdx[unit.unit_id] || 0;
+            return (
+              <div className="unit-card" key={unit.unit_id}>
+                <div className="unit-images">
+                  {unit.images && unit.images.length > 0 ? (
+                    <img
+                      src={unit.images[mainIdx].dataUri}
+                      alt="Unit"
+                      className="unit-main-image"
+                      style={{ cursor: 'pointer' }}
+                    />
+                  ) : (
+                    <div className="unit-placeholder">No Image</div>
+                  )}
+                </div>
+                {unit.images && unit.images.length > 1 && (
+                  <div className="unit-thumbnails">
+                    {unit.images.slice(0, 5).map((img, idx) => (
+                      <img
+                        key={idx}
+                        src={img.dataUri}
+                        alt={`thumb-${idx}`}
+                        className={`unit-thumb${mainIdx === idx ? ' selected' : ''}`}
+                        onClick={() =>
+                          setSelectedImageIdx(prev => ({ ...prev, [unit.unit_id]: idx }))
+                        }
+                      />
+                    ))}
+                  </div>
+                )}
+                <div className="unit-info">
+                  <h3>{unit.title}</h3>
+                  <div className="unit-price">₱{unit.price}</div>
+                  <div className="unit-desc">{unit.description}</div>
+                  <button className="inquire-btn" onClick={() => openChatModal(unit)}>
+                    Inquire
+                  </button>
+                  <button className="reserve-btn" onClick={() => handleReserve(unit)}>
+                    Reserve
+                  </button>
+                  <button
+                    className="check-inquiries-btn"
+                    onClick={() => openCheckInquiryModal(unit)}
+                  >
+                    Check my inquiry
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        {/* Inquire Modal */}
+        {showChat && selectedUnit && (
+          <div className="inquiry-modal-backdrop" onClick={closeModal}>
+            <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
+              <h3>Chat about: {selectedUnit.title}</h3>
+              {!nameConfirmed ? (
+                <form onSubmit={handleNameSubmit}>
+                  <input
+                    type="text"
+                    placeholder="Enter your name"
+                    value={nameInput}
+                    onChange={e => setNameInput(e.target.value)}
+                    className="inquiry-name-input"
+                    required
+                    style={{
+                      width: '100%',
+                      borderRadius: '6px',
+                      border: '1.5px solid #d1d5db',
+                      padding: '9px 12px',
+                      fontSize: '1rem',
+                      marginBottom: '12px',
+                      background: '#f9fafb'
+                    }}
+                  />
+                  <button type="submit">Start Chat</button>
+                  {feedback && <div className="inquiry-feedback">{feedback}</div>}
+                </form>
+              ) : (
+                <>
+                  <div className="chat-messages">
+                    {loadingMessages && <div>Loading...</div>}
+                    {messages.map((msg, idx) => (
+                      <div
+                        key={idx}
+                        className={`chat-bubble ${msg.sender_type === 'tenant' ? 'tenant' : 'admin'}`}
+                      >
+                        <div className="chat-message">{msg.message}</div>
+                        <div className="chat-meta">
+                          <span>{msg.sender_type === 'tenant' ? 'You' : 'Admin'}</span>
+                          <span className="chat-time">{new Date(msg.created_at).toLocaleString()}</span>
+                        </div>
+                      </div>
+                    ))}
+                    <div ref={chatEndRef} />
+                    {messages.length === 0 && !loadingMessages && (
+                      <div style={{ color: '#64748b', textAlign: 'center' }}>No messages yet.</div>
+                    )}
+                  </div>
+                  <form onSubmit={handleSendMessage} style={{ display: 'flex', gap: 8 }}>
+                    <input
+                      type="text"
+                      value={chatInput}
+                      onChange={e => setChatInput(e.target.value)}
+                      placeholder="Type your message..."
+                      style={{ flex: 1 }}
+                      required
+                    />
+                    <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
+                  </form>
+                  {feedback && <div className="inquiry-feedback">{feedback}</div>}
+                  <button className="close-modal-btn" onClick={closeModal}>Close</button>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+        {/* Check My Inquiry Modal */}
+        {showCheckInquiry && selectedUnit && (
+          <div className="inquiry-modal-backdrop" onClick={closeModal}>
+            <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
+              <h3>Check My Inquiry: {selectedUnit.title}</h3>
+              {!nameConfirmed ? (
+                <form onSubmit={handleCheckInquiryNameSubmit}>
+                  <input
+                    type="text"
+                    placeholder="Enter your name"
+                    value={nameInput}
+                    onChange={e => setNameInput(e.target.value)}
+                    className="inquiry-name-input"
+                    required
+                  />
+                  <button type="submit">Load Chat</button>
+                  {feedback && <div className="inquiry-feedback">{feedback}</div>}
+                </form>
+              ) : (
+                <>
+                  <div className="chat-messages">
+                    {loadingMessages && <div>Loading...</div>}
+                    {messages.map((msg, idx) => (
+                      <div
+                        key={idx}
+                        className={`chat-bubble ${msg.sender_type === 'tenant' ? 'tenant' : 'admin'}`}
+                      >
+                        <div className="chat-message">{msg.message}</div>
+                        <div className="chat-meta">
+                          <span>{msg.sender_type === 'tenant' ? 'You' : 'Admin'}</span>
+                          <span className="chat-time">{new Date(msg.created_at).toLocaleString()}</span>
+                        </div>
+                      </div>
+                    ))}
+                    <div ref={chatEndRef} />
+                    {messages.length === 0 && !loadingMessages && (
+                      <div style={{ color: '#64748b', textAlign: 'center' }}>No messages yet.</div>
+                    )}
+                  </div>
+                  <form onSubmit={handleSendMessage} style={{ display: 'flex', gap: 8 }}>
+                    <input
+                      type="text"
+                      value={chatInput}
+                      onChange={e => setChatInput(e.target.value)}
+                      placeholder="Type your message..."
+                      style={{ flex: 1 }}
+                      required
+                    />
+                    <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
+                  </form>
+                  {feedback && <div className="inquiry-feedback">{feedback}</div>}
+                  <button className="close-modal-btn" onClick={closeModal}>Close</button>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+      {/* --- END MAIN CONTENT --- */}
     </div>
   );
 }
