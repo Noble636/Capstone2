@@ -176,13 +176,13 @@
   border-radius: 18px;
   box-shadow: 0 4px 32px rgba(0,0,0,0.08);
   margin: 32px auto;
-  max-width: 900px;
-  min-width: 600px;
+  max-width: 1200px;
+  min-width: 900px;
   overflow: hidden;
 }
 
 .admin-inbox-sidebar {
-  width: 320px;
+  width: 260px;
   background: #fff;
   border-right: 1px solid #e5e7eb;
   padding: 18px 12px;
@@ -254,6 +254,23 @@
 .admin-inbox-content {
   flex: 1;
   background: transparent;
+}
+.admin-inbox-inbox {
+  flex: 1;
+  padding: 18px 16px;
+  overflow-y: auto;
+  background: #f9fafb;
+  position: relative;
+}
+.admin-inbox-chat-details {
+  margin-top: 24px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(30,41,59,0.08);
+  padding: 18px;
+}
+.admin-inbox-unit-images img {
+  margin-bottom: 8px;
 }
 
 /* Use your existing .inquiry-modal, .chat-messages, .chat-bubble, etc. for the popup chat */

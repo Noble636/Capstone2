@@ -120,11 +120,9 @@ const AdminInbox = () => {
     }
   };
 
-  const openChatModal = (conv) => {
+  const openChat = (conv) => {
     setSelectedConv(conv);
-    setShowChat(true);
-    setFeedback('');
-    setChatInput('');
+    setSelectedUnit(units.find(u => u.unit_id === conv.unit_id));
     fetchMessages(conv.unit_id, conv.sender_name);
   };
 
@@ -138,10 +136,9 @@ const AdminInbox = () => {
 
   return (
     <div className="admin-inbox-2col">
-      {/* Left: Posted Units and Inbox */}
+      {/* Left: Posted Units */}
       <div className="admin-inbox-sidebar">
         <h3>Posted Units</h3>
-        {units.length === 0 && <div className="no-units">No units posted.</div>}
         {units.map(unit => (
           <div className="admin-inbox-unit" key={unit.unit_id}>
             <div className="admin-inbox-unit-title">{unit.title}</div>
@@ -150,38 +147,41 @@ const AdminInbox = () => {
             </button>
           </div>
         ))}
-        <hr style={{ margin: '18px 0' }} />
+      </div>
+      {/* Right: Inbox */}
+      <div className="admin-inbox-inbox">
         <h3>Inbox</h3>
         {conversations.length === 0 && <div className="no-units">No conversations yet.</div>}
         {conversations.map((conv, idx) => (
           <div
-            className="admin-inbox-conv"
+            className={`admin-inbox-conv${selectedConv && selectedConv.unit_id === conv.unit_id && selectedConv.sender_name === conv.sender_name ? ' selected' : ''}`}
             key={idx}
-            onClick={() => openChatModal(conv)}
+            onClick={() => openChat(conv)}
           >
             <div className="admin-inbox-conv-title">{conv.unit_name}</div>
             <div className="admin-inbox-conv-tenant">{conv.sender_name}</div>
             <div className="admin-inbox-conv-last">{conv.last_message}</div>
           </div>
         ))}
-      </div>
-      {/* Right: Empty, just for layout */}
-      <div className="admin-inbox-content" />
-      {/* Chat Modal */}
-      {showChat && selectedConv && (
-        <div className="inquiry-modal-backdrop" onClick={closeChatModal}>
-          <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
-            <h3>
-              Chat with: {selectedConv.sender_name} <br />
-              Unit: {selectedConv.unit_name}
-            </h3>
-            <div className="chat-messages" style={{ maxHeight: 300, overflowY: 'auto', marginBottom: 10, background: '#f3f4f6', borderRadius: 8, padding: 8 }}>
-              {loadingMessages && <div>Loading...</div>}
+        {/* Show chat and unit details when a conversation is selected */}
+        {selectedConv && (
+          <div className="admin-inbox-chat-details">
+            {/* Unit details */}
+            {selectedUnit && (
+              <div className="admin-inbox-unit-details">
+                <div className="admin-inbox-unit-images">
+                  {selectedUnit.images && selectedUnit.images.map((img, i) => (
+                    <img key={i} src={img.dataUri} alt={`unit-img-${i}`} style={{ width: 80, height: 60, marginRight: 6, borderRadius: 6 }} />
+                  ))}
+                </div>
+                <div><b>Description:</b> {selectedUnit.description}</div>
+                <div><b>Price:</b> ₱{selectedUnit.price}</div>
+              </div>
+            )}
+            {/* Chat window */}
+            <div className="chat-messages">
               {messages.map((msg, idx) => (
-                <div
-                  key={idx}
-                  className={`chat-bubble ${msg.sender_type === 'tenant' ? 'tenant' : 'admin'}`}
-                >
+                <div key={idx} className={`chat-bubble ${msg.sender_type === 'tenant' ? 'tenant' : 'admin'}`}>
                   <div className="chat-message">{msg.message}</div>
                   <div className="chat-meta">
                     <span>{msg.sender_type === 'tenant' ? msg.sender_name : 'Admin'}</span>
@@ -189,10 +189,6 @@ const AdminInbox = () => {
                   </div>
                 </div>
               ))}
-              <div ref={chatEndRef} />
-              {messages.length === 0 && !loadingMessages && (
-                <div style={{ color: '#64748b', textAlign: 'center' }}>No messages yet.</div>
-              )}
             </div>
             <form onSubmit={handleSendMessage} style={{ display: 'flex', gap: 8 }}>
               <input
@@ -205,11 +201,9 @@ const AdminInbox = () => {
               />
               <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
             </form>
-            {feedback && <div className="inquiry-feedback">{feedback}</div>}
-            <button className="close-modal-btn" onClick={closeChatModal}>Close</button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
