@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import BrowseUnit from '../components/Tenant/BrowseUnit';
 import '../css/Tenant/BrowseUnit.css';
 
 export default function BrowseUnitPage() {
@@ -177,7 +176,6 @@ export default function BrowseUnitPage() {
       <div className="bubble b6"></div>
       <div className="bubble b7"></div>
       <div className="bubble b8"></div>
-      <BrowseUnit />
     </div>
   );
 }
