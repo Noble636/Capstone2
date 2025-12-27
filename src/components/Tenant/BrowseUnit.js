@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '../../css/Tenant/BrowseUnit.css';
 
 const BrowseUnit = () => {
   const [units, setUnits] = useState([]);
   const [selectedUnit, setSelectedUnit] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [feedback, setFeedback] = useState('');
-  const [selectedImageIdx, setSelectedImageIdx] = useState({});
-  const [enlargeImg, setEnlargeImg] = useState(null);
+  const [showChat, setShowChat] = useState(false);
   const [tenantNameState, setTenantName] = useState(localStorage.getItem('tenantName') || '');
-  const [inquiryMessage, setInquiryMessage] = useState('');
-  const [showInquiryHistory, setShowInquiryHistory] = useState(false);
-  const [inquiryHistory, setInquiryHistory] = useState([]);
-  const [historyUnit, setHistoryUnit] = useState(null);
-  const [historyName, setHistoryName] = useState('');
-  const [historyNameInput, setHistoryNameInput] = useState('');
-  const [loadingHistory, setLoadingHistory] = useState(false);
-  const [historyError, setHistoryError] = useState('');
+  const [nameInput, setNameInput] = useState('');
+  const [nameConfirmed, setNameConfirmed] = useState(!!tenantNameState);
+  const [messages, setMessages] = useState([]);
+  const [chatInput, setChatInput] = useState('');
+  const [sending, setSending] = useState(false);
+  const [loadingMessages, setLoadingMessages] = useState(false);
+  const [feedback, setFeedback] = useState('');
+  const chatEndRef = useRef(null);
 
   useEffect(() => {
     fetch('https://tenantportal-backend.onrender.com/api/available-units')
@@ -26,53 +22,103 @@ const BrowseUnit = () => {
       .catch(() => setUnits([]));
   }, []);
 
-  const openInquiryModal = (unit) => {
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, showChat]);
+
+  // Polling for new messages every 3 seconds when chat is open
+  useEffect(() => {
+    let interval;
+    if (showChat && selectedUnit && nameConfirmed) {
+      fetchMessages(selectedUnit.unit_id, tenantNameState);
+      interval = setInterval(() => {
+        fetchMessages(selectedUnit.unit_id, tenantNameState);
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+    // eslint-disable-next-line
+  }, [showChat, selectedUnit, nameConfirmed]);
+
+  const openChatModal = (unit) => {
     setSelectedUnit(unit);
-    setShowModal(true);
-    setInquiryMessage('');
+    setShowChat(true);
     setFeedback('');
+    setChatInput('');
+    if (tenantNameState) {
+      setNameConfirmed(true);
+      fetchMessages(unit.unit_id, tenantNameState);
+    } else {
+      setNameConfirmed(false);
+      setNameInput('');
+      setMessages([]);
+    }
   };
 
-  const closeModal = () => {
-    setShowModal(false);
+  const closeChatModal = () => {
+    setShowChat(false);
     setSelectedUnit(null);
-    setInquiryMessage('');
+    setMessages([]);
+    setChatInput('');
     setFeedback('');
   };
 
-  const handleInquirySubmit = async (e) => {
+  const handleNameSubmit = (e) => {
     e.preventDefault();
-    if (!tenantNameState.trim()) {
+    if (!nameInput.trim()) {
       setFeedback('Please enter your name.');
       return;
     }
-    if (!inquiryMessage.trim()) {
-      setFeedback('Please enter your message.');
-      return;
+    setTenantName(nameInput.trim());
+    localStorage.setItem('tenantName', nameInput.trim());
+    setNameConfirmed(true);
+    setFeedback('');
+    if (selectedUnit) {
+      fetchMessages(selectedUnit.unit_id, nameInput.trim());
     }
+  };
+
+  const fetchMessages = async (unitId, name) => {
+    setLoadingMessages(true);
+    try {
+      const res = await fetch(
+        `https://tenantportal-backend.onrender.com/api/unit-inquiry-messages?unit_id=${unitId}&sender_name=${encodeURIComponent(name)}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setMessages(data);
+      } else {
+        setMessages([]);
+      }
+    } catch {
+      setMessages([]);
+    }
+    setLoadingMessages(false);
+  };
+
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!chatInput.trim()) return;
     setSending(true);
     setFeedback('');
     try {
-      // Save name to localStorage for future use
-      localStorage.setItem('tenantName', tenantNameState);
-
-      // Send inquiry to backend
-      const res = await fetch('https://tenantportal-backend.onrender.com/api/unit-inquiries', {
+      const res = await fetch('https://tenantportal-backend.onrender.com/api/unit-inquiry-messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           unit_id: selectedUnit.unit_id,
           sender_name: tenantNameState,
-          message: inquiryMessage,
+          sender_type: 'tenant',
+          message: chatInput.trim(),
         }),
       });
       if (res.ok) {
-        localStorage.setItem('tenantName', tenantNameState);
-        setFeedback('Inquiry sent! You can now chat with the admin.');
-        setTimeout(closeModal, 1500);
+        setChatInput('');
+        fetchMessages(selectedUnit.unit_id, tenantNameState);
       } else {
-        const data = await res.json();
-        setFeedback(data.message || 'Failed to send inquiry.');
+        setFeedback('Failed to send message.');
       }
     } catch {
       setFeedback('Server error. Please try again.');
@@ -80,160 +126,48 @@ const BrowseUnit = () => {
     setSending(false);
   };
 
-  const handleReserve = (unit) => {
-    alert(`Reservation requested for unit: ${unit.title || unit.unitName}`);
-  };
-
-  const handleCheckInquiry = (unit) => {
-    setHistoryUnit(unit);
-    setShowInquiryHistory(true);
-    setInquiryHistory([]);
-    setHistoryError('');
-    setHistoryNameInput(tenantNameState || '');
-    setHistoryName(tenantNameState || '');
-  };
-
-  const fetchInquiryHistory = async (unitId, name) => {
-    setLoadingHistory(true);
-    setHistoryError('');
-    try {
-      const res = await fetch(`https://tenantportal-backend.onrender.com/api/unit-inquiries/history?unit_id=${unitId}&sender_name=${encodeURIComponent(name)}`);
-      if (res.ok) {
-        const data = await res.json();
-        setInquiryHistory(data);
-        setHistoryName(name);
-        localStorage.setItem('tenantName', name);
-      } else {
-        setHistoryError('No conversation found.');
-        setInquiryHistory([]);
-      }
-    } catch {
-      setHistoryError('Server error.');
-      setInquiryHistory([]);
-    }
-    setLoadingHistory(false);
-  };
-
   return (
     <div className="browse-unit-container">
       <h2>Available Units</h2>
       <div className="unit-list">
         {units.length === 0 && <div className="no-units">No available units at the moment.</div>}
-        {units.map(unit => {
-          const mainIdx = selectedImageIdx[unit.unit_id] || 0;
-          return (
-            <div className="unit-card" key={unit.unit_id}>
-              <div className="unit-images">
-                {unit.images && unit.images.length > 0 ? (
-                  <img
-                    src={unit.images[mainIdx].dataUri}
-                    alt="Unit"
-                    className="unit-main-image"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => setEnlargeImg(unit.images[mainIdx].dataUri)}
-                  />
-                ) : (
-                  <div className="unit-placeholder">No Image</div>
-                )}
-              </div>
-              {unit.images && unit.images.length > 1 && (
-                <div className="unit-thumbnails">
-                  {unit.images.map((img, idx) => (
-                    <img
-                      key={idx}
-                      src={img.dataUri}
-                      alt={`thumb-${idx}`}
-                      className={`unit-thumb${mainIdx === idx ? ' selected' : ''}`}
-                      onClick={() =>
-                        setSelectedImageIdx(prev => ({ ...prev, [unit.unit_id]: idx }))
-                      }
-                    />
-                  ))}
-                </div>
+        {units.map(unit => (
+          <div className="unit-card" key={unit.unit_id}>
+            <div className="unit-images">
+              {unit.images && unit.images.length > 0 ? (
+                <img
+                  src={unit.images[0].dataUri}
+                  alt="Unit"
+                  className="unit-main-image"
+                  style={{ cursor: 'pointer' }}
+                />
+              ) : (
+                <div className="unit-placeholder">No Image</div>
               )}
-              <div className="unit-info">
-                <h3>{unit.title}</h3>
-                <div className="unit-price">₱{unit.price}</div>
-                <div className="unit-desc">{unit.description}</div>
-                <button className="inquire-btn" onClick={() => openInquiryModal(unit)}>
-                  Inquire
-                </button>
-                <button className="reserve-btn" onClick={() => handleReserve(unit)}>
-                  Reserve
-                </button>
-                <button
-                  className="check-inquiries-btn"
-                  onClick={() => handleCheckInquiry(unit)}
-                >
-                  Check my inquiry
-                </button>
-              </div>
             </div>
-          );
-        })}
-      </div>
-      {showModal && selectedUnit && (
-        <div className="inquiry-modal-backdrop" onClick={closeModal}>
-          <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
-            <h3>Inquire about: {selectedUnit.title}</h3>
-            <form onSubmit={handleInquirySubmit}>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                value={tenantNameState}
-                onChange={e => setTenantName(e.target.value)}
-                className="inquiry-name-input"
-                required
-                style={{
-                  width: '100%',
-                  borderRadius: '6px',
-                  border: '1.5px solid #d1d5db',
-                  padding: '9px 12px',
-                  fontSize: '1rem',
-                  marginBottom: '12px',
-                  background: '#f9fafb'
-                }}
-              />
-              <textarea
-                value={inquiryMessage}
-                onChange={e => setInquiryMessage(e.target.value)}
-                placeholder="Type your message or reservation request..."
-                rows={4}
-                required
-              />
-              <button type="submit" disabled={sending}>
-                {sending ? 'Sending...' : 'Send Inquiry'}
+            <div className="unit-info">
+              <h3>{unit.title}</h3>
+              <div className="unit-price">₱{unit.price}</div>
+              <div className="unit-desc">{unit.description}</div>
+              <button className="inquire-btn" onClick={() => openChatModal(unit)}>
+                Chat / Inquire
               </button>
-              {feedback && <div className="inquiry-feedback">{feedback}</div>}
-            </form>
-            <button className="close-modal-btn" onClick={closeModal}>Close</button>
+            </div>
           </div>
-        </div>
-      )}
-      {enlargeImg && (
-        <div className="enlarge-modal-backdrop" onClick={() => setEnlargeImg(null)}>
-          <div className="enlarge-modal" onClick={e => e.stopPropagation()}>
-            <img src={enlargeImg} alt="Enlarged" className="enlarge-img" />
-            <button className="close-modal-btn" onClick={() => setEnlargeImg(null)}>Close</button>
-          </div>
-        </div>
-      )}
-      {showInquiryHistory && historyUnit && (
-        <div className="inquiry-modal-backdrop" onClick={() => setShowInquiryHistory(false)}>
+        ))}
+      </div>
+      {showChat && selectedUnit && (
+        <div className="inquiry-modal-backdrop" onClick={closeChatModal}>
           <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
-            <h3>Conversation for: {historyUnit.title}</h3>
-            {!historyName ? (
-              <form onSubmit={e => {
-                e.preventDefault();
-                if (historyNameInput.trim()) {
-                  fetchInquiryHistory(historyUnit.unit_id, historyNameInput.trim());
-                }
-              }}>
+            <h3>Chat about: {selectedUnit.title}</h3>
+            {!nameConfirmed ? (
+              <form onSubmit={handleNameSubmit}>
                 <input
                   type="text"
                   placeholder="Enter your name"
-                  value={historyNameInput}
-                  onChange={e => setHistoryNameInput(e.target.value)}
+                  value={nameInput}
+                  onChange={e => setNameInput(e.target.value)}
+                  className="inquiry-name-input"
                   required
                   style={{
                     width: '100%',
@@ -245,28 +179,43 @@ const BrowseUnit = () => {
                     background: '#f9fafb'
                   }}
                 />
-                <button type="submit" disabled={loadingHistory}>Check</button>
+                <button type="submit">Start Chat</button>
+                {feedback && <div className="inquiry-feedback">{feedback}</div>}
               </form>
             ) : (
               <>
-                {loadingHistory && <div>Loading...</div>}
-                {historyError && <div className="inquiry-feedback">{historyError}</div>}
-                <div style={{ maxHeight: 200, overflowY: 'auto', marginBottom: 10 }}>
-                  {inquiryHistory.map((msg, idx) => (
-                    <div key={idx} style={{ marginBottom: 8 }}>
-                      <b>{msg.sender_name === historyName ? 'You' : 'Admin'}:</b> {msg.message}
-                      {msg.reply && (
-                        <div style={{ marginLeft: 16, color: '#2563eb' }}>
-                          <b>Admin:</b> {msg.reply}
-                        </div>
-                      )}
+                <div className="chat-messages" style={{ maxHeight: 300, overflowY: 'auto', marginBottom: 10, background: '#f3f4f6', borderRadius: 8, padding: 8 }}>
+                  {loadingMessages && <div>Loading...</div>}
+                  {messages.map((msg, idx) => (
+                    <div
+                      key={idx}
+                      className={`chat-bubble ${msg.sender_type === 'tenant' ? 'tenant' : 'admin'}`}
+                    >
+                      <div className="chat-message">{msg.message}</div>
+                      <div className="chat-meta">
+                        <span>{msg.sender_type === 'tenant' ? 'You' : 'Admin'}</span>
+                        <span className="chat-time">{new Date(msg.created_at).toLocaleString()}</span>
+                      </div>
                     </div>
                   ))}
-                  {inquiryHistory.length === 0 && !loadingHistory && !historyError && (
-                    <div>No conversation found.</div>
+                  <div ref={chatEndRef} />
+                  {messages.length === 0 && !loadingMessages && (
+                    <div style={{ color: '#64748b', textAlign: 'center' }}>No messages yet.</div>
                   )}
                 </div>
-                <button onClick={() => setShowInquiryHistory(false)}>Close</button>
+                <form onSubmit={handleSendMessage} style={{ display: 'flex', gap: 8 }}>
+                  <input
+                    type="text"
+                    value={chatInput}
+                    onChange={e => setChatInput(e.target.value)}
+                    placeholder="Type your message..."
+                    style={{ flex: 1 }}
+                    required
+                  />
+                  <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
+                </form>
+                {feedback && <div className="inquiry-feedback">{feedback}</div>}
+                <button className="close-modal-btn" onClick={closeChatModal}>Close</button>
               </>
             )}
           </div>

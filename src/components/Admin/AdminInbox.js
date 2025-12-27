@@ -1,42 +1,179 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import '../../css/Admin/AdminInbox.css'; // You can use the same chat bubble CSS as in BrowseUnit.css
 
 const AdminInbox = () => {
-  const [inquiries, setInquiries] = useState([]);
-  const [reply, setReply] = useState({});
+  const [conversations, setConversations] = useState([]);
+  const [selectedConv, setSelectedConv] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [chatInput, setChatInput] = useState('');
+  const [sending, setSending] = useState(false);
+  const [loadingMessages, setLoadingMessages] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+  const [feedback, setFeedback] = useState('');
+  const chatEndRef = useRef(null);
 
+  // Fetch all unique conversations (unit_id + sender_name)
   useEffect(() => {
     fetch('https://tenantportal-backend.onrender.com/api/admin/inbox')
       .then(res => res.json())
-      .then(data => setInquiries(data));
+      .then(data => {
+        // Group by unit_id + sender_name
+        const convMap = {};
+        data.forEach(msg => {
+          const key = `${msg.unit_id}_${msg.sender_name}`;
+          if (!convMap[key]) {
+            convMap[key] = {
+              unit_id: msg.unit_id,
+              unit_name: msg.unit_name || msg.unit_title || 'Unit',
+              sender_name: msg.sender_name,
+              last_message: msg.message,
+              last_reply: msg.reply,
+              last_time: msg.created_at,
+            };
+          }
+        });
+        setConversations(Object.values(convMap));
+      });
   }, []);
 
-  const handleReply = async (inquiryId) => {
-    await fetch('https://tenantportal-backend.onrender.com/api/admin/inbox/reply', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ inquiryId, reply: reply[inquiryId] })
-    });
-    setInquiries(inquiries.map(i => i.inquiry_id === inquiryId ? { ...i, reply: reply[inquiryId] } : i));
-    setReply({ ...reply, [inquiryId]: '' });
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, showChat]);
+
+  // Polling for new messages every 3 seconds when chat is open
+  useEffect(() => {
+    let interval;
+    if (showChat && selectedConv) {
+      fetchMessages(selectedConv.unit_id, selectedConv.sender_name);
+      interval = setInterval(() => {
+        fetchMessages(selectedConv.unit_id, selectedConv.sender_name);
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+    // eslint-disable-next-line
+  }, [showChat, selectedConv]);
+
+  const openChatModal = (conv) => {
+    setSelectedConv(conv);
+    setShowChat(true);
+    setFeedback('');
+    setChatInput('');
+    fetchMessages(conv.unit_id, conv.sender_name);
+  };
+
+  const closeChatModal = () => {
+    setShowChat(false);
+    setSelectedConv(null);
+    setMessages([]);
+    setChatInput('');
+    setFeedback('');
+  };
+
+  const fetchMessages = async (unitId, senderName) => {
+    setLoadingMessages(true);
+    try {
+      const res = await fetch(
+        `https://tenantportal-backend.onrender.com/api/unit-inquiry-messages?unit_id=${unitId}&sender_name=${encodeURIComponent(senderName)}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setMessages(data);
+      } else {
+        setMessages([]);
+      }
+    } catch {
+      setMessages([]);
+    }
+    setLoadingMessages(false);
+  };
+
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!chatInput.trim()) return;
+    setSending(true);
+    setFeedback('');
+    try {
+      const res = await fetch('https://tenantportal-backend.onrender.com/api/unit-inquiry-messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          unit_id: selectedConv.unit_id,
+          sender_name: 'Admin',
+          sender_type: 'admin',
+          message: chatInput.trim(),
+        }),
+      });
+      if (res.ok) {
+        setChatInput('');
+        fetchMessages(selectedConv.unit_id, selectedConv.sender_name);
+      } else {
+        setFeedback('Failed to send message.');
+      }
+    } catch {
+      setFeedback('Server error. Please try again.');
+    }
+    setSending(false);
   };
 
   return (
-    <div className="admin-inbox-container">
+    <div className="browse-unit-container">
       <h2>Admin Inbox</h2>
-      {inquiries.map(inq => (
-        <div key={inq.inquiry_id} className="inquiry-item">
-          <div><b>Unit:</b> {inq.unit_name}</div>
-          <div><b>From:</b> {inq.sender_name}</div>
-          <div><b>Message:</b> {inq.message}</div>
-          <div><b>Reply:</b> {inq.reply || 'No reply yet'}</div>
-          <textarea
-            value={reply[inq.inquiry_id] || ''}
-            onChange={e => setReply({ ...reply, [inq.inquiry_id]: e.target.value })}
-            placeholder="Type your reply..."
-          />
-          <button onClick={() => handleReply(inq.inquiry_id)}>Send Reply</button>
+      <div className="unit-list">
+        {conversations.length === 0 && <div className="no-units">No conversations yet.</div>}
+        {conversations.map((conv, idx) => (
+          <div className="unit-card" key={idx}>
+            <div className="unit-info">
+              <h3>{conv.unit_name}</h3>
+              <div className="unit-desc"><b>Tenant:</b> {conv.sender_name}</div>
+              <button className="inquire-btn" onClick={() => openChatModal(conv)}>
+                Open Chat
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      {showChat && selectedConv && (
+        <div className="inquiry-modal-backdrop" onClick={closeChatModal}>
+          <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
+            <h3>Chat with: {selectedConv.sender_name} <br />Unit: {selectedConv.unit_name}</h3>
+            <div className="chat-messages" style={{ maxHeight: 300, overflowY: 'auto', marginBottom: 10, background: '#f3f4f6', borderRadius: 8, padding: 8 }}>
+              {loadingMessages && <div>Loading...</div>}
+              {messages.map((msg, idx) => (
+                <div
+                  key={idx}
+                  className={`chat-bubble ${msg.sender_type === 'tenant' ? 'tenant' : 'admin'}`}
+                >
+                  <div className="chat-message">{msg.message}</div>
+                  <div className="chat-meta">
+                    <span>{msg.sender_type === 'tenant' ? msg.sender_name : 'Admin'}</span>
+                    <span className="chat-time">{new Date(msg.created_at).toLocaleString()}</span>
+                  </div>
+                </div>
+              ))}
+              <div ref={chatEndRef} />
+              {messages.length === 0 && !loadingMessages && (
+                <div style={{ color: '#64748b', textAlign: 'center' }}>No messages yet.</div>
+              )}
+            </div>
+            <form onSubmit={handleSendMessage} style={{ display: 'flex', gap: 8 }}>
+              <input
+                type="text"
+                value={chatInput}
+                onChange={e => setChatInput(e.target.value)}
+                placeholder="Type your message..."
+                style={{ flex: 1 }}
+                required
+              />
+              <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
+            </form>
+            {feedback && <div className="inquiry-feedback">{feedback}</div>}
+            <button className="close-modal-btn" onClick={closeChatModal}>Close</button>
+          </div>
         </div>
-      ))}
+      )}
     </div>
   );
 };
