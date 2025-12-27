@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import BrowseUnit from '../components/Tenant/BrowseUnit';
-import '../css/BrowseUnitBg.css'; // See CSS below
+import '../css/BrowseUnit.css'; // See CSS below
 
 export default function BrowseUnitPage() {
   const [units, setUnits] = useState([]);
