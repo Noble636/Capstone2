@@ -56,16 +56,16 @@ const AvailableUnit = () => {
   };
 
   return (
-    <>
-      <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="admin-bg-image" />
-      <div className="bubble b1"></div>
-      <div className="bubble b2"></div>
-      <div className="bubble b3"></div>
-      <div className="bubble b4"></div>
-      <div className="bubble b5"></div>
-      <div className="bubble b6"></div>
-      <div className="bubble b7"></div>
-      <div className="bubble b8"></div>
+    <div className="availableunit-bg">
+      <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="availableunit-bg-image" />
+      <div className="availableunit-bubble b1"></div>
+      <div className="availableunit-bubble b2"></div>
+      <div className="availableunit-bubble b3"></div>
+      <div className="availableunit-bubble b4"></div>
+      <div className="availableunit-bubble b5"></div>
+      <div className="availableunit-bubble b6"></div>
+      <div className="availableunit-bubble b7"></div>
+      <div className="availableunit-bubble b8"></div>
       <div className="main-center-wrapper">
         <div className="admin-available-unit-container-root">
           <div className="admin-available-unit-container">
@@ -162,7 +162,7 @@ const AvailableUnit = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

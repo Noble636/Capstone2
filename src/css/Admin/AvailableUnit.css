@@ -264,22 +264,17 @@
   animation: availableunit-bg-move 12s ease-in-out infinite alternate;
   overflow-x: hidden;
   overflow-y: auto;
+  scrollbar-width: none;           /* Firefox */
+  -ms-overflow-style: none;        /* IE and Edge */
+}
+.availableunit-bg::-webkit-scrollbar { /* Chrome, Safari, Opera */
+  width: 0 !important;
+  background: transparent;
 }
 
 @keyframes availableunit-bg-move {
   0% {background-position: 0% 50%;}
   100% {background-position: 100% 50%;}
-}
-
-.availableunit-bg-image {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  opacity: 0.25;
-  z-index: 0;
-  pointer-events: none;
 }
 
 .availableunit-bubble {
