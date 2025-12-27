@@ -12,17 +12,19 @@
 }
 
 .main-center-wrapper {
-  min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center; /* horizontal centering */
+  justify-content: flex-start;
   position: relative;
   z-index: 2;
+  padding: 48px 0; /* vertical space at top and bottom */
 }
 
 .admin-available-unit-container {
   max-width: 600px;
-  margin: 48px auto;
+  width: 100%;
+  margin: 0 auto 48px auto;
   padding: 32px 24px;
   background: #fff;
   border-radius: 18px;
@@ -110,16 +112,24 @@
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  border: 2px solid #bbb; /* Add this line for a border */
+  border: 2px solid #bbb;
   padding: 18px 36px;
   display: inline-block;
   z-index: 2;
 }
 
+.admin-available-unit-note {
+  color: #444;
+  font-size: 1.08rem;
+  margin-bottom: 18px;
+  text-align: center;
+  max-width: 500px;
+}
+
 .admin-available-unit-content {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center children horizontally */
+  align-items: center;
   width: 100%;
   margin-bottom: 20px;
   position: relative;
@@ -132,8 +142,8 @@
   gap: 18px;
   text-align: left;
   width: 100%;
-  max-width: 500px; /* Set a max width for the form */
-  margin: 0 auto;    /* Center the form horizontally */
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .admin-label {
@@ -152,7 +162,7 @@
   padding: 12px;
   font-size: 1.1rem;
   border-radius: 5px;
-  border: 2px solid #111; /* Black border */
+  border: 2px solid #111;
   box-sizing: border-box;
   background: #fff !important;
   color: #222 !important;
@@ -289,14 +299,6 @@
   color: #cee056;
   transform: scale(1.05);
   box-shadow: 0 0 18px 4px #cee056, 0 2px 16px rgba(0,0,0,0.12);
-}
-
-.admin-available-unit-note {
-  color: #444;
-  font-size: 1.08rem;
-  margin-bottom: 18px;
-  text-align: center;
-  max-width: 500px;
 }
 
 @media (max-width: 700px) {
