@@ -15,6 +15,7 @@ export default function BrowseUnit() {
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [selectedImageIdx, setSelectedImageIdx] = useState({});
+  const [messageSent, setMessageSent] = useState(false); // NEW
   const chatEndRef = useRef(null);
 
   useEffect(() => {
@@ -50,14 +51,10 @@ export default function BrowseUnit() {
     setShowCheckInquiry(false);
     setFeedback('');
     setChatInput('');
-    if (tenantNameState) {
-      setNameConfirmed(true);
-      fetchMessages(unit.unit_id, tenantNameState);
-    } else {
-      setNameConfirmed(false);
-      setNameInput('');
-      setMessages([]);
-    }
+    setNameConfirmed(false); // Always require name input for Inquire
+    setNameInput('');
+    setMessageSent(false);   // Reset sent state
+    // Do NOT fetch messages here
   };
 
   const openCheckInquiryModal = (unit) => {
@@ -111,6 +108,46 @@ export default function BrowseUnit() {
     setTenantName(nameInput.trim()); // Use this for the session, but do not save to localStorage
   };
 
+  // Only for "Inquire" modal: send message, then show confirmation
+  const handleInquireNameSubmit = (e) => {
+    e.preventDefault();
+    if (!nameInput.trim()) {
+      setFeedback('Please enter your name.');
+      return;
+    }
+    setTenantName(nameInput.trim());
+    setNameConfirmed(true);
+    setFeedback('');
+  };
+
+  const handleSendInquireMessage = async (e) => {
+    e.preventDefault();
+    if (!chatInput.trim()) return;
+    setSending(true);
+    setFeedback('');
+    try {
+      const res = await fetch('https://tenantportal-backend.onrender.com/api/unit-inquiry-messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          unit_id: selectedUnit.unit_id,
+          sender_name: nameInput.trim() || tenantNameState,
+          sender_type: 'tenant',
+          message: chatInput.trim(),
+        }),
+      });
+      if (res.ok) {
+        setChatInput('');
+        setMessageSent(true);
+      } else {
+        setFeedback('Failed to send message.');
+      }
+    } catch {
+      setFeedback('Server error. Please try again.');
+    }
+    setSending(false);
+  };
+
   const fetchMessages = async (unitId, name) => {
     setLoadingMessages(true);
     try {
@@ -147,6 +184,7 @@ export default function BrowseUnit() {
       });
       if (res.ok) {
         setChatInput('');
+        setMessageSent(true);
         fetchMessages(selectedUnit.unit_id, tenantNameState);
       } else {
         setFeedback('Failed to send message.');
@@ -237,9 +275,9 @@ export default function BrowseUnit() {
         {showChat && selectedUnit && (
           <div className="inquiry-modal-backdrop" onClick={closeModal}>
             <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
-              <h3>Chat about: {selectedUnit.title}</h3>
+              <h3>Send Inquiry: {selectedUnit.title}</h3>
               {!nameConfirmed ? (
-                <form onSubmit={handleNameSubmit}>
+                <form onSubmit={handleInquireNameSubmit}>
                   <input
                     type="text"
                     placeholder="Enter your name"
@@ -247,54 +285,31 @@ export default function BrowseUnit() {
                     onChange={e => setNameInput(e.target.value)}
                     className="inquiry-name-input"
                     required
-                    style={{
-                      width: '100%',
-                      borderRadius: '6px',
-                      border: '1.5px solid #d1d5db',
-                      padding: '9px 12px',
-                      fontSize: '1rem',
-                      marginBottom: '12px',
-                      background: '#f9fafb'
-                    }}
                   />
-                  <button type="submit">Start Chat</button>
+                  <button type="submit">Continue</button>
+                  {feedback && <div className="inquiry-feedback">{feedback}</div>}
+                </form>
+              ) : !messageSent ? (
+                <form onSubmit={handleSendInquireMessage}>
+                  <input
+                    type="text"
+                    value={chatInput}
+                    onChange={e => setChatInput(e.target.value)}
+                    placeholder="Type your message..."
+                    style={{ width: '100%', marginBottom: 12 }}
+                    required
+                  />
+                  <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
                   {feedback && <div className="inquiry-feedback">{feedback}</div>}
                 </form>
               ) : (
-                <>
-                  <div className="chat-messages">
-                    {loadingMessages && <div>Loading...</div>}
-                    {messages.map((msg, idx) => (
-                      <div
-                        key={idx}
-                        className={`chat-bubble ${msg.sender_type === 'tenant' ? 'tenant' : 'admin'}`}
-                      >
-                        <div className="chat-message">{msg.message}</div>
-                        <div className="chat-meta">
-                          <span>{msg.sender_type === 'tenant' ? 'You' : 'Admin'}</span>
-                          <span className="chat-time">{new Date(msg.created_at).toLocaleString()}</span>
-                        </div>
-                      </div>
-                    ))}
-                    <div ref={chatEndRef} />
-                    {messages.length === 0 && !loadingMessages && (
-                      <div style={{ color: '#64748b', textAlign: 'center' }}>No messages yet.</div>
-                    )}
-                  </div>
-                  <form onSubmit={handleSendMessage} style={{ display: 'flex', gap: 8 }}>
-                    <input
-                      type="text"
-                      value={chatInput}
-                      onChange={e => setChatInput(e.target.value)}
-                      placeholder="Type your message..."
-                      style={{ flex: 1 }}
-                      required
-                    />
-                    <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
-                  </form>
-                  {feedback && <div className="inquiry-feedback">{feedback}</div>}
+                <div>
+                  <div className="inquiry-feedback">Message sent! You can check replies via "Check my inquiry".</div>
                   <button className="close-modal-btn" onClick={closeModal}>Close</button>
-                </>
+                </div>
+              )}
+              {!messageSent && (
+                <button className="close-modal-btn" onClick={closeModal}>Close</button>
               )}
             </div>
           </div>
