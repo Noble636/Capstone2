@@ -168,3 +168,92 @@
 .chat-message {
   margin-bottom: 2px;
 }
+
+.admin-inbox-2col {
+  display: flex;
+  height: 80vh;
+  background: #f3f4f6;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+  margin: 32px auto;
+  max-width: 900px;
+  min-width: 600px;
+  overflow: hidden;
+}
+
+.admin-inbox-sidebar {
+  width: 320px;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  padding: 18px 12px;
+  overflow-y: auto;
+}
+.admin-inbox-sidebar h3 {
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  color: #1e293b;
+}
+.admin-inbox-unit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+}
+.admin-inbox-unit-title {
+  font-size: 1rem;
+  color: #222;
+  font-weight: 500;
+}
+.admin-inbox-delete-btn {
+  background: #e11d48;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: background 0.2s;
+}
+.admin-inbox-delete-btn:hover {
+  background: #be123c;
+}
+.admin-inbox-conv {
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  border: 1.5px solid transparent;
+}
+.admin-inbox-conv:hover {
+  background: #e0e7ff;
+  border: 1.5px solid #2563eb;
+}
+.admin-inbox-conv-title {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 1rem;
+}
+.admin-inbox-conv-tenant {
+  color: #64748b;
+  font-size: 0.97rem;
+}
+.admin-inbox-conv-last {
+  color: #334155;
+  font-size: 0.95rem;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.admin-inbox-content {
+  flex: 1;
+  background: transparent;
+}
+
+/* Use your existing .inquiry-modal, .chat-messages, .chat-bubble, etc. for the popup chat */
