@@ -57,7 +57,7 @@ const BrowseUnit = () => {
       localStorage.setItem('tenantName', tenantNameState);
 
       // Send inquiry to backend
-      const res = await fetch('http://localhost:5000/api/unit-inquiries', {
+      const res = await fetch('https://tenantportal-backend.onrender.com/api/unit-inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -67,6 +67,7 @@ const BrowseUnit = () => {
         }),
       });
       if (res.ok) {
+        localStorage.setItem('tenantName', tenantNameState);
         setFeedback('Inquiry sent! You can now chat with the admin.');
         setTimeout(closeModal, 1500);
       } else {
@@ -96,7 +97,7 @@ const BrowseUnit = () => {
     setLoadingHistory(true);
     setHistoryError('');
     try {
-      const res = await fetch(`http://localhost:5000/api/unit-inquiries/history?unit_id=${unitId}&sender_name=${encodeURIComponent(name)}`);
+      const res = await fetch(`https://tenantportal-backend.onrender.com/api/unit-inquiries/history?unit_id=${unitId}&sender_name=${encodeURIComponent(name)}`);
       if (res.ok) {
         const data = await res.json();
         setInquiryHistory(data);
@@ -176,27 +177,23 @@ const BrowseUnit = () => {
           <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
             <h3>Inquire about: {selectedUnit.title}</h3>
             <form onSubmit={handleInquirySubmit}>
-              {tenantNameState ? (
-                <div style={{marginBottom: '12px'}}>Name: <b>{tenantNameState}</b></div>
-              ) : (
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  value={tenantNameState}
-                  onChange={e => setTenantName(e.target.value)}
-                  className="inquiry-name-input"
-                  required
-                  style={{
-                    width: '100%',
-                    borderRadius: '6px',
-                    border: '1.5px solid #d1d5db',
-                    padding: '9px 12px',
-                    fontSize: '1rem',
-                    marginBottom: '12px',
-                    background: '#f9fafb'
-                  }}
-                />
-              )}
+              <input
+                type="text"
+                placeholder="Enter your name"
+                value={tenantNameState}
+                onChange={e => setTenantName(e.target.value)}
+                className="inquiry-name-input"
+                required
+                style={{
+                  width: '100%',
+                  borderRadius: '6px',
+                  border: '1.5px solid #d1d5db',
+                  padding: '9px 12px',
+                  fontSize: '1rem',
+                  marginBottom: '12px',
+                  background: '#f9fafb'
+                }}
+              />
               <textarea
                 value={inquiryMessage}
                 onChange={e => setInquiryMessage(e.target.value)}
