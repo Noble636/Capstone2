@@ -167,4 +167,23 @@ const AvailableUnit = () => {
   );
 };
 
-export default AvailableUnit;
+import React from 'react';
+import AvailableUnit from '../components/Admin/AvailableUnit';
+import '../css/AvailableUnitBg.css'; // See CSS below
+
+export default function AvailableUnitPage() {
+  return (
+    <div className="availableunit-bg">
+      <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="availableunit-bg-image" />
+      <div className="availableunit-bubble b1"></div>
+      <div className="availableunit-bubble b2"></div>
+      <div className="availableunit-bubble b3"></div>
+      <div className="availableunit-bubble b4"></div>
+      <div className="availableunit-bubble b5"></div>
+      <div className="availableunit-bubble b6"></div>
+      <div className="availableunit-bubble b7"></div>
+      <div className="availableunit-bubble b8"></div>
+      <AvailableUnit />
+    </div>
+  );
+}
