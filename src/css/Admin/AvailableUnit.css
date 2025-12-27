@@ -2,10 +2,13 @@
   min-height: 100vh;
   width: 100vw;
   position: relative;
-  background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
+  background: transparent !important;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  border: none !important;
 }
 
 .main-center-wrapper {
@@ -18,14 +21,17 @@
 }
 
 .admin-available-unit-container {
+  max-width: 600px;
+  margin: 48px auto;
+  padding: 32px 24px;
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 8px 32px 0 rgba(76,0,130,0.18), 0 2px 8px rgba(0,0,0,0.10);
-  padding: 32px 24px;
-  max-width: 600px;
-  width: 100%;
-  z-index: 3;
+  font-family: 'Segoe UI', Arial, sans-serif;
   position: relative;
+  z-index: 3;
+  border: 1.5px solid #e5e7eb;
+  text-align: center;
 }
 
 .admin-available-unit-container.gradient-bg {
