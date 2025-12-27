@@ -150,7 +150,7 @@ const AvailableUnit = () => {
               <Link to="/admin-dashboard" className="admin-available-unit-btn back-btn">
                 <span>&#x2B05;</span> Back
               </Link>
-              <Link to="/admin/unit-chat" className="admin-available-unit-btn messages-btn">
+              <Link to="/admin-inbox" className="admin-available-unit-btn messages-btn">
                 <span>💬</span> See Messages
               </Link>
               <Link to="/admin-reservations" className="admin-available-unit-btn reservations-btn">
