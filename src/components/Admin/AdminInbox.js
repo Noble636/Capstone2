@@ -9,7 +9,6 @@ const AdminInbox = () => {
   const [chatInput, setChatInput] = useState('');
   const [sending, setSending] = useState(false);
   const [loadingMessages, setLoadingMessages] = useState(false);
-  const [showChat, setShowChat] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [selectedUnit, setSelectedUnit] = useState(null);
   const chatEndRef = useRef(null);
@@ -22,7 +21,7 @@ const AdminInbox = () => {
   }, []);
 
   // Fetch all unique conversations (unit_id + sender_name)
-  useEffect(() => {
+  const fetchConversations = () => {
     fetch('https://tenantportal-backend.onrender.com/api/admin/inbox')
       .then(res => res.json())
       .then(data => {
@@ -41,15 +40,22 @@ const AdminInbox = () => {
         });
         setConversations(Object.values(convMap));
       });
+  };
+
+  useEffect(() => {
+    fetchConversations();
+    const interval = setInterval(fetchConversations, 3000);
+    return () => clearInterval(interval);
   }, []);
 
   // Fetch messages for selected conversation
   useEffect(() => {
-    if (showChat && selectedConv) {
+    if (selectedConv) {
       fetchMessages(selectedConv.unit_id, selectedConv.sender_name);
+      setSelectedUnit(units.find(u => u.unit_id === selectedConv.unit_id));
     }
     // eslint-disable-next-line
-  }, [showChat, selectedConv]);
+  }, [selectedConv, units]);
 
   // Scroll to bottom when messages change
   useEffect(() => {
@@ -121,23 +127,9 @@ const AdminInbox = () => {
     }
   };
 
-  const openChat = (conv) => {
-    setSelectedConv(conv);
-    setSelectedUnit(units.find(u => u.unit_id === conv.unit_id));
-    fetchMessages(conv.unit_id, conv.sender_name);
-  };
-
-  const closeChatModal = () => {
-    setShowChat(false);
-    setSelectedConv(null);
-    setMessages([]);
-    setChatInput('');
-    setFeedback('');
-  };
-
   return (
     <div className="admin-inbox-2col">
-      {/* Left: Posted Units */}
+      {/* Left: Posted Units and Inbox */}
       <div className="admin-inbox-sidebar">
         <h3>Posted Units</h3>
         {units.map(unit => (
@@ -148,39 +140,49 @@ const AdminInbox = () => {
             </button>
           </div>
         ))}
-      </div>
-      {/* Right: Inbox */}
-      <div className="admin-inbox-inbox">
+        <hr style={{ margin: '18px 0' }} />
         <h3>Inbox</h3>
+        <button onClick={fetchConversations} style={{ marginBottom: 10 }}>Refresh</button>
         {conversations.length === 0 && <div className="no-units">No conversations yet.</div>}
         {conversations.map((conv, idx) => (
           <div
             className={`admin-inbox-conv${selectedConv && selectedConv.unit_id === conv.unit_id && selectedConv.sender_name === conv.sender_name ? ' selected' : ''}`}
             key={idx}
-            onClick={() => openChat(conv)}
+            onClick={() => setSelectedConv(conv)}
           >
             <div className="admin-inbox-conv-title">{conv.unit_name}</div>
             <div className="admin-inbox-conv-tenant">{conv.sender_name}</div>
             <div className="admin-inbox-conv-last">{conv.last_message}</div>
           </div>
         ))}
-        {/* Show chat and unit details when a conversation is selected */}
+      </div>
+      {/* Right: Chat and Unit Details */}
+      <div className="admin-inbox-inbox">
         {selectedConv && (
           <div className="admin-inbox-chat-details">
             {/* Unit details */}
             {selectedUnit && (
-              <div className="admin-inbox-unit-details">
-                <div className="admin-inbox-unit-images">
+              <div className="admin-inbox-unit-details" style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
+                <div className="admin-inbox-unit-images" style={{ display: 'flex', gap: 6 }}>
                   {selectedUnit.images && selectedUnit.images.map((img, i) => (
-                    <img key={i} src={img.dataUri} alt={`unit-img-${i}`} style={{ width: 80, height: 60, marginRight: 6, borderRadius: 6 }} />
+                    <img
+                      key={i}
+                      src={img.dataUri}
+                      alt={`unit-img-${i}`}
+                      style={{ width: 48, height: 36, objectFit: 'cover', borderRadius: 4, border: '1px solid #eee' }}
+                    />
                   ))}
                 </div>
-                <div><b>Description:</b> {selectedUnit.description}</div>
-                <div><b>Price:</b> ₱{selectedUnit.price}</div>
+                <div style={{ marginLeft: 12 }}>
+                  <div><b>{selectedUnit.title}</b></div>
+                  <div style={{ fontSize: '0.95rem', color: '#555' }}>{selectedUnit.description}</div>
+                  <div style={{ fontSize: '0.95rem', color: '#2563eb' }}><b>₱{selectedUnit.price}</b></div>
+                </div>
               </div>
             )}
             {/* Chat window */}
             <div className="chat-messages">
+              {loadingMessages && <div>Loading...</div>}
               {messages.map((msg, idx) => (
                 <div key={idx} className={`chat-bubble ${msg.sender_type === 'tenant' ? 'tenant' : 'admin'}`}>
                   <div className="chat-message">{msg.message}</div>
@@ -190,6 +192,10 @@ const AdminInbox = () => {
                   </div>
                 </div>
               ))}
+              <div ref={chatEndRef} />
+              {messages.length === 0 && !loadingMessages && (
+                <div style={{ color: '#64748b', textAlign: 'center' }}>No messages yet.</div>
+              )}
             </div>
             <form onSubmit={handleSendMessage} style={{ display: 'flex', gap: 8 }}>
               <input
@@ -202,7 +208,11 @@ const AdminInbox = () => {
               />
               <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
             </form>
+            {feedback && <div className="inquiry-feedback">{feedback}</div>}
           </div>
+        )}
+        {!selectedConv && (
+          <div style={{ color: '#64748b', textAlign: 'center', marginTop: 40 }}>Select a conversation to view messages.</div>
         )}
       </div>
     </div>

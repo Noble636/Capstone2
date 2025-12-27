@@ -15,7 +15,7 @@ export default function BrowseUnit() {
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [selectedImageIdx, setSelectedImageIdx] = useState({});
-  const [messageSent, setMessageSent] = useState(false); // NEW
+  const [messageSent, setMessageSent] = useState(false);
   const chatEndRef = useRef(null);
 
   useEffect(() => {
@@ -25,14 +25,12 @@ export default function BrowseUnit() {
       .catch(() => setUnits([]));
   }, []);
 
-  // Scroll to bottom when messages change
   useEffect(() => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, showChat, showCheckInquiry]);
 
-  // Polling for new messages every 3 seconds when chat is open
   useEffect(() => {
     let interval;
     if ((showChat || showCheckInquiry) && selectedUnit && nameConfirmed) {
@@ -51,10 +49,9 @@ export default function BrowseUnit() {
     setShowCheckInquiry(false);
     setFeedback('');
     setChatInput('');
-    setNameConfirmed(false); // Always require name input for Inquire
+    setNameConfirmed(false);
     setNameInput('');
-    setMessageSent(false);   // Reset sent state
-    // Do NOT fetch messages here
+    setMessageSent(false);
   };
 
   const openCheckInquiryModal = (unit) => {
@@ -79,7 +76,7 @@ export default function BrowseUnit() {
     setNameConfirmed(!!tenantNameState);
   };
 
-  const handleNameSubmit = (e) => {
+  const handleInquireNameSubmit = (e) => {
     e.preventDefault();
     if (!nameInput.trim()) {
       setFeedback('Please enter your name.');
@@ -89,9 +86,43 @@ export default function BrowseUnit() {
     localStorage.setItem('tenantName', nameInput.trim());
     setNameConfirmed(true);
     setFeedback('');
-    if (selectedUnit) {
-      fetchMessages(selectedUnit.unit_id, nameInput.trim());
+  };
+
+  const handleSendInquireMessage = async (e) => {
+    e.preventDefault();
+    if (!nameInput.trim() || !chatInput.trim()) {
+      setFeedback('Please enter your name and message.');
+      return;
     }
+    setSending(true);
+    setFeedback('');
+    try {
+      localStorage.setItem('tenantName', nameInput.trim());
+      setTenantName(nameInput.trim());
+      setNameConfirmed(true);
+
+      const res = await fetch('https://tenantportal-backend.onrender.com/api/unit-inquiry-messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          unit_id: selectedUnit.unit_id,
+          sender_name: nameInput.trim(),
+          sender_type: 'tenant',
+          message: chatInput.trim(),
+        }),
+      });
+
+      if (res.ok) {
+        setFeedback('Inquiry sent!');
+        setChatInput('');
+        setMessageSent(true);
+      } else {
+        setFeedback('Failed to send inquiry.');
+      }
+    } catch {
+      setFeedback('Server error. Please try again.');
+    }
+    setSending(false);
   };
 
   const handleCheckInquiryNameSubmit = (e) => {
@@ -105,47 +136,7 @@ export default function BrowseUnit() {
     if (selectedUnit) {
       fetchMessages(selectedUnit.unit_id, nameInput.trim());
     }
-    setTenantName(nameInput.trim()); // Use this for the session, but do not save to localStorage
-  };
-
-  // Only for "Inquire" modal: send message, then show confirmation
-  const handleInquireNameSubmit = (e) => {
-    e.preventDefault();
-    if (!nameInput.trim()) {
-      setFeedback('Please enter your name.');
-      return;
-    }
     setTenantName(nameInput.trim());
-    setNameConfirmed(true);
-    setFeedback('');
-  };
-
-  const handleSendInquireMessage = async (e) => {
-    e.preventDefault();
-    if (!chatInput.trim()) return;
-    setSending(true);
-    setFeedback('');
-    try {
-      const res = await fetch('https://tenantportal-backend.onrender.com/api/unit-inquiry-messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          unit_id: selectedUnit.unit_id,
-          sender_name: nameInput.trim() || tenantNameState,
-          sender_type: 'tenant',
-          message: chatInput.trim(),
-        }),
-      });
-      if (res.ok) {
-        setChatInput('');
-        setMessageSent(true);
-      } else {
-        setFeedback('Failed to send message.');
-      }
-    } catch {
-      setFeedback('Server error. Please try again.');
-    }
-    setSending(false);
   };
 
   const fetchMessages = async (unitId, name) => {
@@ -177,7 +168,7 @@ export default function BrowseUnit() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           unit_id: selectedUnit.unit_id,
-          sender_name: tenantNameState,
+          sender_name: tenantNameState || nameInput.trim(),
           sender_type: 'tenant',
           message: chatInput.trim(),
         }),
@@ -185,7 +176,7 @@ export default function BrowseUnit() {
       if (res.ok) {
         setChatInput('');
         setMessageSent(true);
-        fetchMessages(selectedUnit.unit_id, tenantNameState);
+        fetchMessages(selectedUnit.unit_id, tenantNameState || nameInput.trim());
       } else {
         setFeedback('Failed to send message.');
       }
