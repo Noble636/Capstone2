@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import '../css/Tenant/BrowseUnit.css';
+import '../../css/Tenant/BrowseUnit.css';
 
 export default function BrowseUnitPage() {
   const [units, setUnits] = useState([]);
