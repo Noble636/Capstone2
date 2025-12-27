@@ -7,8 +7,9 @@
   box-shadow: 0 4px 32px rgba(0,0,0,0.08);
   font-family: 'Segoe UI', Arial, sans-serif;
   position: relative;
-  overflow: auto; /* Ensure it's scrollable */
+  overflow: auto; /* Enable scrolling inside container */
   min-height: 70vh;
+  max-height: 80vh; /* Set a max height so it scrolls internally */
 }
 
 /* Hide scrollbar for Chrome, Edge, Safari */
@@ -25,6 +26,16 @@
 /* Hide scrollbar for IE, Edge */
 .browse-unit-container {
   -ms-overflow-style: none;
+}
+
+/* Remove these if you don't want to hide the page scrollbar */
+body, .browseunit-bg {
+  scrollbar-width: auto;
+  -ms-overflow-style: auto;
+}
+body::-webkit-scrollbar, .browseunit-bg::-webkit-scrollbar {
+  width: auto !important;
+  background: auto;
 }
 
 .browse-unit-container h2 {
