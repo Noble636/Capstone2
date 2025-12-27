@@ -8,8 +8,7 @@
   font-family: 'Segoe UI', Arial, sans-serif;
   position: relative;
   overflow: auto;
-  min-height: 70vh;
-  max-height: 80vh;
+  max-height: 80vh; /* or whatever fits your design */
 }
 
 /* Hide scrollbar for Chrome, Edge, Safari */
@@ -20,12 +19,8 @@
 
 /* Hide scrollbar for Firefox */
 .browse-unit-container {
-  scrollbar-width: none;
-}
-
-/* Hide scrollbar for IE, Edge */
-.browse-unit-container {
-  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE, Edge */
 }
 
 /* Remove these rules if present (they are not needed anymore) */
@@ -348,11 +343,12 @@ body::-webkit-scrollbar,
 .browseunit-bg {
   min-height: 100vh;
   width: 100vw;
-  position: relative;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+  z-index: 0;
   background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
   animation: browseunit-bg-move 12s ease-in-out infinite alternate;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
 /* Hide scrollbar for the main background wrapper */
