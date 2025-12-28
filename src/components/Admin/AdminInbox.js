@@ -73,7 +73,10 @@ const AdminInbox = () => {
           const convMsgs = data.filter(
             m =>
               m.unit_id == unit_id &&
-              (m.sender_name === tenant_name || (m.sender_type && m.sender_type.trim().toLowerCase() === 'admin'))
+              (
+                (m.sender_name === tenant_name && m.sender_type.trim().toLowerCase() === 'tenant') ||
+                (m.sender_type && m.sender_type.trim().toLowerCase() === 'admin' && m.recipient_name === tenant_name)
+              )
           );
           if (convMsgs.length > 0) {
             const latest = convMsgs.reduce((a, b) =>
