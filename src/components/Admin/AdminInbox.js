@@ -59,42 +59,49 @@ const AdminInbox = () => {
       .then(res => res.json())
       .then(data => {
         // Find all unique (unit_id, tenant_name) pairs from all messages
-        const tenantPairs = new Set();
+        const pairs = {};
         data.forEach(msg => {
-          // If tenant, use sender_name; if admin, find the tenant_name from previous messages or fallback to sender_name
+          // If tenant, use sender_name as tenant_name
           if (msg.sender_type === 'tenant') {
-            tenantPairs.add(`${msg.unit_id}|||${msg.sender_name}`);
-          } else if (msg.sender_type === 'admin') {
-            // Try to find the tenant_name for this unit_id from other messages
-            const tenantMsg = data.find(
-              m => m.unit_id === msg.unit_id && m.sender_type === 'tenant'
-            );
-            if (tenantMsg) {
-              tenantPairs.add(`${msg.unit_id}|||${tenantMsg.sender_name}`);
+            const key = `${msg.unit_id}|||${msg.sender_name}`;
+            if (!pairs[key]) pairs[key] = [];
+            pairs[key].push(msg);
+          }
+        });
+        // Also include admin-only conversations
+        data.forEach(msg => {
+          if (msg.sender_type === 'admin') {
+            // Find all tenant names for this unit
+            const tenantNames = data
+              .filter(m => m.unit_id === msg.unit_id && m.sender_type === 'tenant')
+              .map(m => m.sender_name);
+            if (tenantNames.length === 0) {
+              // No tenant messages, use sender_name as tenant_name (fallback)
+              const key = `${msg.unit_id}|||${msg.sender_name}`;
+              if (!pairs[key]) pairs[key] = [];
+              pairs[key].push(msg);
+            } else {
+              tenantNames.forEach(tenantName => {
+                const key = `${msg.unit_id}|||${tenantName}`;
+                if (!pairs[key]) pairs[key] = [];
+                pairs[key].push(msg);
+              });
             }
           }
         });
 
-        // For each pair, find the latest message (from either sender)
-        const convList = [];
-        tenantPairs.forEach(pair => {
-          const [unit_id, tenant_name] = pair.split('|||');
-          const convMsgs = data.filter(
-            m =>
-              m.unit_id === unit_id &&
-              (m.sender_name === tenant_name || m.sender_type === 'admin')
+        // For each pair, find the latest message
+        const convList = Object.entries(pairs).map(([key, msgs]) => {
+          const [unit_id, tenant_name] = key.split('|||');
+          const latest = msgs.reduce((a, b) =>
+            new Date(a.created_at) > new Date(b.created_at) ? a : b
           );
-          if (convMsgs.length > 0) {
-            const latest = convMsgs.reduce((a, b) =>
-              new Date(a.created_at) > new Date(b.created_at) ? a : b
-            );
-            convList.push({
-              ...latest,
-              sender_name: tenant_name,
-              last_message: latest.message,
-              unit_id,
-            });
-          }
+          return {
+            ...latest,
+            sender_name: tenant_name,
+            last_message: latest.message,
+            unit_id,
+          };
         });
 
         convList.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
