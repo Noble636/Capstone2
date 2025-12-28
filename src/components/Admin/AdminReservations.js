@@ -20,8 +20,8 @@ export default function AdminReservations() {
       <div className="main-center-wrapper">
         <div className="admin-available-unit-container">
           <h1 className="admin-available-unit-title">Reservations</h1>
-          <Link to="/admin-dashboard" className="admin-available-unit-btn back-btn">
-            <span>&#x2B05;</span> Back
+          <Link to="/admin-dashboard" className="browseunit-back-btn" style={{ marginBottom: 18 }}>
+            &#8592; Back
           </Link>
           <Link to="/tenant/browse-units" className="admin-available-unit-btn back-btn" style={{ marginBottom: 18 }}>
             Cancel Reservation
@@ -29,17 +29,51 @@ export default function AdminReservations() {
           <div className="admin-available-unit-content">
             {Array.isArray(reservations) && reservations.length === 0 && <div>No reservations yet.</div>}
             {Array.isArray(reservations) && reservations.map(r => (
-              <div key={r.reservation_id} style={{ border: '1.5px solid #222', borderRadius: 10, margin: 12, padding: 16, background: '#f8fafc', position: 'relative' }}>
-                {r.image && <img src={r.image} alt="Unit" style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 8, marginBottom: 8 }} />}
-                <div><strong>Unit:</strong> {r.title}</div>
-                <div><strong>Price:</strong> ₱{r.price}</div>
-                <div><strong>Name:</strong> {r.name}</div>
-                <div><strong>Contact:</strong> {r.contact}</div>
-                {r.other_info && <div><strong>Other:</strong> {r.other_info}</div>}
-                <div><strong>Date:</strong> {new Date(r.created_at).toLocaleString()}</div>
+              <div
+                key={r.reservation_id}
+                className="unit-card"
+                style={{
+                  maxWidth: 340,
+                  margin: '24px auto',
+                  border: '1.5px solid #222',
+                  borderRadius: 14,
+                  background: '#f8fafc',
+                  boxShadow: '0 1px 6px rgba(30,41,59,0.07)',
+                  padding: 18,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+              >
+                {r.image && (
+                  <img
+                    src={r.image}
+                    alt="Unit"
+                    style={{
+                      width: 120,
+                      height: 90,
+                      objectFit: 'cover',
+                      borderRadius: 8,
+                      marginBottom: 8
+                    }}
+                  />
+                )}
+                <div style={{ textAlign: 'left', width: '100%' }}>
+                  <div><strong>Unit:</strong> {r.title}</div>
+                  <div><strong>Price:</strong> ₱{r.price}</div>
+                  <div><strong>Name:</strong> {r.name}</div>
+                  <div><strong>Contact:</strong> {r.contact}</div>
+                  {r.other_info && <div><strong>Other:</strong> {r.other_info}</div>}
+                  <div><strong>Date:</strong> {new Date(r.created_at).toLocaleString()}</div>
+                </div>
                 <button
-                  className="admin-available-unit-btn back-btn"
-                  style={{ marginTop: 10, background: '#c0392b' }}
+                  className="inquire-btn"
+                  style={{
+                    marginTop: 16,
+                    background: '#c0392b',
+                    width: '100%',
+                    fontWeight: 'bold'
+                  }}
                   onClick={() => { setCancelId(r.reservation_id); setShowFirstConfirm(true); }}
                 >
                   Cancel Reservation
