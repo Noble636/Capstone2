@@ -142,7 +142,7 @@ const AdminInbox = () => {
   };
 
   return (
-    <div className="admin-inbox-2col" style={{ flexDirection: 'row' }}>
+    <>
       <div className="admininbox-bg">
         <img
           src={process.env.PUBLIC_URL + '/Background/GB.png'}
@@ -158,94 +158,96 @@ const AdminInbox = () => {
         <div className="admininbox-bubble b7"></div>
         <div className="admininbox-bubble b8"></div>
       </div>
-      {/* Left: Posted Units */}
-      <div className="admin-inbox-sidebar" style={{ minWidth: 260, maxWidth: 320 }}>
-        <h3>Posted Units</h3>
-        {units.map(unit => (
-          <div className="admin-inbox-unit" key={unit.unit_id}>
-            <div className="admin-inbox-unit-title">{unit.title}</div>
-            <button className="admin-inbox-delete-btn" onClick={() => handleDeleteUnit(unit.unit_id)}>
-              Delete
-            </button>
-          </div>
-        ))}
-      </div>
-      {/* Right: Inbox */}
-      <div className="admin-inbox-inbox" style={{ minWidth: 340, flex: 1 }}>
-        <h3>Inbox</h3>
-        <button onClick={fetchConversations} style={{ marginBottom: 10 }}>Refresh</button>
-        {conversations.length === 0 && <div className="no-units">No conversations yet.</div>}
-        {conversations.map((conv, idx) => (
-          <div
-            className={`admin-inbox-conv${selectedConv && selectedConv.unit_id === conv.unit_id && selectedConv.sender_name === conv.sender_name ? ' selected' : ''}`}
-            key={idx}
-            onClick={() => openChatModal(conv)}
-          >
-            <div className="admin-inbox-conv-title">{conv.unit_name}</div>
-            <div className="admin-inbox-conv-tenant">{conv.sender_name}</div>
-            <div className="admin-inbox-conv-last">{conv.last_message}</div>
-          </div>
-        ))}
-      </div>
-      {/* Popup Chat Modal */}
-      {showChatModal && selectedConv && (
-        <div className="inquiry-modal-backdrop" onClick={closeChatModal}>
-          <div className="inquiry-modal" style={{ maxWidth: 500 }} onClick={e => e.stopPropagation()}>
-            <h3>Chat: {selectedUnit ? selectedUnit.title : selectedConv.unit_name}</h3>
-            {/* Unit details */}
-            {selectedUnit && (
-              <div className="admin-inbox-unit-details" style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
-                <div className="admin-inbox-unit-images" style={{ display: 'flex', gap: 6 }}>
-                  {selectedUnit.images && selectedUnit.images.map((img, i) => (
-                    <img
-                      key={i}
-                      src={img.dataUri}
-                      alt={`unit-img-${i}`}
-                      style={{ width: 48, height: 36, objectFit: 'cover', borderRadius: 4, border: '1px solid #eee' }}
-                    />
-                  ))}
-                </div>
-                <div style={{ marginLeft: 12 }}>
-                  <div><b>{selectedUnit.title}</b></div>
-                  <div style={{ fontSize: '0.95rem', color: '#555' }}>{selectedUnit.description}</div>
-                  <div style={{ fontSize: '0.95rem', color: '#2563eb' }}><b>₱{selectedUnit.price}</b></div>
-                </div>
-              </div>
-            )}
-            {/* Chat window */}
-            <div className="chat-messages">
-              {loadingMessages && <div>Loading...</div>}
-              {messages.map((msg, idx) => (
-                <div key={idx} className={`chat-bubble ${msg.sender_type === 'tenant' ? 'tenant' : 'admin'}`}>
-                  <div className="chat-message">{msg.message}</div>
-                  <div className="chat-meta">
-                    <span>{msg.sender_type === 'tenant' ? msg.sender_name : 'Admin'}</span>
-                    <span className="chat-time">{new Date(msg.created_at).toLocaleString()}</span>
+      <div className="admin-inbox-2col" style={{ flexDirection: 'row', position: 'relative', zIndex: 10 }}>
+        {/* Left: Posted Units */}
+        <div className="admin-inbox-sidebar" style={{ minWidth: 260, maxWidth: 320 }}>
+          <h3>Posted Units</h3>
+          {units.map(unit => (
+            <div className="admin-inbox-unit" key={unit.unit_id}>
+              <div className="admin-inbox-unit-title">{unit.title}</div>
+              <button className="admin-inbox-delete-btn" onClick={() => handleDeleteUnit(unit.unit_id)}>
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
+        {/* Right: Inbox */}
+        <div className="admin-inbox-inbox" style={{ minWidth: 340, flex: 1 }}>
+          <h3>Inbox</h3>
+          <button onClick={fetchConversations} style={{ marginBottom: 10 }}>Refresh</button>
+          {conversations.length === 0 && <div className="no-units">No conversations yet.</div>}
+          {conversations.map((conv, idx) => (
+            <div
+              className={`admin-inbox-conv${selectedConv && selectedConv.unit_id === conv.unit_id && selectedConv.sender_name === conv.sender_name ? ' selected' : ''}`}
+              key={idx}
+              onClick={() => openChatModal(conv)}
+            >
+              <div className="admin-inbox-conv-title">{conv.unit_name}</div>
+              <div className="admin-inbox-conv-tenant">{conv.sender_name}</div>
+              <div className="admin-inbox-conv-last">{conv.last_message}</div>
+            </div>
+          ))}
+        </div>
+        {/* Popup Chat Modal */}
+        {showChatModal && selectedConv && (
+          <div className="inquiry-modal-backdrop" onClick={closeChatModal}>
+            <div className="inquiry-modal" style={{ maxWidth: 500 }} onClick={e => e.stopPropagation()}>
+              <h3>Chat: {selectedUnit ? selectedUnit.title : selectedConv.unit_name}</h3>
+              {/* Unit details */}
+              {selectedUnit && (
+                <div className="admin-inbox-unit-details" style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
+                  <div className="admin-inbox-unit-images" style={{ display: 'flex', gap: 6 }}>
+                    {selectedUnit.images && selectedUnit.images.map((img, i) => (
+                      <img
+                        key={i}
+                        src={img.dataUri}
+                        alt={`unit-img-${i}`}
+                        style={{ width: 48, height: 36, objectFit: 'cover', borderRadius: 4, border: '1px solid #eee' }}
+                      />
+                    ))}
+                  </div>
+                  <div style={{ marginLeft: 12 }}>
+                    <div><b>{selectedUnit.title}</b></div>
+                    <div style={{ fontSize: '0.95rem', color: '#555' }}>{selectedUnit.description}</div>
+                    <div style={{ fontSize: '0.95rem', color: '#2563eb' }}><b>₱{selectedUnit.price}</b></div>
                   </div>
                 </div>
-              ))}
-              <div ref={chatEndRef} />
-              {messages.length === 0 && !loadingMessages && (
-                <div style={{ color: '#64748b', textAlign: 'center' }}>No messages yet.</div>
               )}
+              {/* Chat window */}
+              <div className="chat-messages">
+                {loadingMessages && <div>Loading...</div>}
+                {messages.map((msg, idx) => (
+                  <div key={idx} className={`chat-bubble ${msg.sender_type === 'tenant' ? 'tenant' : 'admin'}`}>
+                    <div className="chat-message">{msg.message}</div>
+                    <div className="chat-meta">
+                      <span>{msg.sender_type === 'tenant' ? msg.sender_name : 'Admin'}</span>
+                      <span className="chat-time">{new Date(msg.created_at).toLocaleString()}</span>
+                    </div>
+                  </div>
+                ))}
+                <div ref={chatEndRef} />
+                {messages.length === 0 && !loadingMessages && (
+                  <div style={{ color: '#64748b', textAlign: 'center' }}>No messages yet.</div>
+                )}
+              </div>
+              <form onSubmit={handleSendMessage} style={{ display: 'flex', gap: 8 }}>
+                <input
+                  type="text"
+                  value={chatInput}
+                  onChange={e => setChatInput(e.target.value)}
+                  placeholder="Type your message..."
+                  style={{ flex: 1 }}
+                  required
+                />
+                <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
+              </form>
+              {feedback && <div className="inquiry-feedback">{feedback}</div>}
+              <button className="close-modal-btn" onClick={closeChatModal} style={{ marginTop: 10 }}>Close</button>
             </div>
-            <form onSubmit={handleSendMessage} style={{ display: 'flex', gap: 8 }}>
-              <input
-                type="text"
-                value={chatInput}
-                onChange={e => setChatInput(e.target.value)}
-                placeholder="Type your message..."
-                style={{ flex: 1 }}
-                required
-              />
-              <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
-            </form>
-            {feedback && <div className="inquiry-feedback">{feedback}</div>}
-            <button className="close-modal-btn" onClick={closeChatModal} style={{ marginTop: 10 }}>Close</button>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };
 
