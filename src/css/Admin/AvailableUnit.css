@@ -267,9 +267,10 @@
   background: #111;
   transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
   min-width: 140px;
-  height: auto;
+  height: 48px; /* <-- Ensure all buttons are the same height */
   line-height: 1;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .admin-available-unit-btn > span {
@@ -277,6 +278,9 @@
   font-size: 1.3rem;
   line-height: 1;
   vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .admin-available-unit-btn.back-btn {
