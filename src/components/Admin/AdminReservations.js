@@ -24,7 +24,19 @@ export default function AdminReservations() {
       <div className="admin-reservation-center-wrapper">
         <div className="admin-reservation-container">
           <div className="admin-reservation-header-row">
-            <h1 className="admin-reservation-title">Reservations</h1>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <h1 className="admin-reservation-title" style={{ marginBottom: 0 }}>Reservations</h1>
+              <button
+                className="admin-reservation-report-btn small"
+                onClick={() => {
+                  setShowExportModal(true);
+                  setTokenInput('');
+                  setTokenError('');
+                }}
+              >
+                Generate Reservation Report
+              </button>
+            </div>
             <Link to="/admin-dashboard" className="admin-reservation-back-btn">
               &#8592; Back
             </Link>
@@ -56,16 +68,6 @@ export default function AdminReservations() {
               </div>
             ))}
           </div>
-          <button
-            className="admin-reservation-report-btn"
-            onClick={() => {
-              setShowExportModal(true);
-              setTokenInput('');
-              setTokenError('');
-            }}
-          >
-            Generate Reservation Report
-          </button>
         </div>
       </div>
 

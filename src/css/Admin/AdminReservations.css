@@ -196,17 +196,25 @@
   color: #222;
   border: 1.5px solid #222;
   border-radius: 6px;
-  padding: 8px 18px;
-  font-size: 1.08rem;
+  padding: 4px 12px;
+  font-size: 0.98rem;
   font-weight: 500;
   cursor: pointer;
-  margin-bottom: 18px;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   box-shadow: none;
+  height: 32px;
+  line-height: 1;
+  margin-bottom: 0;
 }
 .admin-reservation-report-btn:hover {
   background: #eaeaea;
   color: #111;
+}
+.admin-reservation-report-btn.small {
+  padding: 4px 10px;
+  font-size: 0.95rem;
+  height: 32px;
+  min-width: unset;
 }
 
 @media (max-width: 900px) {
