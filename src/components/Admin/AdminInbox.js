@@ -147,7 +147,7 @@ const AdminInbox = () => {
           sender_name: 'Admin',
           sender_type: 'admin',
           message: chatInput.trim(),
-          recipient_name: selectedConv.sender_name, // <-- THIS IS REQUIRED
+          recipient_name: selectedConv.sender_name,
         }),
       });
       if (res.ok) {
