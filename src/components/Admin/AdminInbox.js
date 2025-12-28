@@ -58,38 +58,32 @@ const AdminInbox = () => {
     fetch('https://tenantportal-backend.onrender.com/api/admin/inbox')
       .then(res => res.json())
       .then(data => {
-        // Step 1: Find all unique (unit_id, tenant_name) pairs from tenant messages only
         const tenantPairs = new Set();
         data.forEach(msg => {
           if (msg.sender_type === 'tenant') {
             tenantPairs.add(`${msg.unit_id}|||${msg.sender_name}`);
           }
         });
-
-        // Step 2: For each pair, find the latest message (from either sender)
         const convList = [];
         tenantPairs.forEach(pair => {
           const [unit_id, tenant_name] = pair.split('|||');
-          // Find all messages for this conversation
           const convMsgs = data.filter(
             m =>
               m.unit_id === unit_id &&
-              (m.sender_name === tenant_name || (m.sender_type === 'admin'))
+              (m.sender_name === tenant_name || m.sender_type === 'admin')
           );
-          // Find the latest message
           if (convMsgs.length > 0) {
             const latest = convMsgs.reduce((a, b) =>
               new Date(a.created_at) > new Date(b.created_at) ? a : b
             );
             convList.push({
               ...latest,
-              sender_name: tenant_name, // always show tenant's name in the box
+              sender_name: tenant_name,
               last_message: latest.message,
               unit_id,
             });
           }
         });
-
         convList.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
         setConversations(convList);
       });
