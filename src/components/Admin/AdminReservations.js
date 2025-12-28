@@ -26,10 +26,7 @@ export default function AdminReservations() {
             </Link>
           </div>
           <div className="admin-reservation-list">
-            {Array.isArray(reservations) && reservations.length === 0 && (
-              <div className="admin-reservation-no-units">No reservations yet.</div>
-            )}
-            {Array.isArray(reservations) && reservations.map(r => (
+            {reservations.map(r => (
               <div key={r.reservation_id} className="admin-reservation-card">
                 {r.image && (
                   <img
