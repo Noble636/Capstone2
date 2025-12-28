@@ -1,6 +1,35 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../../css/Admin/AdminInbox.css';
 
+// --- Modal Component ---
+function ConfirmModal({ open, step, onCancel, onNext, onConfirm, message1, message2 }) {
+  if (!open) return null;
+  return (
+    <div className="modal-backdrop">
+      <div className="modal-center">
+        <div className="modal-content">
+          <div className="modal-message">
+            {step === 1 ? message1 : message2}
+          </div>
+          <div className="modal-actions">
+            {step === 1 ? (
+              <>
+                <button className="modal-btn" onClick={onCancel}>Cancel</button>
+                <button className="modal-btn modal-btn-primary" onClick={onNext}>OK</button>
+              </>
+            ) : (
+              <>
+                <button className="modal-btn" onClick={onCancel}>Cancel</button>
+                <button className="modal-btn modal-btn-danger" onClick={onConfirm}>Confirm</button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const AdminInbox = () => {
   const [units, setUnits] = useState([]);
   const [conversations, setConversations] = useState([]);
@@ -12,6 +41,9 @@ const AdminInbox = () => {
   const [feedback, setFeedback] = useState('');
   const [selectedUnit, setSelectedUnit] = useState(null);
   const [showChatModal, setShowChatModal] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalStep, setModalStep] = useState(1);
+  const [modalAction, setModalAction] = useState(null); // { type: 'unit'|'conv', data: ... }
   const chatEndRef = useRef(null);
 
   // Fetch posted units
@@ -26,21 +58,41 @@ const AdminInbox = () => {
     fetch('https://tenantportal-backend.onrender.com/api/admin/inbox')
       .then(res => res.json())
       .then(data => {
-        // Group by unit_id + sender_name, show only the latest message per group
-        const convMap = {};
+        // Step 1: Find all unique (unit_id, tenant_name) pairs
+        const tenantPairs = new Set();
         data.forEach(msg => {
-          const key = `${msg.unit_id}_${msg.sender_name}`;
-          // Always keep the latest message for this conversation
-          if (!convMap[key] || new Date(msg.created_at) > new Date(convMap[key].created_at)) {
-            convMap[key] = {
-              ...msg,
-              last_message: msg.message, // Always the latest message, regardless of sender
-            };
+          if (msg.sender_type === 'tenant') {
+            tenantPairs.add(`${msg.unit_id}|||${msg.sender_name}`);
           }
         });
-        setConversations(
-          Object.values(convMap).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-        );
+
+        // Step 2: For each pair, find the latest message (from either sender)
+        const convList = [];
+        tenantPairs.forEach(pair => {
+          const [unit_id, tenant_name] = pair.split('|||');
+          // Find all messages for this conversation
+          const convMsgs = data.filter(
+            m =>
+              m.unit_id === unit_id &&
+              (m.sender_name === tenant_name || m.sender_type === 'admin')
+          );
+          // Find the latest message
+          if (convMsgs.length > 0) {
+            const latest = convMsgs.reduce((a, b) =>
+              new Date(a.created_at) > new Date(b.created_at) ? a : b
+            );
+            convList.push({
+              ...latest,
+              sender_name: tenant_name, // always show tenant's name in the box
+              last_message: latest.message,
+              unit_id,
+            });
+          }
+        });
+
+        // Sort by latest message
+        convList.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        setConversations(convList);
       });
   };
 
@@ -129,6 +181,44 @@ const AdminInbox = () => {
     }
   };
 
+  // --- Modal Handlers ---
+  const openDeleteModal = (type, data) => {
+    setModalAction({ type, data });
+    setModalStep(1);
+    setModalOpen(true);
+  };
+  const handleModalCancel = () => setModalOpen(false);
+  const handleModalNext = () => setModalStep(2);
+  const handleModalConfirm = async () => {
+    setModalOpen(false);
+    if (modalAction?.type === 'unit') {
+      await handleDeleteUnit(modalAction.data.unit_id);
+    } else if (modalAction?.type === 'conv') {
+      await handleDeleteConversation(modalAction.data.unit_id, modalAction.data.sender_name);
+    }
+  };
+
+  // --- Delete Conversation (right side) ---
+  const handleDeleteConversation = async (unit_id, sender_name) => {
+    try {
+      const res = await fetch('https://tenantportal-backend.onrender.com/api/admin/conversation', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ unit_id, tenant_name: sender_name }),
+      });
+      if (res.ok) {
+        fetchConversations();
+        if (selectedConv && selectedConv.unit_id === unit_id && selectedConv.sender_name === sender_name) {
+          closeChatModal();
+        }
+      } else {
+        alert('Failed to delete conversation.');
+      }
+    } catch {
+      alert('Server error.');
+    }
+  };
+
   const openChatModal = (conv) => {
     setSelectedConv(conv);
     setShowChatModal(true);
@@ -165,16 +255,7 @@ const AdminInbox = () => {
           <h3>Posted Units</h3>
           {units.length === 0 && <div className="no-units">No posted units.</div>}
           {units.map(unit => (
-            <div className="admin-inbox-unit-card" key={unit.unit_id} style={{
-              background: '#f8fafc',
-              borderRadius: 10,
-              boxShadow: '0 1px 6px rgba(30,41,59,0.07)',
-              marginBottom: 16,
-              padding: 12,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start'
-            }}>
+            <div className="admin-inbox-unit-card" key={unit.unit_id}>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
                 {unit.images && unit.images[0] && (
                   <img
@@ -193,13 +274,7 @@ const AdminInbox = () => {
               </div>
               <button
                 className="admin-inbox-delete-btn"
-                onClick={async () => {
-                  // First confirmation
-                  if (!window.confirm('This will delete the posted unit. Are you sure?')) return;
-                  // Second warning
-                  if (!window.confirm('Warning: This will permanently delete the posted unit. This action cannot be undone. Proceed?')) return;
-                  await handleDeleteUnit(unit.unit_id);
-                }}
+                onClick={() => openDeleteModal('unit', { unit_id: unit.unit_id })}
                 style={{ marginTop: 4 }}
               >
                 Delete
@@ -217,10 +292,28 @@ const AdminInbox = () => {
               className={`admin-inbox-conv${selectedConv && selectedConv.unit_id === conv.unit_id && selectedConv.sender_name === conv.sender_name ? ' selected' : ''}`}
               key={idx}
               onClick={() => openChatModal(conv)}
+              style={{ position: 'relative' }}
             >
               <div className="admin-inbox-conv-title">{conv.unit_name}</div>
               <div className="admin-inbox-conv-tenant">{conv.sender_name}</div>
               <div className="admin-inbox-conv-last">{conv.last_message}</div>
+              <button
+                className="admin-inbox-delete-btn"
+                style={{
+                  position: 'absolute',
+                  right: 10,
+                  top: 10,
+                  padding: '2px 8px',
+                  fontSize: '0.9rem',
+                  zIndex: 2,
+                }}
+                onClick={e => {
+                  e.stopPropagation();
+                  openDeleteModal('conv', { unit_id: conv.unit_id, sender_name: conv.sender_name });
+                }}
+              >
+                Delete
+              </button>
             </div>
           ))}
         </div>
@@ -283,6 +376,16 @@ const AdminInbox = () => {
           </div>
         )}
       </div>
+      {/* --- Centered Modal --- */}
+      <ConfirmModal
+        open={modalOpen}
+        step={modalStep}
+        onCancel={handleModalCancel}
+        onNext={handleModalNext}
+        onConfirm={handleModalConfirm}
+        message1="This will delete the posted unit or conversation. Are you sure?"
+        message2="Warning: This will permanently delete the posted unit or conversation. This action cannot be undone. Proceed?"
+      />
     </>
   );
 };
