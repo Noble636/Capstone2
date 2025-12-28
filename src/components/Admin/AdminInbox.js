@@ -30,19 +30,17 @@ const AdminInbox = () => {
         const convMap = {};
         data.forEach(msg => {
           const key = `${msg.unit_id}_${msg.sender_name}`;
-          // Only update if this message is newer
+          // Always keep the latest message for this conversation
           if (!convMap[key] || new Date(msg.created_at) > new Date(convMap[key].created_at)) {
             convMap[key] = {
-              unit_id: msg.unit_id,
-              unit_name: msg.unit_name || msg.unit_title || 'Unit',
-              sender_name: msg.sender_name,
-              last_message: msg.message,
-              last_time: msg.created_at,
-              created_at: msg.created_at
+              ...msg,
+              last_message: msg.message, // Always the latest message, regardless of sender
             };
           }
         });
-        setConversations(Object.values(convMap));
+        setConversations(
+          Object.values(convMap).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        );
       });
   };
 
