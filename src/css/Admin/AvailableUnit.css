@@ -248,11 +248,15 @@
   gap: 20px;
   justify-content: center;
   align-items: center;
-  margin-top: 24px;
+  margin-bottom: 18px;
   width: 100%;
 }
 
 .admin-available-unit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   text-decoration: none;
   font-size: 1.15rem;
   color: #fff;
@@ -266,18 +270,13 @@
   height: auto;
   line-height: 1;
   white-space: nowrap;
-  gap: 6px;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .admin-available-unit-btn > span {
-  vertical-align: middle;
+  margin-right: 6px;
   font-size: 1.3rem;
   line-height: 1;
-  margin-right: 6px;
+  vertical-align: middle;
 }
 
 .admin-available-unit-btn.back-btn {

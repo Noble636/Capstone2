@@ -207,14 +207,26 @@
   max-width: 1200px;
   min-width: 900px;
   overflow: hidden;
+  border: 2.5px solid #222; /* Black border */
 }
 
 .admin-inbox-sidebar {
   width: 260px;
   background: #fff;
-  border-right: 1px solid #e5e7eb;
+  border-right: 3px solid #222; /* Dark divider */
   padding: 18px 12px;
   overflow-y: auto;
+  max-height: 100%; /* Ensure it can scroll */
+  scrollbar-width: thin;
+  scrollbar-color: #222 #f3f4f6;
+}
+.admin-inbox-sidebar::-webkit-scrollbar {
+  width: 8px;
+  background: #f3f4f6;
+}
+.admin-inbox-sidebar::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 4px;
 }
 .admin-inbox-sidebar h3 {
   margin-bottom: 12px;
@@ -250,17 +262,18 @@
   background: #be123c;
 }
 .admin-inbox-conv {
-  background: #fff;
+  background: #f4f6fa;
   border-radius: 8px;
   padding: 10px 12px;
   margin-bottom: 10px;
   cursor: pointer;
   transition: background 0.2s, box-shadow 0.2s;
-  border: 1.5px solid transparent;
+  border: 2px solid #222; /* Darker border */
+  box-shadow: 0 2px 8px rgba(30,41,59,0.10);
 }
-.admin-inbox-conv:hover {
+.admin-inbox-conv.selected {
   background: #e0e7ff;
-  border: 1.5px solid #2563eb;
+  border: 2.5px solid #2563eb;
 }
 .admin-inbox-conv-title {
   font-weight: 600;
@@ -382,14 +395,12 @@
 }
 
 .admin-inbox-unit-card {
-  background: #f8fafc;
+  border: 2px solid #222;
   border-radius: 10px;
-  box-shadow: 0 1px 6px rgba(30,41,59,0.07);
+  background: #f8fafc;
   margin-bottom: 16px;
   padding: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  box-shadow: 0 1px 6px rgba(30,41,59,0.07);
 }
 
 .modal-btn {
@@ -410,4 +421,27 @@
 .modal-btn-danger {
   background: #e11d48;
   color: #fff;
+}
+
+.admin-inbox-2col {
+  display: flex;
+  height: 80vh;
+  background: #f3f4f6;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+  margin: 32px auto;
+  max-width: 1200px;
+  min-width: 900px;
+  overflow: hidden;
+  border: 2.5px solid #222; /* Black border */
+}
+
+.inquiry-modal,
+.modal-content {
+  border: 2.5px solid #222 !important; /* Black border for popups */
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+}
+
+.centered-modal {
+  border: 2.5px solid #222 !important;
 }

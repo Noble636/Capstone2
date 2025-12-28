@@ -351,7 +351,7 @@ export default function BrowseUnit() {
               ) : (
                 <>
                   <div className="chat-messages">
-                    {loadingMessages && <div>Loading...</div>}
+                    {loadingMessages && messages.length === 0 && <div>Loading...</div>}
                     {messages.map((msg, idx) => (
                       <div
                         key={idx}

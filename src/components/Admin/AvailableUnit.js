@@ -69,7 +69,19 @@ const AvailableUnit = () => {
       <div className="main-center-wrapper">
         <div className="admin-available-unit-container">
           <h1 className="admin-available-unit-title">Post Available Unit</h1>
-          <p className="admin-available-unit-note">
+          <div className="admin-available-unit-actions" style={{ marginBottom: 18, justifyContent: 'center' }}>
+            <Link to="/admin-dashboard" className="admin-available-unit-btn back-btn">
+              <span>&#x2B05;</span> Back
+            </Link>
+            <button className="admin-available-unit-btn messages-btn">
+              <span role="img" aria-label="messages" style={{ fontSize: '1.2em', marginRight: 8, verticalAlign: 'middle' }}>💬</span>
+              Messages & Posting
+            </button>
+            <Link to="/admin-reservations" className="admin-available-unit-btn reservations-btn">
+              <span>📋</span> Reservations
+            </Link>
+          </div>
+          <p className="admin-available-unit-note" style={{ textAlign: 'center' }}>
             <em>
               You can post available apartment rooms, units, or spaces here. Tenants will see these listings and can send inquiries or reservation requests.
             </em>
@@ -146,17 +158,6 @@ const AvailableUnit = () => {
               </button>
               {feedback && <div className="admin-feedback">{feedback}</div>}
             </form>
-            <div className="admin-available-unit-actions">
-              <Link to="/admin-dashboard" className="admin-available-unit-btn back-btn">
-                <span>&#x2B05;</span> Back
-              </Link>
-              <Link to="/admin-inbox" className="admin-available-unit-btn messages-btn">
-                <span>💬</span> Messages & Posting
-              </Link>
-              <Link to="/admin-reservations" className="admin-available-unit-btn reservations-btn">
-                <span>📋</span> Reservations
-              </Link>
-            </div>
           </div>
         </div>
       </div>
