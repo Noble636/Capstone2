@@ -17,6 +17,7 @@ export default function BrowseUnit() {
   const [selectedImageIdx, setSelectedImageIdx] = useState({});
   const [messageSent, setMessageSent] = useState(false);
   const [showNotFoundModal, setShowNotFoundModal] = useState(false);
+  const [expandedImage, setExpandedImage] = useState(null);
   const chatEndRef = useRef(null);
 
   useEffect(() => {
@@ -253,6 +254,7 @@ export default function BrowseUnit() {
                       alt="Unit"
                       className="unit-main-image"
                       style={{ cursor: 'pointer' }}
+                      onClick={() => setExpandedImage(unit.images[mainIdx].dataUri)}
                     />
                   ) : (
                     <div className="unit-placeholder">No Image</div>
@@ -341,6 +343,7 @@ export default function BrowseUnit() {
         {showCheckInquiry && selectedUnit && (
           <div className="inquiry-modal-backdrop" onClick={closeModal}>
             <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
+              <button className="close-modal-btn" onClick={closeModal} style={{ position: 'absolute', top: 10, right: 14 }}>Close</button>
               <h3>Check My Inquiry: {selectedUnit.title}</h3>
               {!nameConfirmed ? (
                 <form onSubmit={handleCheckInquiryNameSubmit}>
@@ -400,6 +403,25 @@ export default function BrowseUnit() {
               <div>Message Inquiry Does not exist</div>
               <button onClick={() => setShowNotFoundModal(false)} className="close-modal-btn">Close</button>
             </div>
+          </div>
+        )}
+        {expandedImage && (
+          <div
+            className="image-lightbox-backdrop"
+            onClick={() => setExpandedImage(null)}
+          >
+            <img
+              src={expandedImage}
+              alt="Expanded Unit"
+              className="image-lightbox"
+              onClick={e => e.stopPropagation()}
+            />
+            <button
+              className="close-lightbox-btn"
+              onClick={() => setExpandedImage(null)}
+            >
+              ×
+            </button>
           </div>
         )}
       </div>
