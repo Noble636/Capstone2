@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../css/Admin/AvailableUnit.css';
+import '../../css/Tenant/BrowseUnit.css';
 
 export default function AdminReservations() {
   const [reservations, setReservations] = useState([]);
@@ -11,23 +12,22 @@ export default function AdminReservations() {
   useEffect(() => {
     fetch('https://tenantportal-backend.onrender.com/api/admin/reservations')
       .then(res => res.json())
-      .then(data => setReservations(data));
+      .then(data => setReservations(Array.isArray(data) ? data : []));
   }, []);
 
   return (
-    <div className="availableunit-bg">
-      <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="availableunit-bg-image" />
+    <div className="browseunit-bg">
+      <img src={process.env.PUBLIC_URL + '/Background/GB.png'} alt="Background" className="browseunit-bg-image" />
       <div className="main-center-wrapper">
-        <div className="admin-available-unit-container">
+        <div className="admin-available-unit-container" style={{ background: 'rgba(255,255,255,0.98)' }}>
           <h1 className="admin-available-unit-title">Reservations</h1>
           <Link to="/admin-dashboard" className="browseunit-back-btn" style={{ marginBottom: 18 }}>
             &#8592; Back
           </Link>
-          <Link to="/tenant/browse-units" className="admin-available-unit-btn back-btn" style={{ marginBottom: 18 }}>
-            Cancel Reservation
-          </Link>
-          <div className="admin-available-unit-content">
-            {Array.isArray(reservations) && reservations.length === 0 && <div>No reservations yet.</div>}
+          <div className="unit-list" style={{ justifyContent: 'center' }}>
+            {Array.isArray(reservations) && reservations.length === 0 && (
+              <div className="no-units">No reservations yet.</div>
+            )}
             {Array.isArray(reservations) && reservations.map(r => (
               <div
                 key={r.reservation_id}
