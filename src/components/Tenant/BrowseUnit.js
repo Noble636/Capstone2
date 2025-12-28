@@ -135,8 +135,8 @@ export default function BrowseUnit() {
     setNameConfirmed(true);
     setFeedback('');
     if (selectedUnit) {
-      setMessages([]); // Clear previous messages immediately
-      setLoadingMessages(true); // Show loading state
+      setMessages([]);
+      setLoadingMessages(true);
       const res = await fetch(
         `https://tenantportal-backend.onrender.com/api/unit-inquiry-messages?unit_id=${selectedUnit.unit_id}&sender_name=${encodeURIComponent(nameInput.trim())}`
       );
@@ -145,12 +145,15 @@ export default function BrowseUnit() {
         setMessages(data);
         if (data.length === 0) {
           setShowNotFoundModal(true);
+        } else {
+          setNameConfirmed(true); // Only confirm name if messages exist
+          setTenantName(nameInput.trim());
         }
       } else {
         setMessages([]);
         setShowNotFoundModal(true);
       }
-      setLoadingMessages(false); // Done loading
+      setLoadingMessages(false);
     }
     setTenantName(nameInput.trim());
   };
