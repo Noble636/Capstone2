@@ -19,18 +19,28 @@ const AdminRegister = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [adminToken, setAdminToken] = useState('');
     const [showAdminToken, setShowAdminToken] = useState(false);
-    // Accept either developer or admin token for registration
-    const CORRECT_DEVELOPER_TOKEN = 'Token';
 
-    const handleTokenSubmit = (e) => {
+    // FIX: Use backend to verify token
+    const handleTokenSubmit = async (e) => {
         e.preventDefault();
-        // Accept either developer token or admin token (for demo, just check if not empty or matches dev token)
-        if (tokenInput === CORRECT_DEVELOPER_TOKEN || tokenInput === adminToken) {
-            setIsTokenVerified(true);
-            setMessage('');
-        } else {
-            setMessage('Incorrect Developer or Admin Token. Registration form will not be shown.');
-            setTokenInput('');
+        setMessage('');
+        try {
+            const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/forgot-password/verify-token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: tokenInput }),
+            });
+            const data = await response.json();
+            if (response.ok) {
+                setIsTokenVerified(true);
+                setMessage('');
+            } else {
+                setMessage(data.message || 'Incorrect Developer or Admin Token. Registration form will not be shown.');
+                setTokenInput('');
+                setIsTokenVerified(false);
+            }
+        } catch (error) {
+            setMessage('Failed to connect to the server.');
             setIsTokenVerified(false);
         }
     };
@@ -199,7 +209,7 @@ const AdminRegister = () => {
                             onChange={(e) => setAdminToken(e.target.value)}
                             required
                           />
-                          <span className="admin-register-password-toggle-icon" onClick={() => setShowAdminToken(!showAdminToken)}>
+                          <span className="admin-register-password-toggle-icon" onClick={toggleAdminTokenVisibility}>
                             <FontAwesomeIcon icon={showAdminToken ? faEyeSlash : faEye} />
                           </span>
                         </div>
