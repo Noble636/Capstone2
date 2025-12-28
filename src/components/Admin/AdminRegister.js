@@ -25,7 +25,7 @@ const AdminRegister = () => {
     const handleTokenSubmit = (e) => {
         e.preventDefault();
         // Accept either developer token or admin token (for demo, just check if not empty or matches dev token)
-        if (tokenInput === CORRECT_DEVELOPER_TOKEN || tokenInput.length >= 6) {
+        if (tokenInput === CORRECT_DEVELOPER_TOKEN || tokenInput === adminToken) {
             setIsTokenVerified(true);
             setMessage('');
         } else {
