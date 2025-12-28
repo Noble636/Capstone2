@@ -16,6 +16,7 @@ export default function BrowseUnit() {
   const [feedback, setFeedback] = useState('');
   const [selectedImageIdx, setSelectedImageIdx] = useState({});
   const [messageSent, setMessageSent] = useState(false);
+  const [showNotFoundModal, setShowNotFoundModal] = useState(false);
   const chatEndRef = useRef(null);
 
   useEffect(() => {
@@ -125,7 +126,7 @@ export default function BrowseUnit() {
     setSending(false);
   };
 
-  const handleCheckInquiryNameSubmit = (e) => {
+  const handleCheckInquiryNameSubmit = async (e) => {
     e.preventDefault();
     if (!nameInput.trim()) {
       setFeedback('Please enter your name.');
@@ -134,7 +135,19 @@ export default function BrowseUnit() {
     setNameConfirmed(true);
     setFeedback('');
     if (selectedUnit) {
-      fetchMessages(selectedUnit.unit_id, nameInput.trim());
+      const res = await fetch(
+        `https://tenantportal-backend.onrender.com/api/unit-inquiry-messages?unit_id=${selectedUnit.unit_id}&sender_name=${encodeURIComponent(nameInput.trim())}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setMessages(data);
+        if (data.length === 0) {
+          setShowNotFoundModal(true);
+        }
+      } else {
+        setMessages([]);
+        setShowNotFoundModal(true);
+      }
     }
     setTenantName(nameInput.trim());
   };
@@ -216,6 +229,9 @@ export default function BrowseUnit() {
           >
             &#8592; Back
           </button>
+        </div>
+        <div className="browseunit-hint" style={{ textAlign: 'center', color: '#222', fontSize: '1rem', marginBottom: 16, border: '1.5px solid #222', borderRadius: 8, padding: 8, background: '#f8fafc' }}>
+          You can check admin replies to your message inquiry via the "Check my inquiry" button below each unit.
         </div>
         <div className="unit-list">
           {units.length === 0 && <div className="no-units">No available units at the moment.</div>}
@@ -368,6 +384,14 @@ export default function BrowseUnit() {
                   <button className="close-modal-btn" onClick={closeModal}>Close</button>
                 </>
               )}
+            </div>
+          </div>
+        )}
+        {showNotFoundModal && (
+          <div className="centered-modal-backdrop">
+            <div className="centered-modal">
+              <div>Message Inquiry Does not exist</div>
+              <button onClick={() => setShowNotFoundModal(false)} className="close-modal-btn">Close</button>
             </div>
           </div>
         )}

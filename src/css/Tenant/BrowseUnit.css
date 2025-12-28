@@ -4,6 +4,7 @@
   padding: 24px 16px;
   background: #fff !important;
   border-radius: 24px;
+  border: 2px solid #222;
   box-shadow: 0 4px 32px rgba(0,0,0,0.08);
   font-family: 'Segoe UI', Arial, sans-serif;
   position: relative;
@@ -205,11 +206,15 @@ body::-webkit-scrollbar,
 .browse-unit-container .inquiry-modal {
   background: #fff;
   border-radius: 10px;
+  border: 2px solid #222;
   box-shadow: 0 2px 16px rgba(30,41,59,0.18);
   padding: 28px 24px 18px 24px;
   max-width: 400px;
   width: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .browse-unit-container .inquiry-modal h3 {
@@ -415,4 +420,27 @@ body::-webkit-scrollbar,
 .browseunit-back-btn:hover,
 .browseunit-back-btn:focus {
   background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+}
+
+.centered-modal {
+  background: #fff;
+  border-radius: 10px;
+  border: 2px solid #222;
+  box-shadow: 0 2px 16px rgba(30,41,59,0.18);
+  padding: 32px 32px 24px 32px;
+  min-width: 320px;
+  max-width: 90vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.centered-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30,41,59,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
 }

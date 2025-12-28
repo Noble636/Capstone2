@@ -151,7 +151,7 @@ const AvailableUnit = () => {
                 <span>&#x2B05;</span> Back
               </Link>
               <Link to="/admin-inbox" className="admin-available-unit-btn messages-btn">
-                <span>💬</span> See Messages
+                <span>💬</span> Messages & Posting
               </Link>
               <Link to="/admin-reservations" className="admin-available-unit-btn reservations-btn">
                 <span>📋</span> Reservations
