@@ -18,6 +18,9 @@ export default function BrowseUnit() {
   const [messageSent, setMessageSent] = useState(false);
   const [showNotFoundModal, setShowNotFoundModal] = useState(false);
   const [expandedImage, setExpandedImage] = useState(null);
+  const [showReserveModal, setShowReserveModal] = useState(false);
+  const [reserveData, setReserveData] = useState({ name: '', contact: '', other: '' });
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const chatEndRef = useRef(null);
 
   useEffect(() => {
@@ -208,7 +211,9 @@ export default function BrowseUnit() {
   };
 
   const handleReserve = (unit) => {
-    alert(`Reservation requested for unit: ${unit.title || unit.unitName}`);
+    setSelectedUnit(unit);
+    setReserveData({ name: '', contact: '', other: '' });
+    setShowReserveModal(true);
   };
 
   return (
@@ -422,6 +427,81 @@ export default function BrowseUnit() {
             >
               ×
             </button>
+          </div>
+        )}
+        {/* Reservation Modal */}
+        {showReserveModal && selectedUnit && (
+          <div className="inquiry-modal-backdrop" onClick={() => setShowReserveModal(false)}>
+            <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
+              <button className="close-modal-btn" onClick={() => setShowReserveModal(false)} style={{ position: 'absolute', top: 10, right: 14 }}>Close</button>
+              <h3>Reserve: {selectedUnit.title}</h3>
+              <form onSubmit={e => { e.preventDefault(); setShowConfirmModal(true); }}>
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={reserveData.name}
+                  onChange={e => setReserveData({ ...reserveData, name: e.target.value })}
+                  required
+                  className="inquiry-name-input"
+                />
+                <input
+                  type="text"
+                  placeholder="Contact (Phone or Email)"
+                  value={reserveData.contact}
+                  onChange={e => setReserveData({ ...reserveData, contact: e.target.value })}
+                  required
+                  className="inquiry-name-input"
+                />
+                <textarea
+                  placeholder="Other info (optional)"
+                  value={reserveData.other}
+                  onChange={e => setReserveData({ ...reserveData, other: e.target.value })}
+                  className="inquiry-name-input"
+                  style={{ minHeight: 60 }}
+                />
+                <div style={{ display: 'flex', gap: 12, marginTop: 10 }}>
+                  <button type="submit" className="inquire-btn">Proceed with Reservation</button>
+                  <button type="button" className="reserve-btn" onClick={() => setShowReserveModal(false)}>Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* Reservation Confirmation Modal */}
+        {showConfirmModal && (
+          <div className="inquiry-modal-backdrop" onClick={() => setShowConfirmModal(false)}>
+            <div className="inquiry-modal" onClick={e => e.stopPropagation()}>
+              <h3>Confirm Reservation</h3>
+              <div>
+                <strong>Unit:</strong> {selectedUnit.title}<br />
+                <strong>Price:</strong> ₱{selectedUnit.price}<br />
+                <strong>Name:</strong> {reserveData.name}<br />
+                <strong>Contact:</strong> {reserveData.contact}<br />
+                {reserveData.other && (<><strong>Other:</strong> {reserveData.other}<br /></>)}
+              </div>
+              <div style={{ display: 'flex', gap: 12, marginTop: 10 }}>
+                <button
+                  className="inquire-btn"
+                  onClick={async () => {
+                    await fetch('https://tenantportal-backend.onrender.com/api/unit-reservations', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        unit_id: selectedUnit.unit_id,
+                        name: reserveData.name,
+                        contact: reserveData.contact,
+                        other_info: reserveData.other
+                      })
+                    });
+                    setShowConfirmModal(false);
+                    setShowReserveModal(false);
+                    setUnits(units => units.filter(u => u.unit_id !== selectedUnit.unit_id));
+                  }}
+                >Confirm</button>
+                <button className="reserve-btn" onClick={() => setShowConfirmModal(false)}>Cancel</button>
+              </div>
+            </div>
           </div>
         )}
       </div>
