@@ -353,3 +353,14 @@
 .inquiry-modal button[type="submit"]:hover {
   background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
 }
+
+.admin-inbox-unit-card {
+  background: #f8fafc;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(30,41,59,0.07);
+  margin-bottom: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

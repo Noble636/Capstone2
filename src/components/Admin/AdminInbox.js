@@ -26,16 +26,19 @@ const AdminInbox = () => {
     fetch('https://tenantportal-backend.onrender.com/api/admin/inbox')
       .then(res => res.json())
       .then(data => {
+        // Group by unit_id + sender_name, show only the latest message per group
         const convMap = {};
         data.forEach(msg => {
           const key = `${msg.unit_id}_${msg.sender_name}`;
-          if (!convMap[key]) {
+          // Only update if this message is newer
+          if (!convMap[key] || new Date(msg.created_at) > new Date(convMap[key].created_at)) {
             convMap[key] = {
               unit_id: msg.unit_id,
               unit_name: msg.unit_name || msg.unit_title || 'Unit',
               sender_name: msg.sender_name,
               last_message: msg.message,
               last_time: msg.created_at,
+              created_at: msg.created_at
             };
           }
         });
@@ -162,10 +165,45 @@ const AdminInbox = () => {
         {/* Left: Posted Units */}
         <div className="admin-inbox-sidebar" style={{ minWidth: 260, maxWidth: 320 }}>
           <h3>Posted Units</h3>
+          {units.length === 0 && <div className="no-units">No posted units.</div>}
           {units.map(unit => (
-            <div className="admin-inbox-unit" key={unit.unit_id}>
-              <div className="admin-inbox-unit-title">{unit.title}</div>
-              <button className="admin-inbox-delete-btn" onClick={() => handleDeleteUnit(unit.unit_id)}>
+            <div className="admin-inbox-unit-card" key={unit.unit_id} style={{
+              background: '#f8fafc',
+              borderRadius: 10,
+              boxShadow: '0 1px 6px rgba(30,41,59,0.07)',
+              marginBottom: 16,
+              padding: 12,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
+                {unit.images && unit.images[0] && (
+                  <img
+                    src={unit.images[0].dataUri}
+                    alt="unit"
+                    style={{ width: 56, height: 42, objectFit: 'cover', borderRadius: 6, marginRight: 10, border: '1px solid #eee' }}
+                  />
+                )}
+                <div>
+                  <div style={{ fontWeight: 600, color: '#1e293b', fontSize: '1rem' }}>{unit.title}</div>
+                  <div style={{ color: '#2563eb', fontWeight: 500, fontSize: '0.98rem' }}>₱{unit.price}</div>
+                </div>
+              </div>
+              <div style={{ color: '#64748b', fontSize: '0.97rem', marginBottom: 8, minHeight: 32 }}>
+                {unit.description}
+              </div>
+              <button
+                className="admin-inbox-delete-btn"
+                onClick={async () => {
+                  // First confirmation
+                  if (!window.confirm('This will delete the posted unit. Are you sure?')) return;
+                  // Second warning
+                  if (!window.confirm('Warning: This will permanently delete the posted unit. This action cannot be undone. Proceed?')) return;
+                  await handleDeleteUnit(unit.unit_id);
+                }}
+                style={{ marginTop: 4 }}
+              >
                 Delete
               </button>
             </div>
