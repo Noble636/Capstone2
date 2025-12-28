@@ -11,6 +11,7 @@ const AdminInbox = () => {
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [selectedUnit, setSelectedUnit] = useState(null);
+  const [showChatModal, setShowChatModal] = useState(false);
   const chatEndRef = useRef(null);
 
   // Fetch posted units
@@ -50,12 +51,12 @@ const AdminInbox = () => {
 
   // Fetch messages for selected conversation
   useEffect(() => {
-    if (selectedConv) {
+    if (showChatModal && selectedConv) {
       fetchMessages(selectedConv.unit_id, selectedConv.sender_name);
       setSelectedUnit(units.find(u => u.unit_id === selectedConv.unit_id));
     }
     // eslint-disable-next-line
-  }, [selectedConv, units]);
+  }, [showChatModal, selectedConv, units]);
 
   // Scroll to bottom when messages change
   useEffect(() => {
@@ -127,10 +128,38 @@ const AdminInbox = () => {
     }
   };
 
+  const openChatModal = (conv) => {
+    setSelectedConv(conv);
+    setShowChatModal(true);
+  };
+
+  const closeChatModal = () => {
+    setShowChatModal(false);
+    setSelectedConv(null);
+    setMessages([]);
+    setChatInput('');
+    setFeedback('');
+  };
+
   return (
-    <div className="admin-inbox-2col">
-      {/* Left: Posted Units and Inbox */}
-      <div className="admin-inbox-sidebar">
+    <div className="admin-inbox-2col" style={{ flexDirection: 'row' }}>
+      <div className="admininbox-bg">
+        <img
+          src={process.env.PUBLIC_URL + '/Background/GB.png'}
+          alt="Background"
+          className="admininbox-bg-image"
+        />
+        <div className="admininbox-bubble b1"></div>
+        <div className="admininbox-bubble b2"></div>
+        <div className="admininbox-bubble b3"></div>
+        <div className="admininbox-bubble b4"></div>
+        <div className="admininbox-bubble b5"></div>
+        <div className="admininbox-bubble b6"></div>
+        <div className="admininbox-bubble b7"></div>
+        <div className="admininbox-bubble b8"></div>
+      </div>
+      {/* Left: Posted Units */}
+      <div className="admin-inbox-sidebar" style={{ minWidth: 260, maxWidth: 320 }}>
         <h3>Posted Units</h3>
         {units.map(unit => (
           <div className="admin-inbox-unit" key={unit.unit_id}>
@@ -140,7 +169,9 @@ const AdminInbox = () => {
             </button>
           </div>
         ))}
-        <hr style={{ margin: '18px 0' }} />
+      </div>
+      {/* Right: Inbox */}
+      <div className="admin-inbox-inbox" style={{ minWidth: 340, flex: 1 }}>
         <h3>Inbox</h3>
         <button onClick={fetchConversations} style={{ marginBottom: 10 }}>Refresh</button>
         {conversations.length === 0 && <div className="no-units">No conversations yet.</div>}
@@ -148,7 +179,7 @@ const AdminInbox = () => {
           <div
             className={`admin-inbox-conv${selectedConv && selectedConv.unit_id === conv.unit_id && selectedConv.sender_name === conv.sender_name ? ' selected' : ''}`}
             key={idx}
-            onClick={() => setSelectedConv(conv)}
+            onClick={() => openChatModal(conv)}
           >
             <div className="admin-inbox-conv-title">{conv.unit_name}</div>
             <div className="admin-inbox-conv-tenant">{conv.sender_name}</div>
@@ -156,10 +187,11 @@ const AdminInbox = () => {
           </div>
         ))}
       </div>
-      {/* Right: Chat and Unit Details */}
-      <div className="admin-inbox-inbox">
-        {selectedConv && (
-          <div className="admin-inbox-chat-details">
+      {/* Popup Chat Modal */}
+      {showChatModal && selectedConv && (
+        <div className="inquiry-modal-backdrop" onClick={closeChatModal}>
+          <div className="inquiry-modal" style={{ maxWidth: 500 }} onClick={e => e.stopPropagation()}>
+            <h3>Chat: {selectedUnit ? selectedUnit.title : selectedConv.unit_name}</h3>
             {/* Unit details */}
             {selectedUnit && (
               <div className="admin-inbox-unit-details" style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
@@ -209,12 +241,10 @@ const AdminInbox = () => {
               <button type="submit" disabled={sending || !chatInput.trim()}>Send</button>
             </form>
             {feedback && <div className="inquiry-feedback">{feedback}</div>}
+            <button className="close-modal-btn" onClick={closeChatModal} style={{ marginTop: 10 }}>Close</button>
           </div>
-        )}
-        {!selectedConv && (
-          <div style={{ color: '#64748b', textAlign: 'center', marginTop: 40 }}>Select a conversation to view messages.</div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

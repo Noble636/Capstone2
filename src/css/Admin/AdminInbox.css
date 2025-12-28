@@ -139,9 +139,10 @@
   position: relative;
   font-size: 1rem;
   word-break: break-word;
-  box-shadow: 0 1px 4px rgba(30,41,59,0.07);
+  box-shadow: 0 2px 8px rgba(30,41,59,0.10);
   display: flex;
   flex-direction: column;
+  border: 1px solid #e5e7eb;
 }
 .chat-bubble.tenant {
   background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
@@ -269,8 +270,86 @@
   box-shadow: 0 2px 8px rgba(30,41,59,0.08);
   padding: 18px;
 }
+.admin-inbox-unit-details {
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+}
 .admin-inbox-unit-images img {
-  margin-bottom: 8px;
+  margin-right: 6px;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
 }
 
-/* Use your existing .inquiry-modal, .chat-messages, .chat-bubble, etc. for the popup chat */
+/* Animated gradient background and bubbles for AdminInbox */
+.admininbox-bg {
+  min-height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 0;
+  background: linear-gradient(120deg, #ffb347 0%, #ff9a9e 40%, #fad0c4 70%, #b084cc 100%);
+  animation: admininbox-bg-move 12s ease-in-out infinite alternate;
+  overflow: hidden;
+}
+.admininbox-bg-image {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0.25;
+  z-index: 1;
+  pointer-events: none;
+}
+.admininbox-bubble {
+  position: fixed;
+  border-radius: 50%;
+  opacity: 0.18;
+  z-index: 2;
+  pointer-events: none;
+}
+.admininbox-bubble.b1 { width: 120px; height: 120px; background: #fad0c4; top: 8%; left: 6%; }
+.admininbox-bubble.b2 { width: 90px; height: 90px; background: #b084cc; top: 18%; right: 8%; }
+.admininbox-bubble.b3 { width: 70px; height: 70px; background: #ffb347; bottom: 18%; left: 10%; }
+.admininbox-bubble.b4 { width: 100px; height: 100px; background: #ff9a9e; bottom: 10%; right: 12%; }
+.admininbox-bubble.b5 { width: 60px; height: 60px; background: #b084cc; top: 50%; left: 2%; }
+.admininbox-bubble.b6 { width: 80px; height: 80px; background: #fad0c4; top: 60%; right: 4%; }
+.admininbox-bubble.b7 { width: 50px; height: 50px; background: #ffb347; bottom: 8%; left: 40%; }
+.admininbox-bubble.b8 { width: 60px; height: 60px; background: #ff9a9e; top: 80%; right: 30%; }
+
+@keyframes admininbox-bg-move {
+  0% {background-position: 0% 50%;}
+  100% {background-position: 100% 50%;}
+}
+
+/* Place the rest of your existing AdminInbox styles below */
+.inquiry-modal input[type="text"],
+.inquiry-modal textarea {
+  border-radius: 6px;
+  border: 1.5px solid #cbd5e1;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  background: #f8fafc;
+  box-shadow: 0 1px 4px rgba(30,41,59,0.04);
+}
+
+.inquiry-modal button[type="submit"] {
+  border-radius: 6px;
+  background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 22px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 1px 4px rgba(30,41,59,0.08);
+}
+.inquiry-modal button[type="submit"]:hover {
+  background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+}
