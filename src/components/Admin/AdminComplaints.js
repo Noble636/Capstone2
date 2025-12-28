@@ -215,32 +215,6 @@ const AdminComplaints = () => {
                 >
                   Generate Data Report
                 </button>
-                <button
-                  className="admin-reservation-report-btn"
-                  style={{ marginBottom: '1rem' }}
-                  onClick={async () => {
-                    try {
-                      const response = await fetch('https://tenantportal-backend.onrender.com/api/admin/export-reservations');
-                      if (!response.ok) {
-                        alert('Failed to generate report.');
-                        return;
-                      }
-                      const blob = await response.blob();
-                      const urlObj = window.URL.createObjectURL(blob);
-                      const a = document.createElement('a');
-                      a.href = urlObj;
-                      a.download = 'Reservations_Report.xlsx';
-                      document.body.appendChild(a);
-                      a.click();
-                      a.remove();
-                      window.URL.revokeObjectURL(urlObj);
-                    } catch (err) {
-                      alert('Error downloading report.');
-                    }
-                  }}
-                >
-                  Generate Reservation Report
-                </button>
 
                 {showExportModal && (
                   <div className="modal-overlay" onClick={() => setShowExportModal(false)}>

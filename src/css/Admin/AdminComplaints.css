@@ -315,22 +315,6 @@
     box-shadow: 0 0 18px 4px #cee056, 0 2px 16px rgba(0,0,0,0.12);
 }
 
-.admin-reservation-report-btn {
-  background: #7a4f13;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-bottom: 18px;
-  transition: background 0.2s;
-}
-.admin-reservation-report-btn:hover {
-  background: #a67c52;
-}
-
 @media (max-width: 700px) {
   .admin-complaints-container {
     padding: 0 6px;
