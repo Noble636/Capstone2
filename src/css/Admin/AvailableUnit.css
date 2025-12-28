@@ -126,8 +126,11 @@
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  min-height: 48px;
 }
 
 .admin-available-unit-content {

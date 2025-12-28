@@ -135,6 +135,8 @@ export default function BrowseUnit() {
     setNameConfirmed(true);
     setFeedback('');
     if (selectedUnit) {
+      setMessages([]); // Clear previous messages immediately
+      setLoadingMessages(true); // Show loading state
       const res = await fetch(
         `https://tenantportal-backend.onrender.com/api/unit-inquiry-messages?unit_id=${selectedUnit.unit_id}&sender_name=${encodeURIComponent(nameInput.trim())}`
       );
@@ -148,6 +150,7 @@ export default function BrowseUnit() {
         setMessages([]);
         setShowNotFoundModal(true);
       }
+      setLoadingMessages(false); // Done loading
     }
     setTenantName(nameInput.trim());
   };
