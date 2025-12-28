@@ -58,9 +58,10 @@ const AdminInbox = () => {
     fetch('https://tenantportal-backend.onrender.com/api/admin/inbox')
       .then(res => res.json())
       .then(data => {
+        console.log('INBOX DATA:', data); // Debug
         const tenantPairs = new Set();
         data.forEach(msg => {
-          if (msg.sender_type === 'tenant') {
+          if (msg.sender_type && msg.sender_type.trim().toLowerCase() === 'tenant') {
             tenantPairs.add(`${msg.unit_id}|||${msg.sender_name}`);
           }
         });
@@ -70,7 +71,7 @@ const AdminInbox = () => {
           const convMsgs = data.filter(
             m =>
               m.unit_id === unit_id &&
-              (m.sender_name === tenant_name || m.sender_type === 'admin')
+              (m.sender_name === tenant_name || (m.sender_type && m.sender_type.trim().toLowerCase() === 'admin'))
           );
           if (convMsgs.length > 0) {
             const latest = convMsgs.reduce((a, b) =>
