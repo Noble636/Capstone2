@@ -27,8 +27,8 @@ export default function AdminReservations() {
             Cancel Reservation
           </Link>
           <div className="admin-available-unit-content">
-            {reservations.length === 0 && <div>No reservations yet.</div>}
-            {reservations.map(r => (
+            {Array.isArray(reservations) && reservations.length === 0 && <div>No reservations yet.</div>}
+            {Array.isArray(reservations) && reservations.map(r => (
               <div key={r.reservation_id} style={{ border: '1.5px solid #222', borderRadius: 10, margin: 12, padding: 16, background: '#f8fafc', position: 'relative' }}>
                 {r.image && <img src={r.image} alt="Unit" style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 8, marginBottom: 8 }} />}
                 <div><strong>Unit:</strong> {r.title}</div>
