@@ -254,7 +254,6 @@ const AdminVisitorLogs = () => {
                                 <div className="admin-visitor-log-summary">
                                     <p><strong>Tenant Owner:</strong> {log.unit_owner_name}</p>
                                     <p><strong>Apartment Identification:</strong> {log.apartment_id}</p>
-                                    <p><strong>Purpose:</strong> {log.purpose ? log.purpose : '—'}</p>
                                     <p><strong>Date of Visit:</strong> {formatDate(log.visit_date)}</p>
                                     <p><strong>Time In:</strong> {log.time_in}</p>
                                     <p><strong>Time Out:</strong> {log.time_out ? log.time_out : <span style={{color:'#888'}}>--:--</span>}</p>
