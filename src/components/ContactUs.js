@@ -13,23 +13,7 @@ const ContactUs = () => {
           If you have questions about the program application please contact the following:
         </p>
 
-        <div className="contactus-apartment-info" style={{ margin: "32px 0" }}>
-          <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#333" }}>RMR Apartment</div>
-          <div style={{ fontSize: "1.15rem", marginTop: "8px", color: "#444" }}>
-            Owner: Divina Barboza Catabay
-          </div>
-          <div style={{ fontSize: "1.1rem", marginTop: "4px", color: "#444" }}>
-            <span role="img" aria-label="email">📧</span>
-            <a
-              href="mailto:divine829@gmail.com"
-              style={{ color: "#007bff", fontWeight: "bold", textDecoration: "none", marginLeft: "4px" }}
-              onMouseOver={e => (e.target.style.textDecoration = "underline")}
-              onMouseOut={e => (e.target.style.textDecoration = "none")}
-            >
-              divine829@gmail.com
-            </a>
-          </div>
-        </div>
+        {/* ...existing code... */}
 
         <div className="contactus-developers-label" style={{ marginTop: "28px", display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span role="img" aria-label="team">👥</span> Developers:
