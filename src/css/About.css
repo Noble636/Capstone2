@@ -130,11 +130,19 @@
   color: #333;
 }
 
+
 .about-container .team-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
   gap: 2rem;
   justify-items: center;
+}
+
+/* Center the last card if odd number of team members */
+.about-container .team-grid > .member-card:last-child:only-child,
+.about-container .team-grid > .member-card:nth-child(odd):last-child {
+  grid-column: 1 / -1;
+  justify-self: center;
 }
 
 @media (max-width: 900px) {
