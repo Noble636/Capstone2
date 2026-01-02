@@ -5,27 +5,27 @@ import '../css/About.css';
 const teamMembers = [
   {
     name: 'Danyael Kaye Apil',
-    role: 'Group Leader, Documentation Specialist',
+    role: 'Group Leader, Documentation',
     image: '/Members/Apil.jpg',
     bio: 'Coordinated group activities and contributed to project documentation and paper.'
   },
   {
     name: 'Jacques Lynn Toledo',
-    role: 'Survey Manager, UI/UX Designer',
+    role: 'Research & Documentation',
     image: '/Members/Toledo.jpg',
-    bio: 'Handled survey planning, distribution, and user interface design. Assisted in research, writing, and editing the capstone paper.'
+    bio: 'Assisted in research, writing, and editing the capstone paper.'
   },
   {
     name: 'Shane Salonga',
-    role: 'Research Lead, Documentation',
+    role: 'Research & Documentation',
     image: '/Members/Salonga.jpg',
     bio: 'Helped with literature review and project documentation.'
   },
   {
     name: 'John Peter Gonzales',
-    role: 'Database Administrator, Documentation',
+    role: 'Research & Documentation',
     image: '/Members/Gonzales.jpg',
-    bio: 'Designed and managed the project database structure, and contributed to technical documentation.'
+    bio: 'Supported the team in writing and organizing the capstone paper.'
   },
   {
     name: 'John Nikko B. Arangorin',
