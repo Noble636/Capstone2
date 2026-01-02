@@ -31,7 +31,7 @@ const teamMembers = [
     name: 'John Nikko B. Arangorin',
     role: 'Lead Developer, Full Stack Programmer',
     image: '/Members/Arangorin.jpg',
-    bio: 'Developed the core system architecture and implemented both frontend and backend features. Served as the main programmer and system designer for the Tenant Portal web application.'
+    bio: 'Developed the core system architecture and implemented both frontend and backend features. Served as the main programmer for Tenant Portal web application.'
   },
 ];
 
