@@ -7,31 +7,31 @@ const teamMembers = [
     name: 'Danyael Kaye Apil',
     role: 'Group Leader, Documentation Specialist',
     image: '/Members/Apil.jpg',
-    bio: 'Coordinated group activities and contributed to project documentation and paper.'
+    bio: 'Coordinated group activities, managed schedules, and ensured project milestones were met. Contributed significantly to the project documentation and final paper.'
   },
   {
     name: 'Jacques Lynn Toledo',
     role: 'Survey Manager, UI/UX Designer',
     image: '/Members/Toledo.jpg',
-    bio: 'Handled survey planning, distribution, and user interface design. Assisted in research, writing, and editing the capstone paper.'
+    bio: 'Handled survey planning, distribution, and user interface design for the system. Also assisted in research, writing, and editing the capstone paper.'
   },
   {
     name: 'Shane Salonga',
     role: 'Research Lead, Documentation',
     image: '/Members/Salonga.jpg',
-    bio: 'Helped with literature review and project documentation.'
+    bio: 'Led the literature review and background research for the project. Played a key role in compiling and organizing project documentation.'
   },
   {
     name: 'John Peter Gonzales',
     role: 'Database Administrator, Documentation',
     image: '/Members/Gonzales.jpg',
-    bio: 'Designed and managed the project database structure, and contributed to technical documentation.'
+    bio: 'Designed and managed the project database structure, ensuring data integrity and security. Contributed to technical documentation and system planning.'
   },
   {
     name: 'John Nikko B. Arangorin',
     role: 'Lead Developer, Full Stack Programmer',
     image: '/Members/Arangorin.jpg',
-    bio: 'Main programmer and system designer for the Tenant Portal web application.'
+    bio: 'Developed the core system architecture and implemented both frontend and backend features. Served as the main programmer and system designer for the Tenant Portal web application.'
   },
 ];
 
