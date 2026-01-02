@@ -151,8 +151,19 @@
 .about-container .team-grid > .member-card:nth-child(odd):last-child {
   grid-column: 1 / -1;         /* Span the full row */
   justify-self: center;        /* Center horizontally */
-  max-width: 400px;            /* Same as other cards */
-  width: 100%;                 /* Same as other cards */
+  width: 100%;                 /* Take full available width in the grid cell */
+  max-width: 600px;            /* Match the max width of other cards (adjust as needed) */
+}
+
+/* Ensure all member cards have the same max width */
+.about-container .member-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 600px; /* Set this to your desired card width */
 }
 
 @media (max-width: 900px) {
