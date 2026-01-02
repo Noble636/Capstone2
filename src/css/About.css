@@ -1,3 +1,11 @@
+/* Center the last card in the grid if odd number of team members, and keep its size same as others */
+.about-container .team-grid > .member-card:last-child:only-child,
+.about-container .team-grid > .member-card:nth-child(odd):last-child {
+  grid-column: span 1;
+  justify-self: center;
+  width: 100%;
+  max-width: 400px;
+}
 .about-container {
   scrollbar-width: thin;
   scrollbar-color: #7c2ae8 #e0b0ff;
