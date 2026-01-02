@@ -148,12 +148,11 @@
 }
 
 /* Center the last card if odd number of team members */
-.about-container .team-grid > .member-card:last-child:only-child,
 .about-container .team-grid > .member-card:nth-child(odd):last-child {
-  grid-column: auto;
-  justify-self: center;
-  width: 100%; /* or remove if you want the default card width */
-  max-width: 400px; /* match your card's max-width if set */
+  grid-column: 1 / -1;         /* Span the full row */
+  justify-self: center;        /* Center horizontally */
+  max-width: 400px;            /* Same as other cards */
+  width: 100%;                 /* Same as other cards */
 }
 
 @media (max-width: 900px) {
