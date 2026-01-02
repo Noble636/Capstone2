@@ -131,11 +131,16 @@
 }
 
 .about-container .team-grid {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+  gap: 2rem;
+  justify-items: center;
+}
+
+@media (max-width: 900px) {
+  .team-grid {
+    grid-template-columns: 1fr; /* 1 card per row on smaller screens */
+  }
 }
 
 .about-container .member-card {
