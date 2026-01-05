@@ -376,9 +376,10 @@ const AdminInbox = () => {
             </div>
           </div>
         )}
-      </div>
-      {/* Add Back Button below the container */}
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '24px 0' }}>
+      </div> {/* This closes .admin-inbox-2col */}
+
+      {/* Back Button: Place it right after the main container */}
+      <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '24px 0', zIndex: 20, position: 'relative' }}>
         <button
           className="admin-inbox-back-btn"
           style={{
@@ -397,6 +398,7 @@ const AdminInbox = () => {
           &#8592; Back
         </button>
       </div>
+
       {/* --- Centered Modal --- */}
       <ConfirmModal
         open={modalOpen}
