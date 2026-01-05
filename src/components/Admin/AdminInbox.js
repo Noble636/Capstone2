@@ -377,6 +377,26 @@ const AdminInbox = () => {
           </div>
         )}
       </div>
+      {/* Add Back Button below the container */}
+      <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '24px 0' }}>
+        <button
+          className="admin-inbox-back-btn"
+          style={{
+            padding: '10px 28px',
+            fontSize: '1.1rem',
+            background: '#2563eb',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 6,
+            cursor: 'pointer',
+            fontWeight: 600,
+            boxShadow: '0 2px 8px #0001'
+          }}
+          onClick={() => window.history.back()}
+        >
+          &#8592; Back
+        </button>
+      </div>
       {/* --- Centered Modal --- */}
       <ConfirmModal
         open={modalOpen}
